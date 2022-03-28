@@ -1,9 +1,9 @@
 Changelog Android
 =================
 
-*5.0.0 : 02/14 2022*
+*5.0.0 : 03/28 2022*
 
-	~ yay new version
+	~ Only internal changes to go with all other 5.0.0 modules.
 
 *4.6.0 : 11/23 2021*
 

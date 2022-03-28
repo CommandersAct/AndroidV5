@@ -1,7 +1,7 @@
 Changelog Android
 =================
 
-*5.0.0 : 02/15 2022*
+*5.0.0 : 03/22 2028*
 
 	~ Renaming Module to Consent and TCPrivacy to TCConsent.
 	~ Renaming of many other classes and some methods (see documentation for an easy migration)

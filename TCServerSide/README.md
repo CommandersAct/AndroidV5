@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>16/03/2022</em><br />
+<p>Last update : <em>28/03/2022</em><br />
 Release version : <em>5.0.0</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -30,6 +30,7 @@ Release version : <em>5.0.0</em></p>
 <li><a href="#initialisation">Initialisation</a></li>
 <li><a href="#executing-events">Executing events</a></li>
 <li><a href="#additional-parameters">Additional parameters</a></li>
+<li><a href="#custom-events">Custom events</a></li>
 <li><a href="#consent">Consent</a></li>
 <li><a href="#install-referrer">Install Referrer</a></li>
 <li><a href="#background-mode">Background Mode</a></li>
@@ -143,6 +144,13 @@ pageViewEvent.addAdditionalParameter("currentConsent", "refused");
 </code></pre>
 <p>Here for example this could be tracking some user going back to your configuration to open the consent interface. And you would want to know what was the consent before re-opening.
 Of course this is a simple example only here to show the addAdditionalParameter method.</p>
+<h2 id="custom-events">Custom events</h2>
+<p>In some case, the classic events might not suit your needs, in this case you can build complete custom events.
+It is important to name them properly as this will be the base of forwarding them to your destinations.</p>
+<pre><code>TCCustomEvent event = new TCCustomEvent("eventName");
+event.addAdditionalParameter("myParam", "myValue");
+TCS.execute(event);
+</code></pre>
 <h2 id="consent">Consent</h2>
 <p>To manage the privacy of the user's data you can use our Consent product, another product or nothing at all.</p>
 <p>By default, the ServerSide module will try to see if you have added our Privacy module. If so, it will put itself into a waiting for consent mode.
@@ -349,6 +357,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 16/03/2022 16:13:43</p>
+<p>This documentation was generated on 28/03/2022 15:46:26</p>
 </body>
 </html>

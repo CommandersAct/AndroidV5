@@ -6,7 +6,7 @@ Changelog Android
 
 [Previous changelist](../res/changelog_Android_3.md)
 
-*5.0.0 : 02/15 2022*
+*5.0.0 : 03/28 2022*
 
 	~ Renaming SDK to ServerSide since it's now its exact purpose.
 	~ Renaming TagCommander to TCServerSide
