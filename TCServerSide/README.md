@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>28/03/2022</em><br />
-Release version : <em>5.0.0</em></p>
+<p>Last update : <em>25/05/2022</em><br />
+Release version : <em>5.1.0</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -35,6 +35,7 @@ Release version : <em>5.0.0</em></p>
 <li><a href="#install-referrer">Install Referrer</a></li>
 <li><a href="#background-mode">Background Mode</a></li>
 <li><a href="#deactivating-the-serversides-module">Deactivating the ServerSide's module</a></li>
+<li><a href="#getting-aaid">Getting AAID</a></li>
 </ul>
 </li>
 <li><a href="#troubleshooting">Troubleshooting</a><ul>
@@ -198,6 +199,11 @@ We have 3 behaviours:</p>
 <pre><code>TCS.enableServerSide();
 </code></pre>
 <p>In the case you need to re-enable it after disabling it the first time, you can use this function.</p>
+<h2 id="getting-aaid">Getting AAID</h2>
+<p>For privacy reason, the server-side module can't read and use the AAID automatically. We need to first be sure that your user have accepted the corresponding category inside the privacy.</p>
+<pre><code>ServerSideInstance.addAdvertisingIDs());
+</code></pre>
+<p>This method will check and add if possible the AAID and the boolean "is ad tracking enabled".</p>
 <h1 id="troubleshooting">Troubleshooting</h1>
 <p>The ServerSide also offers methods to help you with the Quality Assessment of the implementation.</p>
 <h2 id="debugging">Debugging</h2>
@@ -357,6 +363,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 28/03/2022 15:48:31</p>
+<p>This documentation was generated on 25/05/2022 09:12:12</p>
 </body>
 </html>

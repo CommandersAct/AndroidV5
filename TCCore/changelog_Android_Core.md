@@ -6,6 +6,10 @@ Changelog Android
 
 [Previous changelist](../res/changelog_Android_3.md)
 
+*5.1.0 : 05/24/2022*
+
+	~ adding functions for faster saving of HashMaps.
+
 *5.0.0 : 03/28 2022*
 
 	~ Only internal renamings to go with all other 5.0.0 modules.

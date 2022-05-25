@@ -1,7 +1,13 @@
 Changelog Android
 =================
 
-*5.0.0 : 03/22 2028*
+*5.1.0 : 05/24/2022*
+
+	~ Changed the payload of the consent statistics sent to our servers for better statistics.
+	~ [IAB] Modified consent string timestamp to comply with new TCF standards of reducing precision.
+	~ Faster saving for categories and vendors consent into sharedPreferences.
+
+*5.0.0 : 03/22 2022*
 
 	~ Renaming Module to Consent and TCPrivacy to TCConsent.
 	~ Renaming of many other classes and some methods (see documentation for an easy migration)

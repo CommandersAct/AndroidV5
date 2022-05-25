@@ -6,6 +6,12 @@ Changelog Android
 
 [Previous changelist](../res/changelog_Android_3.md)
 
+*5.1.0 : 05/24/2022*
+
+	+ Added enums of classic values for payment methods and purchase status.
+	+ Added a function to add AAID/ad_tracking_enabled to the payload.
+	~ Modified the event payload to add refused vendors instead of accepted.
+
 *5.0.0 : 03/28 2022*
 
 	~ Renaming SDK to ServerSide since it's now its exact purpose.
