@@ -7,6 +7,7 @@ Changelog Android
 *5.1.0 : 05/24/2022*
 
 	~ adding functions for faster saving of HashMaps.
+	- Simplified collection of aaid/ad_tracking_enabled.
 
 *5.0.0 : 03/28 2022*
 
