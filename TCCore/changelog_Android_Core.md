@@ -4,8 +4,6 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
-[Previous changelist](../res/changelog_Android_3.md)
-
 *5.1.0 : 05/24/2022*
 
 	~ adding functions for faster saving of HashMaps.
