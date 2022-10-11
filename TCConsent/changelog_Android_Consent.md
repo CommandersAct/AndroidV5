@@ -1,6 +1,12 @@
 Changelog Android
 =================
 
+*5.2.0 : 10/11/2022*
+
+	- /!\ Requires Core and ServerSide 5.2.0+
+	~ fixing consent state bug on relaunch
+	~ [IAB] Added drop-down to show vendors disclosures.
+
 *5.1.0 : 05/24/2022*
 
 	~ Changed the payload of the consent statistics sent to our servers for better statistics.

@@ -4,6 +4,11 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.2.0 : 10/11/2022*
+
+	- /!\ Requires ServerSide and Consent 5.2.0+
+	~ fixing ServerSide state bug on relaunch.
+
 *5.1.0 : 05/24/2022*
 
 	~ adding functions for faster saving of HashMaps.

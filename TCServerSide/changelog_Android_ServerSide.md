@@ -4,6 +4,13 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.2.0 : 10/11/2022*
+
+	- /!\ Requires Core and Consent 5.2.0+
+	~ fixing user information in the payload.
+	~ fixing ServerSide state bug on relaunch.
+	~ Event parameters type cleaning for better Kotlin compatibility.
+
 *5.1.1 : 08/04/2022*
 
 	~ Added back user_agent as a variable inside the device payload.
@@ -17,7 +24,7 @@ Changelog Android
 *5.0.0 : 03/28 2022*
 
 	~ Renaming SDK to ServerSide since it's now its exact purpose.
-	~ Renaming TagCommander to TCServerSide
+	~ Renaming TagCommander to TCServerSide.
 	+ Creating all standard "Events" to pass information to the server-side. This is the biggest change, please check the module documentation.
 	+ Added a sourceKey to default TCServerSide parameters.
 	- Removed some classes that are now useless like TCAppVars or the old TCProduct.
