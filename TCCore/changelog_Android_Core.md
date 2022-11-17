@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.3.0 : 11/17/2022*
+
+	+ Added `additionalProperties` methods for customizing TCNetwork & TCUser
+
 *5.2.0 : 10/11/2022*
 
 	- /!\ Requires ServerSide and Consent 5.2.0+

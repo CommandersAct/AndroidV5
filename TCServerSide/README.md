@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>11/10/2022</em><br />
-Release version : <em>5.2.0</em></p>
+<p>Last update : <em>17/11/2022</em><br />
+Release version : <em>5.3.0</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -365,6 +365,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 11/10/2022 14:55:46</p>
+<p>This documentation was generated on 17/11/2022 14:19:30</p>
 </body>
 </html>

@@ -4,6 +4,16 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.3.0 : 11/17/2022*
+
+    - /!\ Requires Core 5.3.0+
+	+ Added `additionalProperties` methods for customising TCApp, TCDevice, TCLifecycle, TCProduct, TCItem & Events
+	+ Put most of their properties as public also, but it's not recommended to change them.
+	- TCEvent `addAdditionalParameter` methodes are now deprecated, please use `addAdditionalProperty`
+	~ valid json payload when PB_ALWAYS_ENABLED and no consent has been given yet
+	+ Added "affiliation" as a payload information inside TCItem
+
+
 *5.2.0 : 10/11/2022*
 
 	- /!\ Requires Core and Consent 5.2.0+
