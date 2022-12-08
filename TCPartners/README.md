@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="partners-implementation-guide">Partners' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>17/11/2022</em><br />
+<p>Last update : <em>08/12/2022</em><br />
 Release version : <em>5.0.0</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -105,6 +105,6 @@ TCPartners_Freewheel.getInstance().callback = this;
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 17/11/2022 14:19:30</p>
+<p>This documentation was generated on 08/12/2022 16:08:09</p>
 </body>
 </html>
