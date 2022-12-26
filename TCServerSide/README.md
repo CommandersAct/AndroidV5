@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>08/12/2022</em><br />
+<p>Last update : <em>26/12/2022</em><br />
 Release version : <em>5.3.1</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -29,7 +29,7 @@ Release version : <em>5.3.1</em></p>
 <li><a href="#using-the-serversides-module">Using the ServerSide's module</a><ul>
 <li><a href="#initialisation">Initialisation</a></li>
 <li><a href="#executing-events">Executing events</a></li>
-<li><a href="#additional-parameters">Additional parameters</a></li>
+<li><a href="#customising-events">Customising Events</a></li>
 <li><a href="#custom-events">Custom events</a></li>
 <li><a href="#consent">Consent</a></li>
 <li><a href="#install-referrer">Install Referrer</a></li>
@@ -139,14 +139,43 @@ items.add(new TCItem("iID2", new TCProduct("pID2", "pName2", 2.5f), 2));
 TCPurchaseEvent event = new TCPurchaseEvent("ID", 11.2f, 4.5f, "EUR", "purchase", "creditCard", "waiting", items);
 TCS.execute(event);
 </code></pre>
-<h2 id="additional-parameters">Additional parameters</h2>
-<p>Events are tailored for the most common solutions' needs. But you might need to add parameters that are not specified in the event you are trying to send.</p>
-<pre><code>TCPageViewEvent pageViewEvent = new TCPageViewEvent("Consent");
-pageViewEvent.pageName = "Configuration";
-pageViewEvent.addAdditionalParameter("currentConsent", "refused");
+<h2 id="customising-events">Customising Events</h2>
+<p>Events are tailored for the most common solutions' needs. But you might need to add properties that are not specified in the event you are trying to send.</p>
+<p>You can choose to edit your events by directly accessing the event object property, or you can choose to add new properties. Depending on your needs, you can use the following methods to achieve this.</p>
+<pre><code>public void addAdditionalProperty(String key, String value)
+public void addAdditionalProperty(String key, JSONObject value)
+public void addAdditionalProperty(String key, Boolean value)
+public void addAdditionalProperty(String key, BigDecimal value)
+public void addAdditionalProperty(String key, Float value)
+public void addAdditionalProperty(String key, Integer value)
+public void addAdditionalProperty(TCDynamicStore store)
+</code></pre>
+<p>Also, for accessing &amp; removing already added properties :</p>
+<pre><code>public ConcurrentHashMap&lt;String, Object&gt; getAdditionalProperties()
+public void removeAdditionalProperty(String key)
+public void clearAdditionalProperties()
 </code></pre>
 <p>Here for example this could be tracking some user going back to your configuration to open the consent interface. And you would want to know what was the consent before re-opening.
-Of course this is a simple example only here to show the addAdditionalParameter method.</p>
+Of course this is a simple example only here to show the addAdditionalProperty method.</p>
+<pre><code>TCPageViewEvent pageViewEvent = new TCPageViewEvent("Consent");
+pageViewEvent.pageName = "Configuration";
+pageViewEvent.addAdditionalProperty("currentConsent", "refused");
+</code></pre>
+<p>If you want to customize the other fields in your events, you can directly edit properties on the coresponding singleton instance (except for TCLifecycle) or use custimisation methodes.</p>
+<p>Please note that these are constant fields across the events, changes will be applied to all events at once.
+Here's a list of the available editable fields :</p>
+<ul>
+<li>TCDevice.getInstance()</li>
+<li>TCNetwork.getInstance()</li>
+<li>TCUser.getInstance()</li>
+<li>TCApp.getInstance()</li>
+<li>TCLifecycle.getInstance()</li>
+<li>TCItem and TCProduct objects</li>
+</ul>
+<p>For TCDevice's inner fields. Os &amp; Screen are accessible via :</p>
+<pre><code>TCDevice.getInstance().getOsProperties()
+TCDevice.getInstance().getScreenProperties()
+</code></pre>
 <h2 id="custom-events">Custom events</h2>
 <p>In some case, the classic events might not suit your needs, in this case you can build complete custom events.
 It is important to name them properly as this will be the base of forwarding them to your destinations.</p>
@@ -306,8 +335,8 @@ We have 3 behaviours:</p>
 <p>If you want to use Kotlin as your main language, there is absolutely nothing special to do.
 Compile with the latest versions and call our module as usual.</p>
 <h1 id="example-tcdemo">Example: TCDemo</h1>
-<p>To check an example of how to use this module, please check: </p>
-<p><a href="https://github.com/TagCommander/Tag-Demo/tree/master/Android">Tag Demo</a></p>
+<p>To check an example of how to use this module, please check:</p>
+<p><a href="https://github.com/CommandersAct/TCMobileDemo-V5/tree/master/Android/ServerSideOnly">TCDemo ServerSideOnly</a></p>
 <h1 id="migration-v4-to-v5">Migration v4 to v5</h1>
 <h2 id="why-a-new-version-of-the-sdk">Why a new version of the SDK</h2>
 <p>CommandersAct made a big move forward to bring all his products together in a whole new platform.</p>
@@ -365,6 +394,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 08/12/2022 16:08:09</p>
+<p>This documentation was generated on 26/12/2022 11:13:16</p>
 </body>
 </html>

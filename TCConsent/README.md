@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>08/12/2022</em><br />
+<p>Last update : <em>26/12/2022</em><br />
 Release version : <em>5.2.0</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -368,7 +368,7 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 </code></pre>
 <h2 id="tcdemo">TCDemo</h2>
 <p>You can, of course, check our demo project for a simple implementation example.</p>
-<p><a href="https://github.com/TagCommander/Privacy-Demo/tree/master/Android">Privacy Demo</a></p>
+<p><a href="https://github.com/CommandersAct/TCMobileDemo-V5/tree/master/Android/ServerSide_And_Consent">TCDemo_ServerSide_And_Consent</a></p>
 <h1 id="support-and-contacts">Support and contacts</h1>
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <hr />
@@ -377,6 +377,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 08/12/2022 16:08:09</p>
+<p>This documentation was generated on 26/12/2022 11:13:16</p>
 </body>
 </html>

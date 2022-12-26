@@ -4,6 +4,12 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+
+*5.3.1 : 12/26/2022*
+
+	+ Added a way to add a simple json list with addAdditionalParameter
+
+
 *5.3.0 : 11/17/2022*
 
 	+ Added `additionalProperties` methods for customizing TCNetwork & TCUser
