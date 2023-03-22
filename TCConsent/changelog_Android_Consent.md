@@ -1,6 +1,11 @@
 Changelog Android
 =================
 
+*5.2.1 : 03/22/2023*
+
+    + Added the version of the Consent module inside the consent hits to help debug.
+
+
 *5.2.0 : 10/11/2022*
 
 	- /!\ Requires Core and ServerSide 5.2.0+

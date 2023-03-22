@@ -4,15 +4,18 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="core-guide">Core Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>26/12/2022</em><br />
-Release version : <em>5.3.1</em></p>
+<p>Last update : <em>22/03/2023</em><br />
+Release version : <em>5.3.2</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
 <ul>
 <li><a href="#core-guide">Core Guide</a></li>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#dependencies">Dependencies</a><ul>
+<li><a href="#using-proguard">Using ProGuard</a></li>
+</ul>
+</li>
 <li><a href="#support-and-contacts">Support and contacts</a></li>
 </ul>
 </div>
@@ -24,6 +27,14 @@ Release version : <em>5.3.1</em></p>
 <p>Core is building with the following dependencies :</p>
 <pre><code>implementation 'androidx.appcompat:appcompat:1.4.1'
 </code></pre>
+<h2 id="using-proguard">Using ProGuard</h2>
+<p>If your release build uses ProGuard to strip and obfuscate your code, you will need to add some configuration for the modules to keep working.</p>
+<p>Just add the following line in your proguard-rules.pro.</p>
+<pre><code>-keep class com.tagcommander.lib.** { *; }
+</code></pre>
+<p>You may also need to add the following rule depending on your other libraries dependencies</p>
+<pre><code>-keep class org.json.** { *; }
+</code></pre>
 <h1 id="support-and-contacts">Support and contacts</h1>
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <hr />
@@ -31,6 +42,6 @@ Release version : <em>5.3.1</em></p>
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 26/12/2022 11:13:16</p>
+<p>This documentation was generated on 22/03/2023 15:12:32</p>
 </body>
 </html>

@@ -4,6 +4,11 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.3.2 : 03/22/2023*
+
+	+ Pretty format for event logging
+	~ Added consistent_anonymous_id for TCUser 
+	~ Bug on full consent not always overriding properly old consent.
 
 *5.3.1 : 12/26/2022*
 

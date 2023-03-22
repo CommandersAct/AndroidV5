@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>26/12/2022</em><br />
-Release version : <em>5.3.1</em></p>
+<p>Last update : <em>22/03/2023</em><br />
+Release version : <em>5.4.0</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -285,7 +285,13 @@ We have 3 behaviours:</p>
 <ul>
 <li>The internal architecture is working with internal notifications. You can ask the Logger to display all the internal notifications with TCDebug.setNotificationLog(true);.</li>
 </ul>
-<p>If you don't call TCDebug.setDebugLevel, not log will be printed at all.</p>
+<p>If you don't call TCDebug.setDebugLevel, no log will be printed at all.</p>
+<p>You can choose to print events with pretty format via the following method call : </p>
+<pre><code>/*
+ * Tells the logger if we should display Event with pretty format.
+ */
+  TCDebug.enablePrettyFormat(true);
+</code></pre>
 <h2 id="testing">Testing</h2>
 <p>There are four ways to verify that the module executes the tags in your application:</p>
 <ul>
@@ -394,6 +400,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 26/12/2022 11:13:16</p>
+<p>This documentation was generated on 22/03/2023 15:12:32</p>
 </body>
 </html>

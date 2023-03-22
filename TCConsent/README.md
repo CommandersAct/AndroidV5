@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>26/12/2022</em><br />
-Release version : <em>5.2.0</em></p>
+<p>Last update : <em>22/03/2023</em><br />
+Release version : <em>5.2.1</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -39,6 +39,7 @@ Release version : <em>5.2.0</em></p>
 <li><a href="#privacy-center">Privacy Center</a><ul>
 <li><a href="#change-the-default-state-of-the-switch-button-to-disabled">Change the default state of the switch button to disabled:</a></li>
 <li><a href="#deactivate-the-back-button-to-force-the-consent">Deactivate the back button to force the consent:</a></li>
+<li><a href="#change-activity-title">Change Activity title:</a></li>
 </ul>
 </li>
 <li><a href="#privacy-statistics">Privacy statistics</a></li>
@@ -336,6 +337,11 @@ startActivity(PCM);
 <p>Going back without consenting will result in a user not consenting at all. This means that no privacy will be saved, no tag can be called and no consent-string will be created if you use IAB.</p>
 <pre><code>TCConsent.getInstance().deactivateBackButton = true;
 </code></pre>
+<h3 id="change-activity-title">Change Activity title:</h3>
+<p>You can change the default activity title in your the Intent, using the kTCIntentExtraCustomTitle key. </p>
+<pre><code>Intent PCM = new Intent(getContext(), com.tagcommander.lib.privacy.TCPrivacyCenter.class);
+PCM.putExtra(kTCIntentExtraCustomTitle, "My custom title");
+</code></pre>
 <h2 id="privacy-statistics">Privacy statistics</h2>
 <p>We have dashboards that allow to have detailed statistics on the choices your users are making.
 Depending on your app privacy configuration you might have to call some additional functions.</p>
@@ -377,6 +383,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 26/12/2022 11:13:16</p>
+<p>This documentation was generated on 22/03/2023 15:12:32</p>
 </body>
 </html>
