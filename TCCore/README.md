@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="core-guide">Core Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>22/03/2023</em><br />
+<p>Last update : <em>06/04/2023</em><br />
 Release version : <em>5.3.2</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -42,6 +42,6 @@ Release version : <em>5.3.2</em></p>
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 22/03/2023 15:12:32</p>
+<p>This documentation was generated on 06/04/2023 15:09:47</p>
 </body>
 </html>

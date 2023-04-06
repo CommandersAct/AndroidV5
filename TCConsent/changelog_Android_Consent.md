@@ -1,6 +1,12 @@
 Changelog Android
 =================
 
+
+*5.2.2 : 04/15/2023*
+
+    + [IAB] As per legal request displaying the number of IAB vendors used in the bottom of the first consent screen.
+
+
 *5.2.1 : 03/22/2023*
 
     + Added the version of the Consent module inside the consent hits to help debug.
