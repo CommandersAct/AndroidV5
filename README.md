@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="res/ca_logo.png" /></p>
 <h1 id="developers-implementation-guide">Developers' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>06/04/2023</em><br />
+<p>Last update : <em>20/04/2023</em><br />
 Release version : <em>5</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -33,7 +33,7 @@ The modules are the following :</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
 <p>Core : <em>5.3.2</em></p>
 <p>ServerSide : <em>5.4.1</em></p>
-<p>Consent : <em>5.2.2</em></p>
+<p>Consent : <em>5.2.3</em></p>
 <p>IAB : <em>5.0.0</em></p>
 <p>Partners : <em>5.0.0</em></p>
 <p>Segment : <em>5.0.0</em></p>
@@ -65,7 +65,6 @@ implementation 'com.tagcommander.lib:segment:5.0.0'
 <h2 id="jar-file">Jar file</h2>
 <p>If you'd rather use the jar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
 <div class="warning"></div>
-
 <blockquote>
 <p>You will always need to at least add the Core module to your project.</p>
 </blockquote>
@@ -76,12 +75,11 @@ compile fileTree(dir: 'libs', include: '*.jar')
 compile files('libs/TCCore-release-5.3.2.jar')
 compile files('libs/TCServerSide-release-5.4.1.jar')
 compile files('libs/TCSegment-release-5.0.0.jar')
-compile files('libs/TCConsent-release-5.2.2.jar')
+compile files('libs/TCConsent-release-5.2.3.jar')
 </code></pre>
 <h2 id="aar-file">Aar file</h2>
 <p>If you'd rather use the aar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
 <div class="warning"></div>
-
 <blockquote>
 <p>You will always need to at least add the Core module to your project.</p>
 </blockquote>
@@ -99,7 +97,7 @@ compile files('libs/TCConsent-release-5.2.2.jar')
 <pre><code>compile (name:'TCCore-release-5.3.2', ext:'aar')
 compile (name:'TCServerSide-release-5.4.1', ext:'aar')
 compile (name:'TCSegment-release-5.0.0', ext:'aar')
-compile (name:'TCConsent-release-5.2.2', ext:'aar')
+compile (name:'TCConsent-release-5.2.3', ext:'aar')
 </code></pre>
 <h1 id="support-and-contacts">Support and contacts</h1>
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
@@ -109,6 +107,6 @@ compile (name:'TCConsent-release-5.2.2', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 06/04/2023 15:09:47</p>
+<p>This documentation was generated on 20/04/2023 11:12:12</p>
 </body>
 </html>

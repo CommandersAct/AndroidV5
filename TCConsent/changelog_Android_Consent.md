@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.2.3 : 04/20/2023*
+
+    ~ Changing weight of consent duration sources. Now we have : "SDK default value" < "Value in json" < "setConsentDuration()"
+    ~ Fixing an issue to switch the language to english when it's not the default language.
 
 *5.2.2 : 04/15/2023*
 

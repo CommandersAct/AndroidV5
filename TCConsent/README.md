@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>06/04/2023</em><br />
-Release version : <em>5.2.2</em></p>
+<p>Last update : <em>20/04/2023</em><br />
+Release version : <em>5.2.3</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -383,6 +383,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 06/04/2023 15:09:47</p>
+<p>This documentation was generated on 20/04/2023 11:12:12</p>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>06/04/2023</em><br />
+<p>Last update : <em>20/04/2023</em><br />
 Release version : <em>5.4.1</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -318,7 +318,6 @@ We have 3 behaviours:</p>
 <p>With this, you should be set!</p>
 <h2 id="common-errors">Common errors</h2>
 <div class="warning"></div>
-
 <blockquote>
 <ul>
 <li>Make sure you have the latest version.</li>
@@ -400,6 +399,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 06/04/2023 15:09:47</p>
+<p>This documentation was generated on 20/04/2023 11:12:12</p>
 </body>
 </html>
