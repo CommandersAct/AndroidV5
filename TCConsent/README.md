@@ -103,7 +103,7 @@ Join those IDs with a "consent version". Default is 1, but if you change the imp
 <h3 id="standalone">Standalone</h3>
 <p>Modules: Core, Consent</p>
 <p>You won't need the ServerSide module, and will need to implement a callback to manage your solutions when consent is given or re-loaded.</p>
-<p>The setup is really simple, pass to the TCConsent object your site ID, privacy ID and application context.</p>
+<p>The setup is really simple, pass to the TCConsent object your site ID, privacy ID and <a href="https://developer.android.com/reference/android/content/Context">application context</a>.</p>
 <pre><code>TCConsent.getInstance().setSiteIDPrivacyIDAppContext(site_id, privacy_id, appContext);
 </code></pre>
 <p>If you're using your own Privacy Center, use the following function instead:</p>
