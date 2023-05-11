@@ -33,7 +33,7 @@ The modules are the following :</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
 <p>Core : <em>5.3.2</em></p>
 <p>ServerSide : <em>5.4.2</em></p>
-<p>Consent : <em>5.2.3</em></p>
+<p>Consent : <em>5.2.4</em></p>
 <p>IAB : <em>5.0.0</em></p>
 <p>Partners : <em>5.0.0</em></p>
 <p>Segment : <em>5.0.0</em></p>
@@ -75,7 +75,7 @@ compile fileTree(dir: 'libs', include: '*.jar')
 compile files('libs/TCCore-release-5.3.2.jar')
 compile files('libs/TCServerSide-release-5.4.2.jar')
 compile files('libs/TCSegment-release-5.0.0.jar')
-compile files('libs/TCConsent-release-5.2.3.jar')
+compile files('libs/TCConsent-release-5.2.4.jar')
 </code></pre>
 <h2 id="aar-file">Aar file</h2>
 <p>If you'd rather use the aar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -97,7 +97,7 @@ compile files('libs/TCConsent-release-5.2.3.jar')
 <pre><code>compile (name:'TCCore-release-5.3.2', ext:'aar')
 compile (name:'TCServerSide-release-5.4.2', ext:'aar')
 compile (name:'TCSegment-release-5.0.0', ext:'aar')
-compile (name:'TCConsent-release-5.2.3', ext:'aar')
+compile (name:'TCConsent-release-5.2.4', ext:'aar')
 </code></pre>
 <h1 id="support-and-contacts">Support and contacts</h1>
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
@@ -107,6 +107,6 @@ compile (name:'TCConsent-release-5.2.3', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 11/05/2023 15:34:05</p>
+<p>This documentation was generated on 11/05/2023 15:35:59</p>
 </body>
 </html>
