@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>20/04/2023</em><br />
-Release version : <em>5.4.1</em></p>
+<p>Last update : <em>11/05/2023</em><br />
+Release version : <em>5.4.2</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -31,6 +31,7 @@ Release version : <em>5.4.1</em></p>
 <li><a href="#executing-events">Executing events</a></li>
 <li><a href="#customising-events">Customising Events</a></li>
 <li><a href="#custom-events">Custom events</a></li>
+<li><a href="#video-events">Video Events</a></li>
 <li><a href="#consent">Consent</a></li>
 <li><a href="#install-referrer">Install Referrer</a></li>
 <li><a href="#background-mode">Background Mode</a></li>
@@ -182,6 +183,23 @@ It is important to name them properly as this will be the base of forwarding the
 <pre><code>TCCustomEvent event = new TCCustomEvent("eventName");
 event.addAdditionalParameter("myParam", "myValue");
 TCS.execute(event);
+</code></pre>
+<h2 id="video-events">Video Events</h2>
+<p>There are 4 main video events classes : TCVideoSettingEvent, TCVideoPlaybackEvent, TCVideoContentEvent &amp; TCVideoAdEvent.</p>
+<p>Every Video event will have multiple modes, choose the right mode for each event you're sending.</p>
+<p>You'll have to manage your video_session_id across the video events you're sending.</p>
+<p>if you have multiple videos, you'll need to set a different video_session_id for every one of them.</p>
+<p>example : </p>
+<pre><code>val event = TCVideoAdEvent(ETCVideoAdMode.video_ad_start, "0000-0000-00001") // first video
+val event_2 = TCVideoAdEvent(ETCVideoAdMode.video_ad_playing, "0000-0000-00001") // another event for the first video!
+serverSide.execute(event)
+serverSide.execute(event_2)
+
+
+val event_3 = TCVideoAdEvent(ETCVideoAdMode.video_ad_start, "0000-0000-00002") // second video
+val event_4 = TCVideoAdEvent(ETCVideoAdMode.video_ad_playing, "0000-0000-00002") // another event for the second video !
+serverSide.execute(event_3)
+serverSide.execute(event_4)
 </code></pre>
 <h2 id="consent">Consent</h2>
 <p>To manage the privacy of the user's data you can use our Consent product, another product or nothing at all.</p>
@@ -399,6 +417,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 20/04/2023 11:12:12</p>
+<p>This documentation was generated on 11/05/2023 08:50:38</p>
 </body>
 </html>

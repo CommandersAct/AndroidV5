@@ -4,10 +4,13 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.4.2 : 05/09/2023*
+
+	+ Video events.
+
 *5.4.1 : 04/06/2023*
 
 	+ Added threads security on permanent data.
-
 
 *5.4.0 : 03/22/2023*
 
