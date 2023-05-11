@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.2.4 : 05/09/2023*
+
+    + Adding do_not_track property for privacy stats
+
 *5.2.3 : 04/20/2023*
 
     ~ Changing weight of consent duration sources. Now we have : "SDK default value" < "Value in json" < "setConsentDuration()"

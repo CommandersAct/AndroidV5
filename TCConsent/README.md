@@ -43,6 +43,7 @@ Release version : <em>5.2.3</em></p>
 </ul>
 </li>
 <li><a href="#privacy-statistics">Privacy statistics</a></li>
+<li><a href="#stop-privacy-stats-tracking">Stop privacy stats tracking</a></li>
 <li><a href="#tcdemo">TCDemo</a></li>
 </ul>
 </li>
@@ -372,6 +373,10 @@ Otherwise, please check the above section "Manually displayed consent" for how t
     TCConsent.getInstance().statViewPrivacyCenter();
     TCConsent.getInstance().statShowVendorScreen();
 </code></pre>
+<h2 id="stop-privacy-stats-tracking">Stop privacy stats tracking</h2>
+<p>You can set your <code>do_not_track</code> property on your privacy stats payload : </p>
+<pre><code>    TCConsent.getInstance().do_not_track = value;
+</code></pre>
 <h2 id="tcdemo">TCDemo</h2>
 <p>You can, of course, check our demo project for a simple implementation example.</p>
 <p><a href="https://github.com/CommandersAct/TCMobileDemo-V5/tree/master/Android/ServerSide_And_Consent">TCDemo_ServerSide_And_Consent</a></p>
@@ -383,6 +388,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 11/05/2023 15:26:16</p>
+<p>This documentation was generated on 11/05/2023 15:34:05</p>
 </body>
 </html>
