@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>11/05/2023</em><br />
-Release version : <em>5.2.4</em></p>
+<p>Last update : <em>28/06/2023</em><br />
+Release version : <em>5.2.5</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -116,13 +116,22 @@ Join those IDs with a "consent version". Default is 1, but if you change the imp
 <p>If you're using the Privacy Center, nothing has to be done here, it will automatically propagate the consent to all other systems. And the ID will be the one used in the configuration file. Please check the Privacy Center part for more information.</p>
 <p>Please keep your category IDs between 1 and 999.</p>
 <h3 id="manually-displayed-consent">Manually displayed consent</h3>
-<p>Once the user validated his consent, you can then send the information to the Consent module as follows:</p>
+<p>Once the user validated his consent, you can then send the information to the Consent module as follows:
+in java :</p>
 <pre><code>Map&lt;String, String&gt; consent = new HashMap&lt;&gt;();
 consent.put("PRIVACY_CAT_1", "1");
 consent.put("PRIVACY_CAT_2", "0");
 consent.put("PRIVACY_CAT_3", "1");
 consent.put("PRIVACY_VEN_61", "1");
 TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, PrivacyCenter, Save);
+</code></pre>
+<p>in kotlin :</p>
+<pre><code>val consent: MutableMap&lt;String, String&gt; = HashMap()
+consent["PRIVACY_CAT_1"] = "1"
+consent["PRIVACY_CAT_2"] = "0"
+consent["PRIVACY_CAT_3"] = "1"
+consent["PRIVACY_VEN_61"] = "1"
+TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, ETCConsentSource.PrivacyCenter, ETCConsentAction.Save);
 </code></pre>
 <p>Please prefix your category IDs with "PRIVACY_CAT_" and your vendor IDs with "PRIVACY_VEN_.</p>
 <p>The value expected are:</p>
@@ -144,11 +153,19 @@ TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, P
 <p>Only if you use Server-Side and a consent manually displayed and consent external to our platform. 
 Otherwise, everything is done automatically, so nothing to do here.</p>
 <p>You will need to add consent to the TCUser object to forward it to our server-side.</p>
+<p>in java :</p>
 <pre><code>    HashMap&lt;String, String&gt; ext = new HashMap&lt;&gt;();
     ext.put("key01", "true");
     ext.put("key02", "1");
     ext.put("312", "0");
     TCUser.getInstance().setExternalConsent(ext);
+</code></pre>
+<p>in kotlin :</p>
+<pre><code>    val ext: HashMap&lt;String, String&gt; = HashMap()
+    ext["key01"] = "true"
+    ext["key02"] = "1"
+    ext["312"] = "0"
+    TCUser.getInstance().externalConsent = ext
 </code></pre>
 <p>Since it's external, and we don't really know how it's working, you can pass any string/string and we'll forward it as is.</p>
 <h3 id="acceptall-refuseall">AcceptAll / RefuseAll</h3>
@@ -388,6 +405,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 11/05/2023 15:35:59</p>
+<p>This documentation was generated on 28/06/2023 09:30:15</p>
 </body>
 </html>

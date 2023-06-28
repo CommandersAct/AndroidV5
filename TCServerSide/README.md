@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>11/05/2023</em><br />
+<p>Last update : <em>28/06/2023</em><br />
 Release version : <em>5.4.2</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -84,10 +84,12 @@ We also add "value" and "currency" that are generally used by solutions for this
 <p>You should be provided with a document explaining all events you need to implement inside your application and when they should be sent.</p>
 <p>The event and the information we gather independently will create a hit to our servers with a JSON payload.</p>
 <h2 id="event-details">Event details</h2>
-<p>All events and their payloads are detailed here: <a href="https://community.commandersact.com/platform-x/developers/tracking/events-reference">events-reference</a></p>
+<p><img alt="alt tag" src="../res/warning.png" />
+All events and their payloads are detailed here with code examples: <a href="https://doc.commandersact.com/developers/tracking/events-reference">events-reference</a></p>
 <p>You will also find information about what you can add inside the TCUser which is sent with every hit.
 Be aware that some data inside TCUser require consent from the user te be read and used.</p>
-<p>You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
+<p><img alt="alt tag" src="../res/warning.png" />
+You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
 <a href="https://community.commandersact.com/platform-x/developers/tracking/about-events/mobile-sdk-event-specificity">mobile-sdk-event-specificity</a></p>
 <h2 id="executing-an-event">Executing an event</h2>
 <p>When you call the sendData method, a hit will be packaged and sent to Commanders Act's server.</p>
@@ -134,11 +136,19 @@ TCServerSide TCS = new TCServerSide(siteID, sourceKey, appContext);
 </code></pre>
 <h2 id="executing-events">Executing events</h2>
 <p>Each time you are required to launch an event, simply instantiate the corresponding event, fill it with what your tagging plan suggest and execute it.</p>
+<p>in java : </p>
 <pre><code>ArrayList&lt;TCItem&gt; items = new ArrayList&lt;&gt;();
 items.add(new TCItem("iID1", new TCProduct("pID1", "pName1", 1.5f), 1));
 items.add(new TCItem("iID2", new TCProduct("pID2", "pName2", 2.5f), 2));
 TCPurchaseEvent event = new TCPurchaseEvent("ID", 11.2f, 4.5f, "EUR", "purchase", "creditCard", "waiting", items);
 TCS.execute(event);
+</code></pre>
+<p>in kotlin : </p>
+<pre><code>val items: ArrayList&lt;TCItem&gt; = ArrayList()
+items.add(TCItem("iID1", TCProduct("pID1", "pName1", 1.5f), 1))
+items.add(TCItem("iID2", TCProduct("pID2", "pName2", 2.5f), 2))
+val event = TCPurchaseEvent("ID", 11.2f, 4.5f, "EUR", "purchase", "creditCard", "waiting", items)
+serverSide.execute(event)
 </code></pre>
 <h2 id="customising-events">Customising Events</h2>
 <p>Events are tailored for the most common solutions' needs. But you might need to add properties that are not specified in the event you are trying to send.</p>
@@ -158,9 +168,15 @@ public void clearAdditionalProperties()
 </code></pre>
 <p>Here for example this could be tracking some user going back to your configuration to open the consent interface. And you would want to know what was the consent before re-opening.
 Of course this is a simple example only here to show the addAdditionalProperty method.</p>
+<p>in java : </p>
 <pre><code>TCPageViewEvent pageViewEvent = new TCPageViewEvent("Consent");
 pageViewEvent.pageName = "Configuration";
 pageViewEvent.addAdditionalProperty("currentConsent", "refused");
+</code></pre>
+<p>in kotlin : </p>
+<pre><code>val pageViewEvent = TCPageViewEvent("Consent")
+pageViewEvent.pageName = "Configuration"
+pageViewEvent.addAdditionalProperty("currentConsent", "refused")
 </code></pre>
 <p>If you want to customize the other fields in your events, you can directly edit properties on the coresponding singleton instance (except for TCLifecycle) or use custimisation methodes.</p>
 <p>Please note that these are constant fields across the events, changes will be applied to all events at once.
@@ -174,15 +190,26 @@ Here's a list of the available editable fields :</p>
 <li>TCItem and TCProduct objects</li>
 </ul>
 <p>For TCDevice's inner fields. Os &amp; Screen are accessible via :</p>
+<p>in java : </p>
 <pre><code>TCDevice.getInstance().getOsProperties()
 TCDevice.getInstance().getScreenProperties()
+</code></pre>
+<p>in kotlin : </p>
+<pre><code>TCDevice.getInstance().osProperties
+TCDevice.getInstance().screenProperties
 </code></pre>
 <h2 id="custom-events">Custom events</h2>
 <p>In some case, the classic events might not suit your needs, in this case you can build complete custom events.
 It is important to name them properly as this will be the base of forwarding them to your destinations.</p>
+<p>in java : </p>
 <pre><code>TCCustomEvent event = new TCCustomEvent("eventName");
-event.addAdditionalParameter("myParam", "myValue");
+event.addAdditionalProperty("myParam", "myValue");
 TCS.execute(event);
+</code></pre>
+<p>in kotlin : </p>
+<pre><code>val event = TCCustomEvent("eventName")
+event.addAdditionalProperty("myParam", "myValue")
+TCS.execute(event)
 </code></pre>
 <h2 id="video-events">Video Events</h2>
 <p>There are 4 main video events classes : TCVideoSettingEvent, TCVideoPlaybackEvent, TCVideoContentEvent &amp; TCVideoAdEvent.</p>
@@ -190,6 +217,19 @@ TCS.execute(event);
 <p>You'll have to manage your video_session_id across the video events you're sending.</p>
 <p>if you have multiple videos, you'll need to set a different video_session_id for every one of them.</p>
 <p>example : </p>
+<p>in java : </p>
+<pre><code>TCVideoAdEvent event = new TCVideoAdEvent(ETCVideoAdMode.video_ad_start, "0000-0000-00001"); // first video
+TCVideoAdEvent event_2 = new TCVideoAdEvent(ETCVideoAdMode.video_ad_playing, "0000-0000-00001"); // another event for the first video!
+serverSide.execute(event);
+serverSide.execute(event_2);
+
+
+TCVideoAdEvent event_3 = new TCVideoAdEvent(ETCVideoAdMode.video_ad_start, "0000-0000-00002"); // second video
+TCVideoAdEvent event_4 = new TCVideoAdEvent(ETCVideoAdMode.video_ad_playing, "0000-0000-00002"); // another event for the second video !
+serverSide.execute(event_3);
+serverSide.execute(event_4);
+</code></pre>
+<p>in kotlin : </p>
 <pre><code>val event = TCVideoAdEvent(ETCVideoAdMode.video_ad_start, "0000-0000-00001") // first video
 val event_2 = TCVideoAdEvent(ETCVideoAdMode.video_ad_playing, "0000-0000-00001") // another event for the first video!
 serverSide.execute(event)
@@ -335,7 +375,7 @@ We have 3 behaviours:</p>
 </code></pre>
 <p>With this, you should be set!</p>
 <h2 id="common-errors">Common errors</h2>
-<div class="warning"></div>
+<p><img alt="alt tag" src="../res/warning.png" /></p>
 <blockquote>
 <ul>
 <li>Make sure you have the latest version.</li>
@@ -417,6 +457,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 11/05/2023 15:35:59</p>
+<p>This documentation was generated on 28/06/2023 09:30:15</p>
 </body>
 </html>

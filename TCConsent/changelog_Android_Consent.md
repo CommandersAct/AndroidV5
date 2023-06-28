@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.2.5 : 06/28/2023*
+
+    ~ Prevent SDK crashing app when missing Json. 
+
 *5.2.4 : 05/09/2023*
 
     + Adding do_not_track property for privacy stats

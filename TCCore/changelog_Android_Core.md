@@ -4,6 +4,12 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.3.3 : 06/28/2023*
+
+	~ Fixing background hits sometimes duplicating some events
+	~ Fixing consent given after some events where created and consent might not be properly replaced
+	- Removed offline time limit retention as most vendors now support timestamps
+
 *5.3.2 : 03/22/2023*
 
 	+ Pretty format for event logging

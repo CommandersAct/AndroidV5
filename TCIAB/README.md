@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="tciabs-implementation-guide">TCIAB's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>11/05/2023</em><br />
+<p>Last update : <em>28/06/2023</em><br />
 Release version : <em>5.0.0</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -137,12 +137,28 @@ But you have a boolean in TCConsent/TCMobilePrivacy which is named generatePubli
 <p>By default, the screen loaded is what we call the first layer screen (or pop-up screen). Then from this screen you'll be able to go to the purpose screen and from the purpose screen to the vendor screen. Both of which are called the second layer.</p>
 <p>if you want to have your own first layer, you'll want to be able to open from this page either of our second layer pages.</p>
 <p>To do this, we created other ways to open the privacy center as follow:</p>
+<p>in java : </p>
 <pre><code>Intent PCM = new Intent(getContext(), com.tagcommander.lib.consent.TCPrivacyCenter.class);
 PCM.putExtra(com.tagcommander.lib.consent.TCConsentConstants.kTCPC_START_SCREEN, com.tagcommander.lib.consent.TCConsentConstants.kTCStartWithPurposeScreen);
 startActivity(PCM);
 </code></pre>
+<p>in kotlin : </p>
+<pre><code>val PCM = Intent(getContext(), TCPrivacyCenter::class.java)
+PCM.putExtra(
+    TCConsentConstants.kTCPC_START_SCREEN,
+    TCConsentConstants.kTCStartWithPurposeScreen
+    )
+startActivity(PCM)
+</code></pre>
 <p>or for the vendor screen:</p>
+<p>in java : </p>
 <pre><code>PCM.putExtra(com.tagcommander.lib.consent.TCConsentConstants.kTCPC_START_SCREEN, com.tagcommander.lib.consent.TCConsentConstants.kTCStartWithVendorScreen);
+</code></pre>
+<p>in kotlin : </p>
+<pre><code>PCM.putExtra(
+    TCConsentConstants.kTCPC_START_SCREEN,
+    TCConsentConstants.kTCStartWithVendorScreen
+    )
 </code></pre>
 <h1 id="support-and-contacts">Support and contacts</h1>
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
@@ -152,6 +168,6 @@ startActivity(PCM);
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 11/05/2023 15:35:59</p>
+<p>This documentation was generated on 28/06/2023 09:30:15</p>
 </body>
 </html>
