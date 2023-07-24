@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.3.4 : 07/24/2023*
+
+	~ added required functionalities for IAB TCF v2.2
+
 *5.3.3 : 06/28/2023*
 
 	~ Fixing background hits sometimes duplicating some events

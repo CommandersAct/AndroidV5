@@ -1,6 +1,12 @@
 Changelog Android
 =================
 
+*5.2.6 : 07/24/2023*
+
+    - /!\ Requires Core 5.3.4+
+    + Support IAB TCF v2.2
+    ~ Fix IAB language change on runtime
+
 *5.2.5 : 06/28/2023*
 
     ~ Prevent SDK crashing app when missing Json. 
