@@ -4,6 +4,14 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.5.0 : 09/26/2023*
+
+	/!\ Requires TCCore 5.4.0
+	+ Added Firebase fork allowing user to send event to both our server-side and Firebase at the same time.
+	+ Added device->language as the device default language
+	+ Added device->region as the 2 letter country code for the language
+	~ Fixing typo in payment_info event name
+
 *5.4.2 : 05/09/2023*
 
 	+ Video events.

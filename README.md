@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="res/ca_logo.png" /></p>
 <h1 id="developers-implementation-guide">Developers' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>24/07/2023</em><br />
+<p>Last update : <em>26/09/2023</em><br />
 Release version : <em>5</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -31,8 +31,8 @@ The modules are the following :</p>
 <p><a href="TCConsent/README.md">Consent : Pass the Consent settings to our tag system</a></p>
 <p>For each of those modules, please check their respective documentation for more information.</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
-<p>Core : <em>5.3.4</em></p>
-<p>ServerSide : <em>5.4.2</em></p>
+<p>Core : <em>5.4.0</em></p>
+<p>ServerSide : <em>5.5.0</em></p>
 <p>Consent : <em>5.2.6</em></p>
 <p>IAB : <em>5.0.0</em></p>
 <p>Partners : <em>5.0.0</em></p>
@@ -55,11 +55,11 @@ The modules are the following :</p>
 }
 </code></pre>
 <p>Then in your application's build.gradle always add the core module:</p>
-<pre><code>implementation 'com.tagcommander.lib:core:5.3.4'
+<pre><code>implementation 'com.tagcommander.lib:core:5.4.0'
 </code></pre>
 <p>And in addition to the core module you can add the other modules you need the same way. See each module's documentation for more specific information.</p>
 <p>For example:</p>
-<pre><code>implementation 'com.tagcommander.lib:ServerSide:5.4.2'
+<pre><code>implementation 'com.tagcommander.lib:ServerSide:5.5.0'
 implementation 'com.tagcommander.lib:segment:5.0.0'
 </code></pre>
 <h2 id="jar-file">Jar file</h2>
@@ -72,8 +72,8 @@ implementation 'com.tagcommander.lib:segment:5.0.0'
 <pre><code>// All the jars.
 compile fileTree(dir: 'libs', include: '*.jar')
 // Specific files
-compile files('libs/TCCore-release-5.3.4.jar')
-compile files('libs/TCServerSide-release-5.4.2.jar')
+compile files('libs/TCCore-release-5.4.0.jar')
+compile files('libs/TCServerSide-release-5.5.0.jar')
 compile files('libs/TCSegment-release-5.0.0.jar')
 compile files('libs/TCConsent-release-5.2.6.jar')
 </code></pre>
@@ -94,8 +94,8 @@ compile files('libs/TCConsent-release-5.2.6.jar')
 }
 </code></pre>
 <p>After you downloaded the modules you need, add them to your libs folder and ask gradle to compile with them.</p>
-<pre><code>compile (name:'TCCore-release-5.3.4', ext:'aar')
-compile (name:'TCServerSide-release-5.4.2', ext:'aar')
+<pre><code>compile (name:'TCCore-release-5.4.0', ext:'aar')
+compile (name:'TCServerSide-release-5.5.0', ext:'aar')
 compile (name:'TCSegment-release-5.0.0', ext:'aar')
 compile (name:'TCConsent-release-5.2.6', ext:'aar')
 </code></pre>
@@ -107,6 +107,6 @@ compile (name:'TCConsent-release-5.2.6', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 24/07/2023 14:05:59</p>
+<p>This documentation was generated on 26/09/2023 16:29:22</p>
 </body>
 </html>

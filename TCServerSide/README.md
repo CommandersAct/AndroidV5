@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>24/07/2023</em><br />
-Release version : <em>5.4.2</em></p>
+<p>Last update : <em>26/09/2023</em><br />
+Release version : <em>5.5.0</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -84,12 +84,10 @@ We also add "value" and "currency" that are generally used by solutions for this
 <p>You should be provided with a document explaining all events you need to implement inside your application and when they should be sent.</p>
 <p>The event and the information we gather independently will create a hit to our servers with a JSON payload.</p>
 <h2 id="event-details">Event details</h2>
-<p><img alt="alt tag" src="../res/warning.png" />
-All events and their payloads are detailed here with code examples: <a href="https://doc.commandersact.com/developers/tracking/events-reference">events-reference</a></p>
+<p>All events and their payloads are detailed here: <a href="https://community.commandersact.com/platform-x/developers/tracking/events-reference">events-reference</a></p>
 <p>You will also find information about what you can add inside the TCUser which is sent with every hit.
 Be aware that some data inside TCUser require consent from the user te be read and used.</p>
-<p><img alt="alt tag" src="../res/warning.png" />
-You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
+<p>You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
 <a href="https://community.commandersact.com/platform-x/developers/tracking/about-events/mobile-sdk-event-specificity">mobile-sdk-event-specificity</a></p>
 <h2 id="executing-an-event">Executing an event</h2>
 <p>When you call the sendData method, a hit will be packaged and sent to Commanders Act's server.</p>
@@ -375,7 +373,7 @@ We have 3 behaviours:</p>
 </code></pre>
 <p>With this, you should be set!</p>
 <h2 id="common-errors">Common errors</h2>
-<p><img alt="alt tag" src="../res/warning.png" /></p>
+<div class="warning"></div>
 <blockquote>
 <ul>
 <li>Make sure you have the latest version.</li>
@@ -457,6 +455,6 @@ Support and contacts
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 24/07/2023 14:05:59</p>
+<p>This documentation was generated on 26/09/2023 16:29:22</p>
 </body>
 </html>

@@ -4,9 +4,15 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.4.0 : 09/26/2023*
+
+    + Added a new listener for TCFirebase
+
+
 *5.3.4 : 07/24/2023*
 
-	~ added required functionalities for IAB TCF v2.2
+	+ Added required functionalities for IAB TCF v2.2
+
 
 *5.3.3 : 06/28/2023*
 
@@ -14,11 +20,13 @@ Changelog Android
 	~ Fixing consent given after some events where created and consent might not be properly replaced
 	- Removed offline time limit retention as most vendors now support timestamps
 
+
 *5.3.2 : 03/22/2023*
 
 	+ Pretty format for event logging
 	~ Added consistent_anonymous_id for TCUser 
 	~ Bug on full consent not always overriding properly old consent.
+
 
 *5.3.1 : 12/26/2022*
 
