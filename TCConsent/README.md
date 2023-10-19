@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>26/09/2023</em><br />
-Release version : <em>5.2.6</em></p>
+<p>Last update : <em>19/10/2023</em><br />
+Release version : <em>5.2.7</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -381,6 +381,7 @@ Otherwise, please check the above section "Manually displayed consent" for how t
     TCConsent.getInstance().acceptAllConsent();
     TCConsent.getInstance().statEnterPCToVendorScreen();
     TCConsent.getInstance().statViewPrivacyPoliciesFromBanner();
+    TCConsent.getInstance().getNumberOfIABVendors();
 </code></pre>
 <p>Copy/paste-able list of functions for custom interfaces:</p>
 <pre><code>    TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, ETCConsentSource.Popup, ETCConsentAction.RefuseAll);
@@ -405,6 +406,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 26/09/2023 16:31:08</p>
+<p>This documentation was generated on 19/10/2023 08:47:44</p>
 </body>
 </html>

@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.4.1 : 10/19/2023*
+
+	~ translations fix on migrating to iab v2.2.
+
 *5.4.0 : 09/26/2023*
 
     + Added a new listener for TCFirebase

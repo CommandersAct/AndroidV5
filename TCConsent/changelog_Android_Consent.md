@@ -1,6 +1,12 @@
 Changelog Android
 =================
 
+*5.2.7 : 10/19/2023*
+
+	~ Modified do_not_track parameter as a boolean inside the payload
+    - [IAB] Remove missplaced consentOutdated callback when migrating to iabv2.2.
+    + [IAB] Added a function to get the number of IAB vendors
+
 *5.2.6 : 07/24/2023*
 
     - /!\ Requires Core 5.3.4+

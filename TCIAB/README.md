@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="tciabs-implementation-guide">TCIAB's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>26/09/2023</em><br />
+<p>Last update : <em>19/10/2023</em><br />
 Release version : <em>5.0.0</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -62,7 +62,7 @@ All of those configurations will update automatically but having an offline vers
 </code></pre>
 <p>```</p>
 <h1 id="iab-22">IAB 2.2</h1>
-<p>We support IAB 2.2, the following steps are required once you decide to upgrade your TCConsent to a IABv2.2 compatible version, wich is TCConsent:5.2.6+  or higher.</p>
+<p>We support IAB 2.2, the following steps are required once you decide to upgrade your TCConsent to a IABv2.2 compatible version, wich is TCConsent:5.2.7+  or higher.</p>
 <pre><code>- Please update all of your offline in-app jsons to a V2.2 compatible version, this includes your offline vendor-list.json &amp; any purposes-xx.json translation file you're using.
 - Update your privacy.json offline &amp; cdn file with a refreshed IABv2.2 compatible version and recheck your iab vendors filter, `vendors` key on root.
 - Also make sure to have a `{total_number}` inside your `text-&gt; popup -&gt; purposeTitle ` value.
@@ -188,6 +188,6 @@ startActivity(PCM)
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 26/09/2023 16:31:08</p>
+<p>This documentation was generated on 19/10/2023 08:47:44</p>
 </body>
 </html>

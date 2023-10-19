@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>26/09/2023</em><br />
-Release version : <em>5.5.0</em></p>
+<p>Last update : <em>19/10/2023</em><br />
+Release version : <em>5.5.1</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -57,8 +57,10 @@ Release version : <em>5.5.0</em></p>
 <li><a href="#event-based">Event based</a></li>
 <li><a href="#changes">Changes</a></li>
 <li><a href="#example">Example</a></li>
+<li><a href="#useful-methods">Useful methods</a></li>
 </ul>
 </li>
+<li><a href="#support-and-contacts">Support and contacts</a></li>
 </ul>
 </div>
 <h1 id="introduction">Introduction</h1>
@@ -84,10 +86,12 @@ We also add "value" and "currency" that are generally used by solutions for this
 <p>You should be provided with a document explaining all events you need to implement inside your application and when they should be sent.</p>
 <p>The event and the information we gather independently will create a hit to our servers with a JSON payload.</p>
 <h2 id="event-details">Event details</h2>
-<p>All events and their payloads are detailed here: <a href="https://community.commandersact.com/platform-x/developers/tracking/events-reference">events-reference</a></p>
+<p><img alt="alt tag" src="../res/warning.png" />
+All events and their payloads are detailed here with code examples: <a href="https://doc.commandersact.com/developers/tracking/events-reference">events-reference</a></p>
 <p>You will also find information about what you can add inside the TCUser which is sent with every hit.
 Be aware that some data inside TCUser require consent from the user te be read and used.</p>
-<p>You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
+<p><img alt="alt tag" src="../res/warning.png" />
+You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
 <a href="https://community.commandersact.com/platform-x/developers/tracking/about-events/mobile-sdk-event-specificity">mobile-sdk-event-specificity</a></p>
 <h2 id="executing-an-event">Executing an event</h2>
 <p>When you call the sendData method, a hit will be packaged and sent to Commanders Act's server.</p>
@@ -373,7 +377,7 @@ We have 3 behaviours:</p>
 </code></pre>
 <p>With this, you should be set!</p>
 <h2 id="common-errors">Common errors</h2>
-<div class="warning"></div>
+<p><img alt="alt tag" src="../res/warning.png" /></p>
 <blockquote>
 <ul>
 <li>Make sure you have the latest version.</li>
@@ -446,15 +450,24 @@ items.add(new TCItem("iID1", new TCProduct("pID1", "some product", 1.5f), 1));
 TCPurchaseEvent event = new TCPurchaseEvent("ID", 11.2f, 4.5f, "EUR", "purchase", "creditCard", "waiting", items);
 TCS.execute(event);
 </code></pre>
-<p>And that's it!
-Support and contacts
-====================
-<img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p>And that's it!</p>
+<h2 id="useful-methods">Useful methods</h2>
+<p>You might have been using an ID to identify your user in v4. If you were using TC_IDFA or TC_SDK_ID or TC_NORMALIZED_ID nothing additional to do.</p>
+<p>But if you were using TC_UNIQUEID you can push this ID instead of the new one for either:</p>
+<pre><code>- the consentID which is used to push consent inside the dashboards
+- the user anonymousID which is used the same way as the TCID in the web
+</code></pre>
+<p>we have 2 methods for that, both are in TCPredefinedVariables:</p>
+<pre><code>public void useLegacyUniqueIDForAnonymousID()
+public void useLegacyUniqueIDForConsentID()
+</code></pre>
+<h1 id="support-and-contacts">Support and contacts</h1>
+<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <hr />
 <p><strong>Support</strong>
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 26/09/2023 16:31:08</p>
+<p>This documentation was generated on 19/10/2023 08:47:44</p>
 </body>
 </html>

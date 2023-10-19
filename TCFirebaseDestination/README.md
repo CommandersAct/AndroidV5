@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="firebase-destination-implementation-guide">Firebase Destination Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>26/09/2023</em><br />
+<p>Last update : <em>19/10/2023</em><br />
 Release version : <em>5.0.0</em></p>
 <p><div id="end_first_page" /></p>
 
