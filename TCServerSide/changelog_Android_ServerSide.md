@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.5.2 : 12/08/2023*
+
+	+ Adding consent_version in app payload to help debugging. (Requires Consent 5.2.9+ and Core 5.4.2+)
+
 *5.5.1 : 10/19/2023*
 
 	~ using language and country code from the device and not from the app.

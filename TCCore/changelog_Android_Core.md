@@ -4,6 +4,11 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.4.2 : 12/08/2023*
+
+    - Removed old Segment module related code.
+    + Added constant to push consentVersion in the server-side payload. 
+
 *5.4.1 : 10/19/2023*
 
 	~ translations fix on migrating to iab v2.2.

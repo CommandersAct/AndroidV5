@@ -1,11 +1,22 @@
 Changelog Android
 =================
 
+*5.2.9 : 12/08/2023*
+
+	+ [IAB] Removing the legitimate interest on purposes 3,4,5 and 6 as per IAB request.
+	~ [IAB] fix in illustration button name in JSON. (Still accepting the old name)
+    + Error messages when using a method on a badly initialized TCConsent.
+    + Adding consentVersion in the server-side payload when available. (Requires ServerSide 5.5.2+ and Core 5.4.2+)
+
+*5.2.8 : 11/07/2023*
+
+    ~ prevent consent method from crashing the app before or when bad initialisation.
+
 *5.2.7 : 10/19/2023*
 
-	~ Modified do_not_track parameter as a boolean inside the payload
+    ~ Modified do_not_track parameter as a boolean inside the payload
     - [IAB] Remove missplaced consentOutdated callback when migrating to iabv2.2.
-    + [IAB] Added a function to get the number of IAB vendors
+    + [IAB] Added a function to get the number of IAB vendors.
 
 *5.2.6 : 07/24/2023*
 
