@@ -5,7 +5,7 @@
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
 <p>Last update : <em>08/12/2023</em><br />
-Release version : <em>5.5.1</em></p>
+Release version : <em>5.5.2</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -468,6 +468,6 @@ public void useLegacyUniqueIDForConsentID()
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 08/12/2023 14:41:05</p>
+<p>This documentation was generated on 08/12/2023 14:43:01</p>
 </body>
 </html>

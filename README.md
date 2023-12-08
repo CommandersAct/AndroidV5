@@ -31,8 +31,8 @@ The modules are the following :</p>
 <p>For each of those modules, please check their respective documentation for more information.</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
 <p>Core : <em>5.4.2</em></p>
-<p>ServerSide : <em>5.5.1</em></p>
-<p>Consent : <em>5.2.7</em></p>
+<p>ServerSide : <em>5.5.2</em></p>
+<p>Consent : <em>5.2.9</em></p>
 <p>IAB : <em>5.0.0</em></p>
 <p>Partners : <em>5.0.0</em></p>
 <h1 id="adding-a-module-to-your-project">Adding a module to your project</h1>
@@ -57,7 +57,7 @@ The modules are the following :</p>
 </code></pre>
 <p>And in addition to the core module you can add the other modules you need the same way. See each module's documentation for more specific information.</p>
 <p>For example:</p>
-<pre><code>implementation 'com.tagcommander.lib:ServerSide:5.5.1'
+<pre><code>implementation 'com.tagcommander.lib:ServerSide:5.5.2'
 </code></pre>
 <h2 id="jar-file">Jar file</h2>
 <p>If you'd rather use the jar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -70,8 +70,8 @@ The modules are the following :</p>
 compile fileTree(dir: 'libs', include: '*.jar')
 // Specific files
 compile files('libs/TCCore-release-5.4.2.jar')
-compile files('libs/TCServerSide-release-5.5.1.jar')
-compile files('libs/TCConsent-release-5.2.7.jar')
+compile files('libs/TCServerSide-release-5.5.2.jar')
+compile files('libs/TCConsent-release-5.2.9.jar')
 </code></pre>
 <h2 id="aar-file">Aar file</h2>
 <p>If you'd rather use the aar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -91,8 +91,8 @@ compile files('libs/TCConsent-release-5.2.7.jar')
 </code></pre>
 <p>After you downloaded the modules you need, add them to your libs folder and ask gradle to compile with them.</p>
 <pre><code>compile (name:'TCCore-release-5.4.2', ext:'aar')
-compile (name:'TCServerSide-release-5.5.1', ext:'aar')
-compile (name:'TCConsent-release-5.2.7', ext:'aar')
+compile (name:'TCServerSide-release-5.5.2', ext:'aar')
+compile (name:'TCConsent-release-5.2.9', ext:'aar')
 </code></pre>
 <h1 id="support-and-contacts">Support and contacts</h1>
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
@@ -102,6 +102,6 @@ compile (name:'TCConsent-release-5.2.7', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 08/12/2023 14:41:05</p>
+<p>This documentation was generated on 08/12/2023 14:43:01</p>
 </body>
 </html>
