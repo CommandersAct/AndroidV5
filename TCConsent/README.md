@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>08/12/2023</em><br />
-Release version : <em>5.2.9</em></p>
+<p>Last update : <em>30/01/2024</em><br />
+Release version : <em>5.3.0</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -34,6 +34,7 @@ Release version : <em>5.2.9</em></p>
 <li><a href="#displaying-consent">Displaying consent</a></li>
 <li><a href="#reacting-to-consent">Reacting to consent</a></li>
 <li><a href="#forwarding-consent-to-webviews">Forwarding consent to webViews</a></li>
+<li><a href="#forwarding-consent-to-firebaseanalytics">Forwarding consent to FirebaseAnalytics :</a></li>
 <li><a href="#changing-consent-version">Changing consent version</a></li>
 <li><a href="#consent-internal-api">Consent internal API</a></li>
 <li><a href="#privacy-center">Privacy Center</a><ul>
@@ -228,6 +229,20 @@ We created a function to get the privacy as a JSON string so you can save it ins
 /!\ This function only help to save it to the local storage by giving the required format, you will still need to have JS code in the web container to use it. Please ask your consultant for this part.</p>
 <pre><code>String JSON = TCConsent.getInstance().getConsentAsJson();
 </code></pre>
+<h2 id="forwarding-consent-to-firebaseanalytics">Forwarding consent to FirebaseAnalytics :</h2>
+<p>Now thanks to Google Consent Mode, if you are using our TCFirebaseDestination, you can configure the TCConsent module to forward and set the consent to FirebaseAnalytics once the user has opted-in/out for your mapped categories.</p>
+<p>To do this, please add the following section to the root of your privacy.json : </p>
+<p><code>"google_consent_mode": {
+        "use_consent_mode": true, // boolean value to activate the mapping
+        "infer_ad_from_tcf": false, // boolean value for default IAB mapping
+        "category_mapping": { // Custom categories ID mapping only
+            "ad_storage": 1, 
+            "ad_user_data": 2,
+            "ad_personalization": 3,
+            "analytics_storage": 4
+        }
+    }</code></p>
+<p>If you are using IAB and infer_ad_from_tcf the 3 ad_somthing categories are automatically mapped and thus the categories here are not taken into consideration.</p>
 <h2 id="changing-consent-version">Changing consent version</h2>
 <p>If the case you need to manually change the consent version (if you're using your own privacy center for example), you can use the following:</p>
 <pre><code>TCConsent.getInstance().consentVersion = "132";
@@ -406,6 +421,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 08/12/2023 14:43:01</p>
+<p>This documentation was generated on 30/01/2024 16:50:36</p>
 </body>
 </html>

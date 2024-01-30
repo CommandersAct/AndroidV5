@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="firebase-destination-implementation-guide">Firebase Destination Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>08/12/2023</em><br />
-Release version : <em>5.0.0</em></p>
+<p>Last update : <em>30/01/2024</em><br />
+Release version : <em>5.1.0</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -14,6 +14,7 @@ Release version : <em>5.0.0</em></p>
 <li><a href="#introduction">Introduction :</a></li>
 <li><a href="#setup">Setup :</a></li>
 <li><a href="#usage">Usage :</a></li>
+<li><a href="#google-consent-mode">Google Consent Mode :</a></li>
 </ul>
 </div>
 <h1 id="introduction">Introduction :</h1>
@@ -58,5 +59,7 @@ Once you have your firebase SDK running and your <code>google-services.json</cod
 </tbody>
 </table>
 <p>The predefined variables related to events (such as TCDevice and TCNetwork) aren't included in the Firebase event because they are already being gathered by Firebase SDK.</p>
+<h1 id="google-consent-mode">Google Consent Mode :</h1>
+<p>You can use our TCConsent module to automatically set and collect consents from your users. For further details, please refer to our TCConsent documentation.</p>
 </body>
 </html>

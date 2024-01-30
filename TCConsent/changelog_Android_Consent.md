@@ -1,14 +1,20 @@
 Changelog Android
 =================
 
+*5.3.0 : 01/XX/2024*
+
+    ~ fix rare issue when updating json with consentVersion retaining old value in privacy hits
+    ~ [IAB] When using custom interface with IAB tcfversion would retain the old version
+    + Added Google Consent mode support for FirebaseDestination.
+
 *5.2.9 : 12/08/2023*
 
-	+ [IAB] Removing the legitimate interest on purposes 3,4,5 and 6 as per IAB request.
-	~ [IAB] fix in illustration button name in JSON. (Still accepting the old name)
+    + [IAB] Removing the legitimate interest on purposes 3,4,5 and 6 as per IAB request.
+    ~ [IAB] fix in illustration button name in JSON. (Still accepting the old name)
     + Error messages when using a method on a badly initialized TCConsent.
     + Adding consentVersion in the server-side payload when available. (Requires ServerSide 5.5.2+ and Core 5.4.2+)
 
-*5.2.8 : 11/07/2023*
+*5.2.8 : 12/01/2023*
 
     ~ prevent consent method from crashing the app before or when bad initialisation.
 
