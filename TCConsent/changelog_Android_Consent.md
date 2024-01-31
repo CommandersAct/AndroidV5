@@ -1,7 +1,7 @@
 Changelog Android
 =================
 
-*5.3.0 : 01/XX/2024*
+*5.3.0 : 01/31/2024*
 
     ~ fix rare issue when updating json with consentVersion retaining old value in privacy hits
     ~ [IAB] When using custom interface with IAB tcfversion would retain the old version

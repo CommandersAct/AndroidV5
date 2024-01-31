@@ -1,7 +1,7 @@
 Changelog Android
 =================
 
-*5.1.0 : 11/01/2024*
+*5.1.0 : 01/31/2024*
 
     /!\ Requires TCCore 5.4.3+ / TCConsent 5.3.0+
 	+ Added support for Google Consent Mode.

@@ -4,7 +4,7 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
-*5.4.3 : 01/XX/2024*
+*5.4.3 : 01/31/2024*
 
     + Added consent types for FirebaseDestination Google Consent Mode.
     ~ Fix with CDN configuration loaded everytime

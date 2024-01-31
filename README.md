@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="res/ca_logo.png" /></p>
 <h1 id="developers-implementation-guide">Developers' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>30/01/2024</em><br />
+<p>Last update : <em>31/01/2024</em><br />
 Release version : <em>5</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -102,6 +102,6 @@ compile (name:'TCConsent-release-5.3.0', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 30/01/2024 16:50:36</p>
+<p>This documentation was generated on 31/01/2024 13:44:56</p>
 </body>
 </html>
