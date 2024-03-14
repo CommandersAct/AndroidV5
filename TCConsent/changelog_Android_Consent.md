@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.3.1 : 03/11/2024*
+
+    ~ Fixing PB_ALWAYS_ENABLED on refused consent (Requires TCCore 5.4.4+ & TCServerSide 5.5.3).
+
 *5.3.0 : 01/31/2024*
 
     ~ fix rare issue when updating json with consentVersion retaining old value in privacy hits

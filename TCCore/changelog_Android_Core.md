@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.4.4 : 03/11/2024*
+
+    ~ Fixing PB_ALWAYS_ENABLED on refused consent (Requires TCConsent 5.3.1+ and TCServerSide 5.5.3).
+
 *5.4.3 : 01/31/2024*
 
     + Added consent types for FirebaseDestination Google Consent Mode.
