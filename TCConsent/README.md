@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>14/03/2024</em><br />
-Release version : <em>5.3.1</em></p>
+<p>Last update : <em>22/04/2024</em><br />
+Release version : <em>5.3.2</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -41,6 +41,7 @@ Release version : <em>5.3.1</em></p>
 <li><a href="#change-the-default-state-of-the-switch-button-to-disabled">Change the default state of the switch button to disabled:</a></li>
 <li><a href="#deactivate-the-back-button-to-force-the-consent">Deactivate the back button to force the consent:</a></li>
 <li><a href="#change-activity-title">Change Activity title:</a></li>
+<li><a href="#force-json-update-from-cdn">Force Json update from CDN :</a></li>
 </ul>
 </li>
 <li><a href="#privacy-statistics">Privacy statistics</a></li>
@@ -375,6 +376,13 @@ startActivity(PCM);
 <pre><code>Intent PCM = new Intent(getContext(), com.tagcommander.lib.privacy.TCPrivacyCenter.class);
 PCM.putExtra(kTCIntentExtraCustomTitle, "My custom title");
 </code></pre>
+<h3 id="force-json-update-from-cdn">Force Json update from CDN :</h3>
+<p>Previously we prevented parsing new privacy.json configuration immediatly to avoid re-doing resource-intensive tasks.
+We changed this behaviour since we managed to make this parsing more efficient.
+But it might happen that your configuration is still too big and it freezes the main thread. If so, you can call this method with false.
+This will only save the new privacy.json and only parse it and use it the next time you launch the application.</p>
+<pre><code>TCConsent.getInstance().shouldForceJsonUpdate(false)
+</code></pre>
 <h2 id="privacy-statistics">Privacy statistics</h2>
 <p>We have dashboards that allow to have detailed statistics on the choices your users are making.
 Depending on your app privacy configuration you might have to call some additional functions.</p>
@@ -421,6 +429,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 14/03/2024 14:21:14</p>
+<p>This documentation was generated on 22/04/2024 14:41:56</p>
 </body>
 </html>

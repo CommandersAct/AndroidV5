@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.3.2 : 04/22/2024*
+
+	+ We are now re-parsing automatically new privacy.json when they are downloaded by default. If by chance it causes you a performance issue, you can deactivate it with shouldForceJsonUpdate(false)
+
 *5.3.1 : 03/11/2024*
 
     ~ Fixing PB_ALWAYS_ENABLED on refused consent (Requires TCCore 5.4.4+ & TCServerSide 5.5.3).
