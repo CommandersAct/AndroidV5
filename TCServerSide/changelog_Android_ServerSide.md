@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.5.4 : 05/28/2024*
+
+	~ Small protection against crash when visitDuration is 0.
+
 *5.5.3 : 03/11/2024*
 
     ~ Fixing PB_ALWAYS_ENABLED on refused consent (Requires TCCore 5.4.4+ and TCServerSide 5.5.3).
