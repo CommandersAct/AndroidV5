@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.1.1 : 06/20/2024*
+
+	~ Added developer id to Google Consent Mode. 
+
 *5.1.0 : 01/31/2024*
 
     /!\ Requires TCCore 5.4.3+ / TCConsent 5.3.0+

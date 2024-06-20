@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>28/05/2024</em><br />
+<p>Last update : <em>20/06/2024</em><br />
 Release version : <em>5.3.2</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -394,7 +394,7 @@ Depending on your app privacy configuration you might have to call some addition
 <p>Whenever saveConsent* is called you will need to provide the full list of purposes and vendors that have been consented to and refused.</p>
 <p>We reworked saveConsent methods to only use one. If you are using the old functions they will still work for now.
 Otherwise, please check the above section "Manually displayed consent" for how this method works.</p>
-<p>Also, please note that you will need to call statViewBanner when you display your custom banner.</p>
+<p>/!\ Also, please note that you will need to call <strong>statViewBanner</strong> when you display your custom banner.</p>
 <p><img alt="alt tag" src="../res/TCPC_customBanner.jpeg" />
 <img alt="alt tag" src="../res/TCPC_PC.jpeg" />
 <img alt="alt tag" src="../res/CustomBanner.jpeg" />
@@ -429,6 +429,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 28/05/2024 14:43:10</p>
+<p>This documentation was generated on 20/06/2024 14:49:57</p>
 </body>
 </html>
