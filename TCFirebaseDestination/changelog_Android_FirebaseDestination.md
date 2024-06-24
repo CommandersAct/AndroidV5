@@ -1,7 +1,7 @@
 Changelog Android
 =================
 
-*5.1.1 : 06/20/2024*
+*5.1.1 : 01/31/2024*
 
 	~ Added developer id to Google Consent Mode. 
 

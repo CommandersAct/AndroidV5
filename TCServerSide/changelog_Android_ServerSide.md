@@ -4,7 +4,7 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
-*5.5.5 : 06/20/2024*
+*5.5.5 : 06/18/2024*
 
 	~ Small fix for an internal value NPE.
 
