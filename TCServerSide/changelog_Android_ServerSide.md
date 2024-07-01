@@ -6,7 +6,7 @@ Changelog Android
 
 *5.5.5 : 06/18/2024*
 
-	~ Small fix for an internal value NPE.
+	~ Fix numberSessions NullPointerException in TCPredefinedVariables.
 
 *5.5.4 : 05/28/2024*
 
