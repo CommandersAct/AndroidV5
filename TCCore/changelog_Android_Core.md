@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+*5.4.5 : 07/23/2024*
+
+    ~ Fixing URLDecoder illegal hex characters error when logging events on logcat.
+
 *5.4.4 : 03/11/2024*
 
     ~ Fixing PB_ALWAYS_ENABLED on refused consent (Requires TCConsent 5.3.1+ and TCServerSide 5.5.3).

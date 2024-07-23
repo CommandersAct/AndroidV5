@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.3.3 : XX/XX/2024*
+
+	~ [IAB] Updated possible languages for IAB translation.
+
 *5.3.2 : 04/22/2024*
 
 	+ We are now re-parsing automatically new privacy.json when they are downloaded by default. If by chance it causes you a performance issue, you can deactivate it with shouldForceJsonUpdate(false)
