@@ -4,6 +4,11 @@ Changelog Android
 <div class="warning"></div>
 > If you want to check the previous version's changelog, you can find it here :
 
+
+*5.4.6 : 07/23/2024*
+
+    ~ Fixing occasional consent failure when TCConsent(5.3.3+) is initialized before TCServerSide(5.5.5+)
+
 *5.4.5 : 07/23/2024*
 
     ~ Fixing URLDecoder illegal hex characters error when logging events on logcat.

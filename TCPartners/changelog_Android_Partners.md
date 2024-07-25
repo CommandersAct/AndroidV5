@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.0.1 : 03/28 2022*
+
+	~ internal changes for compatibility with new TCCore library (5.4.5+).
+
 *5.0.0 : 03/28 2022*
 
 	~ Only internal changes to go with all other 5.0.0 modules.

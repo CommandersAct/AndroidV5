@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="res/ca_logo.png" /></p>
 <h1 id="developers-implementation-guide">Developers' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>23/07/2024</em><br />
+<p>Last update : <em>25/07/2024</em><br />
 Release version : <em>5</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -17,6 +17,7 @@ Release version : <em>5</em></p>
 <li><a href="#mavencentral">mavenCentral</a></li>
 <li><a href="#jar-file">Jar file</a></li>
 <li><a href="#aar-file">Aar file</a></li>
+<li><a href="#demo-application">Demo Application</a></li>
 </ul>
 </li>
 <li><a href="#support-and-contacts">Support and contacts</a></li>
@@ -30,11 +31,11 @@ The modules are the following :</p>
 <p><a href="TCConsent/README.md">Consent : Pass the Consent settings to our tag system</a></p>
 <p>For each of those modules, please check their respective documentation for more information.</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
-<p>Core : <em>5.4.5</em></p>
-<p>ServerSide : <em>5.5.5</em></p>
-<p>Consent : <em>5.3.2</em></p>
+<p>Core : <em>5.4.6</em></p>
+<p>ServerSide : <em>5.5.6</em></p>
+<p>Consent : <em>5.3.3</em></p>
 <p>IAB : <em>5.0.0</em></p>
-<p>Partners : <em>5.0.0</em></p>
+<p>Partners : <em>5.0.1</em></p>
 <h1 id="adding-a-module-to-your-project">Adding a module to your project</h1>
 <p>If you want to add a module to your android project, you have several possibilities.</p>
 <pre><code>- Using mavenCentral to manage the dependency.
@@ -53,11 +54,11 @@ The modules are the following :</p>
 }
 </code></pre>
 <p>Then in your application's build.gradle always add the core module:</p>
-<pre><code>implementation 'com.tagcommander.lib:core:5.4.5'
+<pre><code>implementation 'com.tagcommander.lib:core:5.4.6'
 </code></pre>
 <p>And in addition to the core module you can add the other modules you need the same way. See each module's documentation for more specific information.</p>
 <p>For example:</p>
-<pre><code>implementation 'com.tagcommander.lib:ServerSide:5.5.5'
+<pre><code>implementation 'com.tagcommander.lib:ServerSide:5.5.6'
 </code></pre>
 <h2 id="jar-file">Jar file</h2>
 <p>If you'd rather use the jar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -69,9 +70,9 @@ The modules are the following :</p>
 <pre><code>// All the jars.
 compile fileTree(dir: 'libs', include: '*.jar')
 // Specific files
-compile files('libs/TCCore-release-5.4.5.jar')
-compile files('libs/TCServerSide-release-5.5.5.jar')
-compile files('libs/TCConsent-release-5.3.2.jar')
+compile files('libs/TCCore-release-5.4.6.jar')
+compile files('libs/TCServerSide-release-5.5.6.jar')
+compile files('libs/TCConsent-release-5.3.3.jar')
 </code></pre>
 <h2 id="aar-file">Aar file</h2>
 <p>If you'd rather use the aar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -90,18 +91,21 @@ compile files('libs/TCConsent-release-5.3.2.jar')
 }
 </code></pre>
 <p>After you downloaded the modules you need, add them to your libs folder and ask gradle to compile with them.</p>
-<pre><code>compile (name:'TCCore-release-5.4.5', ext:'aar')
-compile (name:'TCServerSide-release-5.5.5', ext:'aar')
-compile (name:'TCConsent-release-5.3.2', ext:'aar')
+<pre><code>compile (name:'TCCore-release-5.4.6', ext:'aar')
+compile (name:'TCServerSide-release-5.5.6', ext:'aar')
+compile (name:'TCConsent-release-5.3.3', ext:'aar')
 </code></pre>
+<h2 id="demo-application">Demo Application</h2>
+<p>You can find a full example of a working app integrating our libraries in the following repo :</p>
+<p>https://github.com/CommandersAct/tcmobiledemo-v5</p>
 <h1 id="support-and-contacts">Support and contacts</h1>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <hr />
 <p><strong>Support</strong>
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 23/07/2024 14:47:47</p>
+<p>This documentation was generated on 25/07/2024 15:54:27</p>
 </body>
 </html>

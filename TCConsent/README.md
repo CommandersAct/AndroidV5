@@ -4,8 +4,8 @@
 <p><img alt="alt tag" src="../res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>23/07/2024</em><br />
-Release version : <em>5.3.2</em></p>
+<p>Last update : <em>25/07/2024</em><br />
+Release version : <em>5.3.3</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -32,7 +32,10 @@ Release version : <em>5.3.2</em></p>
 </ul>
 </li>
 <li><a href="#displaying-consent">Displaying consent</a></li>
-<li><a href="#reacting-to-consent">Reacting to consent</a></li>
+<li><a href="#reacting-to-consent">Reacting to consent</a><ul>
+<li><a href="#resetting-consent">Resetting consent :</a></li>
+</ul>
+</li>
 <li><a href="#forwarding-consent-to-webviews">Forwarding consent to webViews</a></li>
 <li><a href="#forwarding-consent-to-firebaseanalytics">Forwarding consent to FirebaseAnalytics :</a></li>
 <li><a href="#changing-consent-version">Changing consent version</a></li>
@@ -224,6 +227,12 @@ But when this change is adding or removing a category, or changing an ID, we sho
 </code></pre>
 <p>This one is slightly different from the last one, it was created for IAB and will not be sent automatically. It is conditioned by the field "significantChanges" in the privacy.json so that it will only launch when you need it to.</p>
 <p>Please also note that you can listen to starting and stopping the SDK events, you'll need to register your Observer that implements 'TCEventManager.TCLifecycleListener' interface via 'TCEventManager.registerLifecycleListener()' method.</p>
+<h3 id="resetting-consent">Resetting consent :</h3>
+<p>To reset user consent on devices, you can use the following method:</p>
+<pre><code>    TCConsent.getInstance().resetSavedConsent()
+</code></pre>
+<p>Please note that this method resets the consent on the device each time it is called. If you need to handle resets for specific app versions, you will have to manage that manually.</p>
+<p>Alternatively, if you are using our PrivacyCenter, you can use the resetSave field in your privacy.json. For implementation details, please contact your consultant.</p>
 <h2 id="forwarding-consent-to-webviews">Forwarding consent to webViews</h2>
 <p>Some clients need to have the consent forwarded in their webViews to manage a web container inside it.
 We created a function to get the privacy as a JSON string so you can save it inside the webView's local storage.
@@ -429,6 +438,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 23/07/2024 14:47:47</p>
+<p>This documentation was generated on 25/07/2024 15:54:27</p>
 </body>
 </html>
