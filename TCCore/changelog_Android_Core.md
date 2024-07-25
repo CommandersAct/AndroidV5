@@ -5,7 +5,7 @@ Changelog Android
 > If you want to check the previous version's changelog, you can find it here :
 
 
-*5.4.6 : 07/23/2024*
+*5.4.6 : 07/25/2024*
 
     ~ Fixing occasional consent failure when TCConsent(5.3.3+) is initialized before TCServerSide(5.5.5+)
 

@@ -1,7 +1,7 @@
 Changelog Android
 =================
 
-*5.3.3 : 07/24/2024*
+*5.3.3 : 07/25/2024*
 
 	~ [IAB] Updated possible languages for IAB translation.
 	~ Fix bug where previous consent sometimes fails & block hits when TCConsent is initialized first.
