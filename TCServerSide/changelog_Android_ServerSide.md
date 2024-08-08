@@ -4,6 +4,10 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.5.7 : 08/08/2024*
+
+	~ Fix NullPointerException in TCPredefinedVariables.updateVariablesForNewSession().
+
 *5.5.6 : 06/25/2024*
 
     ~ Fixing occasional consent failure when TCConsent(5.3.3+) is initialized before TCServerSide(5.5.5+)
