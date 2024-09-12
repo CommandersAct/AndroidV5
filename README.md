@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="res/ca_logo.png" /></p>
 <h1 id="developers-implementation-guide">Developers' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>08/08/2024</em><br />
+<p>Last update : <em>12/09/2024</em><br />
 Release version : <em>5</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -33,7 +33,7 @@ The modules are the following :</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
 <p>Core : <em>5.4.6</em></p>
 <p>ServerSide : <em>5.5.7</em></p>
-<p>Consent : <em>5.3.3</em></p>
+<p>Consent : <em>5.3.4</em></p>
 <p>IAB : <em>5.0.0</em></p>
 <p>Partners : <em>5.0.1</em></p>
 <h1 id="adding-a-module-to-your-project">Adding a module to your project</h1>
@@ -72,7 +72,7 @@ compile fileTree(dir: 'libs', include: '*.jar')
 // Specific files
 compile files('libs/TCCore-release-5.4.6.jar')
 compile files('libs/TCServerSide-release-5.5.7.jar')
-compile files('libs/TCConsent-release-5.3.3.jar')
+compile files('libs/TCConsent-release-5.3.4.jar')
 </code></pre>
 <h2 id="aar-file">Aar file</h2>
 <p>If you'd rather use the aar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -93,7 +93,7 @@ compile files('libs/TCConsent-release-5.3.3.jar')
 <p>After you downloaded the modules you need, add them to your libs folder and ask gradle to compile with them.</p>
 <pre><code>compile (name:'TCCore-release-5.4.6', ext:'aar')
 compile (name:'TCServerSide-release-5.5.7', ext:'aar')
-compile (name:'TCConsent-release-5.3.3', ext:'aar')
+compile (name:'TCConsent-release-5.3.4', ext:'aar')
 </code></pre>
 <h2 id="demo-application">Demo Application</h2>
 <p>You can find a full example of a working app integrating our libraries in the following repo :</p>
@@ -106,6 +106,6 @@ compile (name:'TCConsent-release-5.3.3', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 08/08/2024 15:15:16</p>
+<p>This documentation was generated on 12/09/2024 10:56:44</p>
 </body>
 </html>

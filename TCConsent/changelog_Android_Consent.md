@@ -1,6 +1,14 @@
 Changelog Android
 =================
 
+
+*5.3.4 : 09/12/2024*
+
+	~ fix Concurrent crash on iab vendors parsing when poàlicySpecification is upgraded.
+	+ added iab2.2 datacategories description on Privacy center UI.
+	+ Upgaded iab tcfPolicyVersion to 5.
+
+
 *5.3.3 : 07/25/2024*
 
 	~ [IAB] Updated possible languages for IAB translation.
