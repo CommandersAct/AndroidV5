@@ -5,6 +5,13 @@ Changelog Android
 > If you want to check the previous version's changelog, you can find it here :
 
 
+*5.4.7 : 11/13/2024*
+
+	~ Fixing small memory leak
+	~ Small refactoring in lib
+	~ upgrading target version to api 35
+
+
 *5.4.6 : 07/25/2024*
 
     ~ Fixing occasional consent failure when TCConsent(5.3.3+) is initialized before TCServerSide(5.5.5+)

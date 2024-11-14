@@ -1,6 +1,11 @@
 Changelog Android
 =================
 
+*5.0.1* : 11/13/2024*
+
+	~ upgrading target version to api 35
+
+
 *5.0.0 : 03/28 2022*
 
 	~ Small refactorings to be up to date with the other changes from ServerSide, Core and Consent.

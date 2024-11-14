@@ -1,6 +1,12 @@
 Changelog Android
 =================
 
+
+*5.1.2 : 13/11/2024*
+
+	~ upgrading target version to api 35
+
+
 *5.1.1 : 01/31/2024*
 
 	~ Added developer id to Google Consent Mode. 

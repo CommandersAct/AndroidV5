@@ -4,6 +4,12 @@ Changelog Android
 <div class="warning"></div>
 >  If you want to check the previous version's changelog, you can find it here :
 
+*5.5.8 : 11/13/2024*
+
+	~ changing the library used for getting android ID from androidx.ads to play-services-ads
+	~ upgrading target version to api 35
+
+
 *5.5.7 : 08/08/2024*
 
 	~ Fix NullPointerException in TCPredefinedVariables.updateVariablesForNewSession().

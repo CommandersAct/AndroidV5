@@ -1,10 +1,16 @@
 Changelog Android
 =================
 
+*5.3.5 : 11/13/2024*
+
+	~ Fixing small memory leak
+	~ Fix privacy center layout on new edge-to-edge layout for android 15.
+	~ upgrading target version to api 35
+
 
 *5.3.4 : 09/12/2024*
 
-	~ fix Concurrent crash on iab vendors parsing when poàlicySpecification is upgraded.
+	~ fix Concurrent crash on iab vendors parsing when policySpecification is upgraded.
 	+ added iab2.2 datacategories description on Privacy center UI.
 	+ Upgaded iab tcfPolicyVersion to 5.
 
