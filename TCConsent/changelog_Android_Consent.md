@@ -1,6 +1,17 @@
 Changelog Android
 =================
 
+*5.3.6 : 03/10/2025*
+
+	~ Fixing firebase consent on privacyBeacon payload when consent is accepted.
+	~ Updating firebase-analytics dependency to 22.1.2.
+	+ Display vendors count for every category on Privacy Center.
+    ~ Fixing many small lint warnings.
+	~ internal code enhancements for consent language.
+    ~ Fixing significantChanges not resetting shouldDisplayPrivacyCenter when no call back are registred. 
+	~ Fixing shouldForceJsonUpdate bug for offline jsons.
+
+
 *5.3.5 : 11/13/2024*
 
 	~ Fixing small memory leak
@@ -21,13 +32,16 @@ Changelog Android
 	~ Fix bug where previous consent sometimes fails & block hits when TCConsent is initialized first.
 	~ Fix bug on resetSaveConsent.
 
+
 *5.3.2 : 04/22/2024*
 
 	+ We are now re-parsing automatically new privacy.json when they are downloaded by default. If by chance it causes you a performance issue, you can deactivate it with shouldForceJsonUpdate(false)
 
+
 *5.3.1 : 03/11/2024*
 
     ~ Fixing PB_ALWAYS_ENABLED on refused consent (Requires TCCore 5.4.4+ & TCServerSide 5.5.3).
+
 
 *5.3.0 : 01/31/2024*
 
@@ -35,12 +49,14 @@ Changelog Android
     ~ [IAB] When using custom interface with IAB tcfversion would retain the old version
     + Added Google Consent mode support for FirebaseDestination.
 
+
 *5.2.9 : 12/08/2023*
 
     + [IAB] Removing the legitimate interest on purposes 3,4,5 and 6 as per IAB request.
     ~ [IAB] fix in illustration button name in JSON. (Still accepting the old name)
     + Error messages when using a method on a badly initialized TCConsent.
     + Adding consentVersion in the server-side payload when available. (Requires ServerSide 5.5.2+ and Core 5.4.2+)
+
 
 *5.2.8 : 12/01/2023*
 
