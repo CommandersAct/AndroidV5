@@ -1,7 +1,7 @@
 Changelog Android
 =================
 
-*5.3.7 : XX/XX/2025*
+*5.3.7 : 07/03/2025*
 
 	+ Google Additional Consent (ACString) V2 support.
 
