@@ -5,7 +5,7 @@
 <h1 id="firebase-destination-implementation-guide">Firebase Destination Implementation Guide</h1>
 <p><strong>Android</strong></p>
 <p>Last update : <em>03/07/2025</em><br />
-Release version : <em>5.1.2</em></p>
+Release version : <em>5.1.3</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">

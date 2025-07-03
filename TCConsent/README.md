@@ -438,6 +438,6 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 03/07/2025 14:36:47</p>
+<p>This documentation was generated on 03/07/2025 15:40:58</p>
 </body>
 </html>

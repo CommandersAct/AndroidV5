@@ -2,14 +2,13 @@ Changelog Android
 =================
 
 
-*5.1.2 : 06/19/2025*
+*5.1.3 : 03/07/2025*
 
 	~ Updated mapping for FirebaseAnalytics.
 
 *5.1.2 : 13/11/2024*
 
 	~ upgrading target version to api 35
-
 
 *5.1.1 : 01/31/2024*
 

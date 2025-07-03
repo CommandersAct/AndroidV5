@@ -36,7 +36,7 @@ The modules are the following :</p>
 <p>Consent : <em>5.3.7</em></p>
 <p>IAB : <em>5.0.2</em></p>
 <p>Partners : <em>5.0.1</em></p>
-<p>FirebaseDestination : <em>5.1.2</em></p>
+<p>FirebaseDestination : <em>5.1.3</em></p>
 <h1 id="adding-a-module-to-your-project">Adding a module to your project</h1>
 <p>If you want to add a module to your android project, you have several possibilities.</p>
 <pre><code>- Using mavenCentral to manage the dependency.
@@ -107,6 +107,6 @@ compile (name:'TCConsent-release-5.3.7', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 03/07/2025 14:36:47</p>
+<p>This documentation was generated on 03/07/2025 15:40:58</p>
 </body>
 </html>
