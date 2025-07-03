@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.0.2 : XX/XX/2025*
+
+	+ Google Additional Consent (ACString) V2 support.
+
 *5.0.1* : 11/13/2024*
 
 	~ upgrading target version to api 35

@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.3.7 : XX/XX/2025*
+
+	+ Google Additional Consent (ACString) V2 support.
+
 *5.3.6 : 03/10/2025*
 
 	~ Fixing firebase consent on privacyBeacon payload when consent is accepted.

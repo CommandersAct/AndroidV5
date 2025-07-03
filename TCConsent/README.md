@@ -1,11 +1,11 @@
 
 <html>
 <body>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <h1 id="consents-implementation-guide">Consent's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>10/03/2025</em><br />
-Release version : <em>5.3.6</em></p>
+<p>Last update : <em>03/07/2025</em><br />
+Release version : <em>5.3.7</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -80,7 +80,7 @@ Release version : <em>5.3.6</em></p>
 - Using our Privacy Center for simple Consent solution
 </code></pre>
 <p>If you're unsure of which one you should use, please contact the person in charge of your account.</p>
-<p><a href="../TCIAB/README.md">To use IAB V2 please see here</a></p>
+<p><a href="./TCIAB/README.md">To use IAB V2 please see here</a></p>
 <h2 id="setup">Setup</h2>
 <p>/!\ If you are using our interface, you need to have a version of privacy.json inside your project. This will prevent any issues with users with bad or no internet at all. If you are using IAB please also take vendor-list.json and the translation file purposes-fr.json.
 If you are not using our interface, you can't use our privacy.json, if you want a way to use a configuration file, please ask your dev team to manage this file.</p>
@@ -404,10 +404,10 @@ Depending on your app privacy configuration you might have to call some addition
 <p>We reworked saveConsent methods to only use one. If you are using the old functions they will still work for now.
 Otherwise, please check the above section "Manually displayed consent" for how this method works.</p>
 <p>/!\ Also, please note that you will need to call <strong>statViewBanner</strong> when you display your custom banner.</p>
-<p><img alt="alt tag" src="../res/TCPC_customBanner.jpeg" />
-<img alt="alt tag" src="../res/TCPC_PC.jpeg" />
-<img alt="alt tag" src="../res/CustomBanner.jpeg" />
-<img alt="alt tag" src="../res/CustomPC.jpeg" /></p>
+<p><img alt="alt tag" src="./res/TCPC_customBanner.jpeg" />
+<img alt="alt tag" src="./res/TCPC_PC.jpeg" />
+<img alt="alt tag" src="./res/CustomBanner.jpeg" />
+<img alt="alt tag" src="./res/CustomPC.jpeg" /></p>
 <p>Copy/paste-able list of functions for our interfaces:</p>
 <pre><code>    TCConsent.getInstance().refuseAllConsent();
     TCConsent.getInstance().acceptAllConsent();
@@ -431,13 +431,13 @@ Otherwise, please check the above section "Manually displayed consent" for how t
 <p>You can, of course, check our demo project for a simple implementation example.</p>
 <p><a href="https://github.com/CommandersAct/TCMobileDemo-V5/tree/master/Android/ServerSide_And_Consent">TCDemo_ServerSide_And_Consent</a></p>
 <h1 id="support-and-contacts">Support and contacts</h1>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <hr />
 <p><strong>Support</strong>
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 10/03/2025 15:41:21</p>
+<p>This documentation was generated on 03/07/2025 14:36:47</p>
 </body>
 </html>

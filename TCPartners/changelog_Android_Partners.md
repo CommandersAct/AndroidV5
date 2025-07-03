@@ -1,15 +1,15 @@
 Changelog Android
 =================
 
-*5.0.1 : 07/25 2024*
+*5.0.1 : 07/25/2024*
 
 	~ internal changes for compatibility with new TCCore library (5.4.5+).
 
-*5.0.0 : 03/28 2022*
+*5.0.0 : 03/28/2022*
 
 	~ Only internal changes to go with all other 5.0.0 modules.
 
-*4.6.0 : 11/23 2021*
+*4.6.0 : 11/23/2021*
 
 	~ Updated the full library for AndroidX
 	- Removing all LocalBroadcasts

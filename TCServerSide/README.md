@@ -1,10 +1,10 @@
 
 <html>
 <body>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>10/03/2025</em><br />
+<p>Last update : <em>03/07/2025</em><br />
 Release version : <em>5.5.8</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -88,17 +88,17 @@ We also add "value" and "currency" that are generally used by solutions for this
 <h2 id="commanders-acts-tcevent-payloads-data">Commanders Act's TCEvent payloads Data</h2>
 <p>Our TCEvents payloads consist of various sections organized within a JSON payload sent to our CommandersAct servers once you call the <code>execute</code> function.
 Each section has its specific behaviour. Refer to the provided scheme for insights into each section, guidance on manipulation, changing values, and understanding intended behavior.</p>
-<p><img alt="alt tag" src="../res/TCEvent.png" /></p>
-<p><img alt="alt tag" src="../res/warning.png" />
+<p><img alt="alt tag" src="./res/TCEvent.png" /></p>
+<p><img alt="alt tag" src="./res/warning.png" />
 All events and their payloads are detailed here with code examples: <a href="https://doc.commandersact.com/developers/tracking/events-reference">events-reference</a></p>
 <p>You will also find information about what you can add inside the TCUser which is sent with every hit.
 Be aware that some data inside TCUser require consent from the user te be read and used.</p>
-<p><img alt="alt tag" src="../res/warning.png" />
+<p><img alt="alt tag" src="./res/warning.png" />
 You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
 <a href="https://community.commandersact.com/platform-x/developers/tracking/about-events/mobile-sdk-event-specificity">mobile-sdk-event-specificity</a></p>
 <h2 id="executing-an-event">Executing an event</h2>
 <p>When you call the sendData method, a hit will be packaged and sent to Commanders Act's server.</p>
-<p><img alt="alt tag" src="../res/server_side_module_scheme.png" /></p>
+<p><img alt="alt tag" src="./res/server_side_module_scheme.png" /></p>
 <h1 id="serversides-module-integration">ServerSide's module integration</h1>
 <h2 id="steps">Steps</h2>
 <p>You can divide the integration of TagCommander's ServerSide module into the next few steps:</p>
@@ -108,7 +108,7 @@ You can also check this page to see the link between the event names and the SDK
 <li>Verify that all tags are being sent.</li>
 </ol>
 <h2 id="integration-of-the-serverside-module">Integration of the ServerSide Module</h2>
-<p><a href="../README.md">Please check the Developers Implementation Guide to chose the best way to implement this module in your project.</a></p>
+<p><a href="./README.md">Please check the Developers Implementation Guide to chose the best way to implement this module in your project.</a></p>
 <h2 id="gradle-additions">Gradle additions</h2>
 <p>You might need to add some dependencies in your build.gradle file for the ServerSide's module to work properly.</p>
 <pre><code>implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -257,7 +257,7 @@ We have 3 behaviours:</p>
 - PB_ALWAYS_ENABLED which forces the ServerSide's module to always send information. This is used when you have tags that don't require consent.
 - PB_DISABLED_BY_DEFAULT which forces the ServerSide's module to disabled. It won't record hits before consent is given and you won't have any up by default time when using tagging the app loading screens. This is used when you're not using our Consent module.
 </code></pre>
-<p>Consent will then be forwarded inside the TCUser. For more information, please check documentation about the <a href="../TCConsent/README.md">Consent module</a>. </p>
+<p>Consent will then be forwarded inside the TCUser. For more information, please check documentation about the <a href="./TCConsent/README.md">Consent module</a>. </p>
 <p>To initialise the ServerSide's module with another behaviour, please call the following function:</p>
 <pre><code>TCS = new TCServerSide(siteID, sourceKey, appContext, ETCConsentBehaviour.PB_DEFAULT_BEHAVIOUR);
 </code></pre>
@@ -380,7 +380,7 @@ We have 3 behaviours:</p>
 </code></pre>
 <p>With this, you should be set!</p>
 <h2 id="common-errors">Common errors</h2>
-<p><img alt="alt tag" src="../res/warning.png" /></p>
+<p><img alt="alt tag" src="./res/warning.png" /></p>
 <blockquote>
 <ul>
 <li>Make sure you have the latest version.</li>
@@ -465,12 +465,12 @@ TCS.execute(event);
 public void useLegacyUniqueIDForConsentID()
 </code></pre>
 <h1 id="support-and-contacts">Support and contacts</h1>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <hr />
 <p><strong>Support</strong>
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 10/03/2025 15:41:21</p>
+<p>This documentation was generated on 03/07/2025 14:36:47</p>
 </body>
 </html>

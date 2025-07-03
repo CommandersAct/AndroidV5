@@ -1,10 +1,10 @@
 
 <html>
 <body>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <h1 id="firebase-destination-implementation-guide">Firebase Destination Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>10/03/2025</em><br />
+<p>Last update : <em>03/07/2025</em><br />
 Release version : <em>5.1.2</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -13,7 +13,10 @@ Release version : <em>5.1.2</em></p>
 <li><a href="#firebase-destination-implementation-guide">Firebase Destination Implementation Guide</a></li>
 <li><a href="#introduction">Introduction :</a></li>
 <li><a href="#setup">Setup :</a></li>
-<li><a href="#usage">Usage :</a></li>
+<li><a href="#usage">Usage :</a><ul>
+<li><a href="#supported-firebase-event">Supported Firebase Event</a></li>
+</ul>
+</li>
 <li><a href="#google-consent-mode">Google Consent Mode :</a></li>
 </ul>
 </div>
@@ -29,9 +32,40 @@ Once you have your firebase SDK running and your <code>google-services.json</cod
 <p><code>FirebaseAnalytics.setUserProperty("favorite_food", food)</code></p>
 <p>You'll need to initialise the module with your application context :</p>
 <p><code>TCFirebase.getInstance().initialize(appContext)</code></p>
-<p>Once done, every time you execute a TCEvent, it will be remapped and sent to google.</p>
-<p>All of the TCEvents properties will be re-mapped into a Firebase event holding your executed TCEvent name.</p>
-<p>For TCEcommerce events (TCAddToCartEvent, ...etc), we use the following mapping :</p>
+<h2 id="supported-firebase-event">Supported Firebase Event</h2>
+<p>We highly recommend only using TCCustomEvent when forwarding events to firebase. 
+Make sure your events are compatible with firebase specifications to prevent any errors.</p>
+<p>code example in kotlin : </p>
+<p>```      <br />
+        val item1 = JSONObject().apply {
+            put("item_id",      "1234")
+            put("item_name",    "XWU-1")
+            put("item_category","football")
+            put("item_variant", "blue")
+        }</p>
+<pre><code>    val item2 = JSONObject().apply {
+        put(Param.ITEM_ID,   "5678")   // Firebase constants still work
+        put(Param.ITEM_NAME, "ZPA-13")
+        put("item_category",            "basketball")
+        put("item_variant",             "orange")
+    }
+
+    val items: MutableList&lt;JSONObject&gt; = mutableListOf(item1, item2)
+
+    val addToCartEvent = TCCustomEvent("add_to_cart").apply {
+        addAdditionalProperty("currency", "USD")
+        addAdditionalProperty("value",   30)          
+        addAdditionalProperty("items",   items)      
+        addAdditionalProperty("item_variant", "1234")
+        addAdditionalProperty("price", 1234)       
+    }
+
+    tc?.execute(addToCartEvent)
+</code></pre>
+<p>```</p>
+<p>Specs and requirements differ between TCEvents and Firebase Events, if you still want to use our TCEvents, you'll need to make sure that your TCEvents match Firebase recommendations too (required, allowed and non authorized parameters)
+Events will be mapped like the following, and the TCServerSide will try and log the event to firebase.
+You'll also need to configure every new parameter in your firebase console</p>
 <table>
 <thead>
 <tr>
@@ -46,7 +80,7 @@ Once you have your firebase SDK running and your <code>google-services.json</cod
 </tr>
 <tr>
 <td>event.items[i].X</td>
-<td>event.items[i].tc_item_X</td>
+<td>event.items[i].X</td>
 </tr>
 <tr>
 <td>event.items[i].product.name</td>

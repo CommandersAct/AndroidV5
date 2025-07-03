@@ -1,11 +1,11 @@
 
 <html>
 <body>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <h1 id="tciabs-implementation-guide">TCIAB's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>10/03/2025</em><br />
-Release version : <em>5.0.1</em></p>
+<p>Last update : <em>03/07/2025</em><br />
+Release version : <em>5.0.2</em></p>
 <p><div id="end_first_page" /></p>
 
 <div class="toc">
@@ -62,7 +62,7 @@ All of those configurations will update automatically but having an offline vers
 </code></pre>
 <p>```</p>
 <h1 id="iab-22">IAB 2.2</h1>
-<p>We support IAB 2.2, the following steps are required once you decide to upgrade your TCConsent to a IABv2.2 compatible version, wich is TCConsent:5.3.6+  or higher.</p>
+<p>We support IAB 2.2, the following steps are required once you decide to upgrade your TCConsent to a IABv2.2 compatible version, wich is TCConsent:5.3.7+  or higher.</p>
 <pre><code>- Please update all of your offline in-app jsons to a V2.2 compatible version, this includes your offline vendor-list.json &amp; any purposes-xx.json translation file you're using.
 - Update your privacy.json offline &amp; cdn file with a refreshed IABv2.2 compatible version and recheck your iab vendors filter, `vendors` key on root.
 - Also make sure to have a `{total_number}` inside your `text-&gt; popup -&gt; purposeTitle ` value.
@@ -147,9 +147,9 @@ TCConsent.getInstance().setLanguage("fr");
 <p>You can use classic Tag Management with IAB if needed. Doing this is really simple as all saved information used for IAB configuration will be forwarded to each server-side call.
 This mean that you can use any IAB purpose as a category and create rules in your container accordingly.</p>
 <h2 id="retaining-consent">Retaining consent</h2>
-<p><a href="../TCConsent#retaining-consent">Please see the specific documentation here</a></p>
+<p><a href="./TCConsent#retaining-consent">Please see the specific documentation here</a></p>
 <h2 id="reacting-to-consent">Reacting to consent</h2>
-<p><a href="../TCConsent#reacting-to-consent">Please see the specific documentation here</a></p>
+<p><a href="./TCConsent#reacting-to-consent">Please see the specific documentation here</a></p>
 <h2 id="generating-publisher-tc-in-consent-string">Generating publisher TC in consent String</h2>
 <p>By default, as some clients asked, the publisher TC part of the consent string is not generated.
 But you have a boolean in TCConsent/TCMobilePrivacy which is named generatePublisherTC that you can change to true.</p>
@@ -181,13 +181,13 @@ startActivity(PCM)
     )
 </code></pre>
 <h1 id="support-and-contacts">Support and contacts</h1>
-<p><img alt="alt tag" src="../res/ca_logo.png" /></p>
+<p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <hr />
 <p><strong>Support</strong>
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 10/03/2025 15:41:21</p>
+<p>This documentation was generated on 03/07/2025 14:36:47</p>
 </body>
 </html>
