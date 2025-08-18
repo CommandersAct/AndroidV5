@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="res/ca_logo.png" /></p>
 <h1 id="developers-implementation-guide">Developers' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>03/07/2025</em><br />
+<p>Last update : <em>18/08/2025</em><br />
 Release version : <em>5</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -31,10 +31,10 @@ The modules are the following :</p>
 <p><a href="TCConsent/README.md">Consent : Pass the Consent settings to our tag system</a></p>
 <p>For each of those modules, please check their respective documentation for more information.</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
-<p>Core : <em>5.4.7</em></p>
+<p>Core : <em>5.4.8</em></p>
 <p>ServerSide : <em>5.5.8</em></p>
-<p>Consent : <em>5.3.7</em></p>
-<p>IAB : <em>5.0.2</em></p>
+<p>Consent : <em>5.3.8</em></p>
+<p>IAB : <em>5.1.0</em></p>
 <p>Partners : <em>5.0.1</em></p>
 <p>FirebaseDestination : <em>5.1.3</em></p>
 <h1 id="adding-a-module-to-your-project">Adding a module to your project</h1>
@@ -55,7 +55,7 @@ The modules are the following :</p>
 }
 </code></pre>
 <p>Then in your application's build.gradle always add the core module:</p>
-<pre><code>implementation 'com.tagcommander.lib:core:5.4.7'
+<pre><code>implementation 'com.tagcommander.lib:core:5.4.8'
 </code></pre>
 <p>And in addition to the core module you can add the other modules you need the same way. See each module's documentation for more specific information.</p>
 <p>For example:</p>
@@ -71,9 +71,9 @@ The modules are the following :</p>
 <pre><code>// All the jars.
 compile fileTree(dir: 'libs', include: '*.jar')
 // Specific files
-compile files('libs/TCCore-release-5.4.7.jar')
+compile files('libs/TCCore-release-5.4.8.jar')
 compile files('libs/TCServerSide-release-5.5.8.jar')
-compile files('libs/TCConsent-release-5.3.7.jar')
+compile files('libs/TCConsent-release-5.3.8.jar')
 </code></pre>
 <h2 id="aar-file">Aar file</h2>
 <p>If you'd rather use the aar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -92,9 +92,9 @@ compile files('libs/TCConsent-release-5.3.7.jar')
 }
 </code></pre>
 <p>After you downloaded the modules you need, add them to your libs folder and ask gradle to compile with them.</p>
-<pre><code>compile (name:'TCCore-release-5.4.7', ext:'aar')
+<pre><code>compile (name:'TCCore-release-5.4.8', ext:'aar')
 compile (name:'TCServerSide-release-5.5.8', ext:'aar')
-compile (name:'TCConsent-release-5.3.7', ext:'aar')
+compile (name:'TCConsent-release-5.3.8', ext:'aar')
 </code></pre>
 <h2 id="demo-application">Demo Application</h2>
 <p>You can find a full example of a working app integrating our libraries in the following repo :</p>
@@ -107,6 +107,6 @@ compile (name:'TCConsent-release-5.3.7', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 03/07/2025 15:40:58</p>
+<p>This documentation was generated on 18/08/2025 15:24:05</p>
 </body>
 </html>

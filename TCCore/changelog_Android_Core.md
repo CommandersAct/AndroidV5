@@ -1,9 +1,9 @@
 Changelog Android
 =================
 
-<div class="warning"></div>
-> If you want to check the previous version's changelog, you can find it here :
+*5.4.8 : 08/18/2025*
 
+    ~ Enhance hits metadata, adding right Http content-type headers. 
 
 *5.4.7 : 11/13/2024*
 

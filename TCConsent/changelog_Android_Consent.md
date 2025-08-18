@@ -1,7 +1,12 @@
 Changelog Android
 =================
 
-*5.3.7 : XX/XX/2025*
+*5.3.8 : 08/18/2025*
+
+ 	~ /!\ Requires TCIAB 5.1.0+
+	+ TCF IAB v2.3 support.
+
+*5.3.7 : 06/04/2025*
 
 	+ Google Additional Consent (ACString) V2 support.
 

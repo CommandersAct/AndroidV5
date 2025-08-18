@@ -1,7 +1,6 @@
 Changelog Android
 =================
 
-
 *5.1.3 : 03/07/2025*
 
 	~ Updated mapping for FirebaseAnalytics.
