@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.1.4 : 09/01/2025*
+
+    ~ Binaries dependencies leak fix. 
+	
 *5.1.3 : 03/07/2025*
 
 	~ Updated mapping for FirebaseAnalytics.

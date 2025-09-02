@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.4.9 : 09/01/2025*
+
+    ~ Binaries dependencies leak fix. 
+
 *5.4.8 : 08/18/2025*
 
     ~ Enhance hits metadata, adding right Http content-type headers. 

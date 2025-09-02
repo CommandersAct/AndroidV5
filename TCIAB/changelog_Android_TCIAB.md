@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.1.1 : 09/01/2025*
+
+    ~ Binaries dependencies leak fix. 
+
 *5.1.0 : 08/18/2025*
 
 	~ /!\ Requires TCConsent 5.3.8+

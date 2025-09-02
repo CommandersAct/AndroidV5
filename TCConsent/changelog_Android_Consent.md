@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.3.9 : 09/01/2025*
+
+    ~ Binaries dependencies leak fix. 
+
 *5.3.8 : 08/18/2025*
 
  	~ /!\ Requires TCIAB 5.1.0+
