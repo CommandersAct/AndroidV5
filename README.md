@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="res/ca_logo.png" /></p>
 <h1 id="developers-implementation-guide">Developers' Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>01/09/2025</em><br />
+<p>Last update : <em>22/10/2025</em><br />
 Release version : <em>5</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -33,7 +33,7 @@ The modules are the following :</p>
 <h1 id="latest-available-versions">Latest available versions</h1>
 <p>Core : <em>5.4.9</em></p>
 <p>ServerSide : <em>5.5.8</em></p>
-<p>Consent : <em>5.3.9</em></p>
+<p>Consent : <em>5.3.10</em></p>
 <p>IAB : <em>5.1.1</em></p>
 <p>Partners : <em>5.0.1</em></p>
 <p>FirebaseDestination : <em>5.1.4</em></p>
@@ -73,7 +73,7 @@ compile fileTree(dir: 'libs', include: '*.jar')
 // Specific files
 compile files('libs/TCCore-release-5.4.9.jar')
 compile files('libs/TCServerSide-release-5.5.8.jar')
-compile files('libs/TCConsent-release-5.3.9.jar')
+compile files('libs/TCConsent-release-5.3.10.jar')
 </code></pre>
 <h2 id="aar-file">Aar file</h2>
 <p>If you'd rather use the aar files directly in your project, you can get them from our github account: https://github.com/CommandersAct/AndroidV5</p>
@@ -94,7 +94,7 @@ compile files('libs/TCConsent-release-5.3.9.jar')
 <p>After you downloaded the modules you need, add them to your libs folder and ask gradle to compile with them.</p>
 <pre><code>compile (name:'TCCore-release-5.4.9', ext:'aar')
 compile (name:'TCServerSide-release-5.5.8', ext:'aar')
-compile (name:'TCConsent-release-5.3.9', ext:'aar')
+compile (name:'TCConsent-release-5.3.10', ext:'aar')
 </code></pre>
 <h2 id="demo-application">Demo Application</h2>
 <p>You can find a full example of a working app integrating our libraries in the following repo :</p>
@@ -107,6 +107,6 @@ compile (name:'TCConsent-release-5.3.9', ext:'aar')
 <p>http://www.commandersact.com</p>
 <p>Commanders Act | 7b rue taylor - 75010 PARIS - France</p>
 <hr />
-<p>This documentation was generated on 01/09/2025 15:59:34</p>
+<p>This documentation was generated on 22/10/2025 13:26:52</p>
 </body>
 </html>

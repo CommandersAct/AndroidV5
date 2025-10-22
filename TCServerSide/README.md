@@ -4,7 +4,7 @@
 <p><img alt="alt tag" src="./res/ca_logo.png" /></p>
 <h1 id="serversides-implementation-guide">ServerSide's Implementation Guide</h1>
 <p><strong>Android</strong></p>
-<p>Last update : <em>01/09/2025</em><br />
+<p>Last update : <em>22/10/2025</em><br />
 Release version : <em>5.5.8</em></p>
 <p><div id="end_first_page" /></p>
 
@@ -471,6 +471,6 @@ public void useLegacyUniqueIDForConsentID()
 <em>support@commandersact.com</em></p>
 <p>http://www.commandersact.com</p>
 <hr />
-<p>This documentation was generated on 01/09/2025 15:59:34</p>
+<p>This documentation was generated on 22/10/2025 13:26:52</p>
 </body>
 </html>

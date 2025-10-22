@@ -1,6 +1,10 @@
 Changelog Android
 =================
 
+*5.3.10 : 10/22/2025*
+
+    ~ Privacy Center adjusted label layout for smaller screens. 
+
 *5.3.9 : 09/01/2025*
 
     ~ Binaries dependencies leak fix. 
