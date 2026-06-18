@@ -1,0 +1,194 @@
+{
+	"information": {
+		"update": "2021-08-01",
+		"version": "1",
+		"vendors": "8,241",
+		"google_vendors" : "323,389,385,424",
+		"consentDurationInMonths": 6,
+		"significantChanges": "",
+		"resetSave": ""
+	},
+	"customisation": {
+		"content": {
+			"fontcolor": "#000000",
+			"backgroundcolor": "#ffffff",
+			"bordercolor": "#806423"
+		},
+		"button": {
+			"fontcolor": "#ffffff",
+			"backgroundcolor": "#4287f5",
+			"disabledBackground": "#E1E1E1",
+			"linkcolor": "#0907F7"
+		},
+		"order": ["Custom", "IAB"]
+	},
+	"texts": {
+		"generic": {
+			"saveButton": "Save & Exit",
+			"detailButton": "Details",
+			"acceptAllButton": "Accept All",
+			"refuseAllButton": "Refuse All",
+			"vendorButton": "Vendors",
+			"purposeButton": "Purposes",
+			"legalButton": "Legals",
+			"backButton": "Back",
+			"purposeDef": "Purposes",
+			"consentDef": "Consent",
+			"partnersLinkText": "our partners",
+			"relatedVendorsButton": "related Vendors"
+		},
+		"purposes": {
+			"title": "Find out more about how your personal data is processed and set your preferences below.",
+			"content": "You can set your consent preferences and determine how you want your data to be used based on the purposes below. You may set your preferences for us independently from those of third-party partners. Each purpose has a description so that you know how we and partners use your data.",
+            "privacy_policy_text": "Check our privacy policies",
+			"privacy_policy_url": "https://ourcompany.com/privacypolicies",
+			"consent_id_text": "ID of user consent"
+		},
+		"vendors": {
+			"title": "See the partners we work with below. Expend each one to see how they process your data.",
+			"content": "You can set consent preferences for individual third-party partners we work with below. Expand each company list item to see what purposes they use data for to help make your choices. In some cases, companies may use your data without asking for your consent, based on their legitimate interests. You can click on their privacy policy links for more information and to object to such processing.",
+			"privacyPolicyText": "Privacy Policy"
+		}, 
+        "banner": {
+            "title": "We respect your privacy",
+            "content": "Your Privacy matters. We protect your data with strict security measures and never share it without your permission.",
+            "dismissButtonText" : "Continue without accepting",
+            "acceptButtonText" : "Accept",
+            "detailsButtonText" : "Details",
+            "iconName" : "commandersact_icon"
+		}
+	},
+	"texts_fr": {
+		"generic": {
+			"saveButton": "J'accepte",
+			"detailButton": "Détail",
+			"acceptAllButton": "Tout Accepter",
+			"refuseAllButton": "Tout Refuser",
+			"vendorButton": "Afficher les partenaires",
+			"purposeButton": "Afficher les finalités",
+			"legalButton": "Informations légales",
+			"backButton": "Retour",
+			"purposeDef": "Finalités",
+			"consentDef": "Consentement",
+                        "partnersLinkText": "Lien des partenaires",
+                        "relatedVendorsButton": "Vendors associé"
+		},
+		"purposes": {
+			"title": "Gérer vos préférences P",
+			"content": "Nos partenaires P et nous déposons des cookies afin d'assurer la sécurité, améliorer votre expérience digitale et afficher des publicités et contenus personnalisés Vous pouvez accepter ou refuser ces différentes opérations.",
+			"privacy_policy_text": "Notre politique de confidentialitée",
+			"privacy_policy_url": "https://ourcompany.com/privacypolicies",
+			"consent_id_text": "ID d'utilisateur"
+		},
+		"vendors": {
+			"title": "Gérer vos préférences V",
+			"content": "Nos partenaires V et nous déposons des cookies afin d'assurer la sécurité, améliorer votre expérience digitale et afficher des publicités et contenus personnalisés Vous pouvez accepter ou refuser ces différentes opérations.",
+			"privacyPolicyText": "Politique de confidentialité"
+		},
+		"banner": {
+			"title": "On respecte ta vie privée",
+			"content": "Ta vie privée, c’est sacré. Tes données sont bien gardées, juré promis, et jamais partagées sans ton OK.",
+  			"dismissButtonText": "Continuer en mode rebelle",
+  			"acceptButtonText": "J’accepte",
+  			"detailsButtonText": "Détails",
+			"iconName": "commandersact_icon"
+		}
+	},
+	"categories": [{
+			"name": "Statistics",
+			"ID": "1",
+			"isMandatory": "true",
+			"related_vendors": [1],
+			"description": "These cookies allow us analyze user behavior on the site, measure and improve performance and the quality of our service."
+		},
+		{
+			"name": "Advertising",
+			"ID": "2",
+			"related_vendors": [2],
+			"description": "These cookies allow us display adverts matching your interests on the websites you visit."
+		},
+		{
+			"name": "Big category",
+			"ID": "30",
+			"description": "Here you can select the vendors.",
+			"subcategories": [{
+					"name": "GA",
+					"ID": "31",
+					"description": "Should we send information to GA."
+				},
+				{
+					"name": "Xiti",
+					"ID": "32",
+					"description": "Should we send information to AT Internet."
+				},
+				{
+					"name": "Vendor3",
+					"ID": "33",
+					"related_vendors": [1, 2],
+					"description": "Should we send information to this vendor3."
+				}
+			]
+		}
+	],
+	"vendors": [{
+			"name": "Commanders Act",
+			"ID": "1",
+			"description": "Allow Commanders Act",
+			"privacy_policy": "http://commandersact.com/privacypolicy"
+		},
+		{
+			"name": "Another Vendor",
+			"ID": "2",
+			"description": "The desc of another vendor",
+			"privacy_policy": "http://anothervendor.free.fr/privacypolicy"
+		}
+	],
+	"categories_fr": [{
+			"name": "Statistiques",
+			"ID": "1",
+			"related_vendors": [1],
+			"description": "Avec cette catégorie on remonte les stats."
+		},
+		{
+			"name": "Pub",
+			"ID": "2",
+			"related_vendors": [2],
+			"description": "Pour afficher de superbes pubs personalisées"
+		},
+		{
+			"name": "Super cat",
+			"ID": "30",
+			"description": "Une super cat.",
+			"subcategories": [{
+					"name": "Sous cat 1",
+					"ID": "31",
+					"description": "Mais on peut choisir que cette sous cat."
+				},
+				{
+					"name": "Sous cat 2",
+					"ID": "32",
+					"description": "Ou alors uniquement celle-ci."
+				},
+				{
+					"name": "Sous cat 3",
+					"ID": "33",
+					"related_vendors": [1, 2],
+					"description": "Ou plus en fait, mais la 3 c'est pareil."
+				}
+			]
+		}
+	],
+	"vendors_fr": [{
+			"name": "Commanders Act",
+			"ID": "1",
+			"description": "Permettre à Commanders Act d'envoyer des informations",
+			"privacy_policy": "http://commandersact.com/privacypolicy"
+		},
+		{
+			"name": "Autre Vendors",
+			"ID": "2",
+			"description": "Permettre à cet autre vendor d'envoyer pleins d'informations",
+			"privacy_policy": "http://anothervendor.free.fr/privacypolicy"
+		}
+	]
+}
