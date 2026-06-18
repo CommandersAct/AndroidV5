@@ -6,7 +6,7 @@ TCIAB's Implementation Guide
 
 **Android**
 
-Last update : *05/02/2026*<br />
+Last update : *18/06/2026*<br />
 Release version : *5.1.1*
 
 ## Table of Contents
@@ -14,89 +14,39 @@ Release version : *5.1.1*
 - [TCIAB's Implementation Guide](#tciabs-implementation-guide)
 - [Introduction](#introduction)
 - [Setup](#setup)
-- [IAB 2.1](#iab-21)
-- [IAB 2.2](#iab-22)
 - [JSON Configurations](#json-configurations)
   - [vendor-list.json](#vendor-listjson)
   - [purposes-xx.json](#purposes-xxjson)
   - [privacy.json](#privacyjson)
   - [TCIABPublisherRestrictions.json](#tciabpublisherrestrictionsjson)
   - [google-atp-list.json](#google-atp-listjson)
+- [IAB 2.1](#iab-21)
+- [IAB 2.2](#iab-22)
 - [Filtering vendors](#filtering-vendors)
 - [Selecting buttons](#selecting-buttons)
 - [Initialisation](#initialisation)
 - [With the ServerSide](#with-the-serverside)
 - [Retaining consent](#retaining-consent)
 - [Reacting to consent](#reacting-to-consent)
-- [Generating publisher TC in consent String](#generating-publisher-tc-in-consent-string)
+- [Generating publisher TC in consent string](#generating-publisher-tc-in-consent-string)
 - [Loading a specific screen directly](#loading-a-specific-screen-directly)
+- [Troubleshooting](#troubleshooting)
 - [Support and contacts](#support-and-contacts)
 
 Introduction
 ============
 
-This module has been made especially to support the creation of the IAB consent string.
+This module adds IAB TCF v2 consent string support to the Consent module.
 
-/!\ It only supports the version 2 of the consent string. Namely, TCF v2.
-
+> [!INFO]
+> This module only supports TCF v2. TCF v1 is not supported.
 
 Setup
 =====
 
-You need to have this module alongside the Consent Module in your project.
+The IAB module must be used alongside the Consent module.
 
-You will need several configuration files to use this module.
-All of those configurations will update automatically but having an offline version will prevent any hazardous behaviour over bad internet connection.
-
-IAB 2.1
-=======
-
-We support IAB 2.1, but you will need to add some translation in your privacy.json file. Hereafter are the lines you need to add in order to display the new information properly.
-
-
-```javascript
-	 "texts": {
-      "generic": {
-            "month": "months",
-            "day": "days",
-            "seconds": "seconds",
-            "hours": "hours"
-      },
-
-      "vendors": {
-            "deviceStorageTitle": "Storage Type:",
-            "deviceStorageCookieLifetime": "Cookie lifetime: ",
-            "deviceStorageOther": "Others",
-            "deviceStorageCookies": "Cookies"
-      },
-
-```
-
-IAB 2.2
-=======
-
-We support IAB 2.2, the following steps are required once you decide to upgrade your TCConsent to a IABv2.2 compatible version, wich is TCConsent:5.3.10+  or higher.
-
-	- Please update all of your offline in-app jsons to a V2.2 compatible version, this includes your offline vendor-list.json & any purposes-xx.json translation file you're using.
-	- Update your privacy.json offline & cdn file with a refreshed IABv2.2 compatible version and recheck your iab vendors filter, `vendors` key on root.
-	- Also make sure to have a `{total_number}` inside your `text-> popup -> purposeTitle ` value.
-
-Here are the lines you need to add in order to display the new information properly :
-
-```
-  texts_xx": {
-    "generic" : {
-        "illustationsButton": "illustrations:",
-        "dataCategoriesDef": "Data Categories:",
-    }, 
-    "vendors" : {
-        "legIntClaimTitle": "Politique de legitimate"
-    },
-    "popup" : {
-        "purposeTitle": "We and our {total_number} partners"
-    }
-  },
-```
+You will need several JSON configuration files. The module updates them automatically, but having offline copies prevents issues on poor or no internet connections.
 
 JSON Configurations
 ===================
@@ -104,123 +54,158 @@ JSON Configurations
 vendor-list.json
 ----------------
 
-This file contains all vendors that have a partnership with IAB. It also contains the definition (in English only) for all purposes, special purposes, features, special features and what the vendors are using.
-This file is created and supported by IAB.
+Contains all IAB-registered vendors and the definitions for all purposes, special purposes, features and special features (English only). Created and maintained by IAB.
 
-Please download and put an offline copy in your project of https://vendorlist.consensu.org/v2/vendor-list.json
-Keeping the same name.
+Download an offline copy from:
+https://vendorlist.consensu.org/v2/vendor-list.json
 
+Keep the same filename.
 
 purposes-xx.json
 ----------------
 
-If you are using more than one language in your application you will need to also have a copy of those files. Those files are created and supported by IAB.
-For example, our IAB demo is using purposes-fr.json.
+Translation files for purposes. Required if your app uses more than one language.
 
-If you need translation files, download them from https://register.consensu.org/translation under "List of translations for purpose descriptions v2.0". Also keeping the same file name.
+Download from https://register.consensu.org/translation under "List of translations for purpose descriptions v2.0". Keep the same filenames.
 
-Call this line right after the initialisation of the TCConsent module:
+After initialising the Consent module, set the language:
 
-	TCConsent.getInstance().setLanguage("fr");
-	// Please use ISO 639-1 language codes
+```java
+    TCConsent.getInstance().setLanguage("fr");
+    // Use ISO 639-1 language codes
+```
 
 privacy.json
 ------------
 
-This file declares information used to save the consent in our dashboards as well as texts present in the interface that are not declared officially by IAB.
+Declares information used to save consent in our dashboards, plus texts for elements not officially defined by IAB.
 
-/!\ This file should be provided by one of our consultant.
+> [!INFO]
+> This file must be provided by a Commanders Act consultant.
 
-If you are using several languages, you should find, in addition to "texts" which have the default values, "texts_xx" for each language.
+If you use multiple languages, you will find a `"texts"` block for defaults and `"texts_xx"` blocks for each language.
 
 TCIABPublisherRestrictions.json
 -------------------------------
 
-/!\ This file is a bit more specific and not mandatory.
+Optional. Represents the restrictions your company applies to its partners.
 
-It is here to represent the restrictions a publisher (your company) is applying its partners.
-
-If you have a file, you need to put it with the other json configurations and add a small line later in the code.
-
-Call this line right after the initialisation of the TCConsent module:
+If you use this file, place it alongside the other JSON configurations and call:
 
 ```java
-	TCConsent.getInstance().useCustomPublisherRestrictions();
+    TCConsent.getInstance().useCustomPublisherRestrictions();
 ```
 
-/!\ This should normally be decided by your project manager and the file should be created by your Commanders Act contact.
+> [!IMPORTANT]
+> This file should be created by your Commanders Act contact and decided by your project manager.
 
 google-atp-list.json
 --------------------
 
-/!\ This file is a bit more specific and not mandatory.
+Optional. Only required if you use Google AC-String.
 
-Only use this file if you are using Google AC-String.
-
-If you have a file, you need to put it with the other json configurations.
-To init it, you will have to call the following line BEFORE the initialization of the Consent module:
+Place the file alongside the other JSON configurations and call the following **before** initialising the Consent module:
 
 ```java
     TCConsent.getInstance().useAcString(true);
 ```
 
-If you are using AC-String please verify that you have a list of google vendors inside your privacy.json as well.
+If using AC-String, also verify that you have a list of Google vendors inside your `privacy.json`.
 
-This file can only be provided by your consultant and will be updated by the library automatically.
+This file can only be provided by your consultant. It will be updated automatically by the library.
 
+IAB 2.1
+=======
+
+Add the following to the `"texts"` section of your `privacy.json` to display new information correctly:
+
+```javascript
+    "texts": {
+      "generic": {
+            "month": "months",
+            "day": "days",
+            "seconds": "seconds",
+            "hours": "hours"
+      },
+      "vendors": {
+            "deviceStorageTitle": "Storage Type:",
+            "deviceStorageCookieLifetime": "Cookie lifetime: ",
+            "deviceStorageOther": "Others",
+            "deviceStorageCookies": "Cookies"
+      }
+    }
+```
+
+IAB 2.2
+=======
+
+Required steps when upgrading to an IAB v2.2-compatible version of TCConsent (5.4.0 or higher):
+
+1. Update all offline in-app JSONs to v2.2-compatible versions: `vendor-list.json` and all `purposes-xx.json` translation files.
+2. Update your `privacy.json` (both offline and CDN versions) to a v2.2-compatible version and recheck your IAB vendor filter (`"vendors"` key at root).
+3. Make sure you have a `{total_number}` placeholder inside `"texts" -> "popup" -> "purposeTitle"`.
+
+Add the following to your `privacy.json`:
+
+```
+  "texts_xx": {
+    "generic": {
+        "illustationsButton": "illustrations:",
+        "dataCategoriesDef": "Data Categories:"
+    },
+    "vendors": {
+        "legIntClaimTitle": "Politique de legitimate"
+    },
+    "popup": {
+        "purposeTitle": "We and our {total_number} partners"
+    }
+  }
+```
 
 Filtering vendors
 =================
 
-It is possible that instead of displaying all the hundreds of vendors in the vendor list, you'd rather display only the one your company needs. This will also filter all purposes and special features that we ask the user to consent to.
+To show only the vendors your company uses (instead of the full IAB list), add a filter inside `privacy.json` under `"information"`:
 
-If you want to filter, nothing has to be done inside the code, but you should find inside the privacy.json in "information" a field like : "vendors": "8,18,467,310".
+```json
+    "vendors": "8,18,467,310"
+```
 
-This tells that you are only using the vendors which IDs are 8, 18, 467 and 310. Those IDs refer to the IDs they are given inside the vendor-list.
+This also filters which purposes and special features are shown to the user.
 
-/!\ This should normally be decided by your project manager and added inside the json by your Commanders Act contact.
+> [!IMPORTANT]
+> This should be decided by your project manager and added to the JSON by your Commanders Act contact.
 
 Selecting buttons
 =================
 
-The IAB interface is separated in 2 layers. The first layer is the first screen you'll see when opening the privacy center.
-The second layer is the purpose screen as well as the vendor screen.
+The IAB interface has two layers:
 
-In those 2 interfaces, the default buttons are defined as followed:
+- **First layer** — the initial screen. Default buttons: `Detail`, `AcceptAll`, `RefuseAll`
+- **Second layer** — purpose and vendor screens. Default buttons: `Save`, `AcceptAll`, `RefuseAll`
 
-First layer: "Detail" (lead to the purpose detail screen), "Accept All" and "Refuse All"
-Second layer: "Save" (use the current state of all switches), "Accept All" and "Refuse All"
+IAB requires at least a `Detail` button on the first layer and a `Save` button on the second. Since September 2020, CNIL requires that if you have an "Accept All" button, a visually identical "Refuse All" button must also be present.
 
-IAB asks that you have at least a "Detail" button on the first layer, and a "Save" on the second.
-Starting September 2020 the CNIL asks that if you have an "Accept all" button, you need a "Refuse all" button with an identical visual.
+To customise which buttons appear and in what order, add to `privacy.json`:
 
-Meanwhile, you can select the button you want to see as well as the order they'll appear in among the default ones by changing part of the privacy JSON.
-
-	"components": {
-	    "firstLayerButton": ["Detail", "AcceptAll", "RefuseAll"],
-	    "secondLayerButton": ["Save", "AcceptAll", "RefuseAll"],
-	},
-
-You can add those lines and select the needing ones. For example, if you don't want a refuse all button, just remove "RefuseAll".
+```json
+    "components": {
+        "firstLayerButton": ["Detail", "AcceptAll", "RefuseAll"],
+        "secondLayerButton": ["Save", "AcceptAll", "RefuseAll"]
+    }
+```
 
 Initialisation
 ==============
 
-```java
-	// If you need to use callbacks.
-	TCConsent.getInstance().registerCallback(this);
-	TCConsent.getInstance().setSiteIDPrivacyIDAppContext(TC_SITE_ID, TC_PRIVACY_ID, context);
+No additional initialisation is required. Adding this module as a dependency alongside TCConsent is sufficient — the IAB consent string will be generated and managed automatically as part of the normal TCConsent init.
 
-	// Use this if you need to use a specific language
-	TCConsent.getInstance().setLanguage("fr");
-```
+See the [TCConsent initialisation](../TCConsent/README.md#initialisation) for the standard setup.
 
 With the ServerSide
 ===================
 
-You can use classic Tag Management with IAB if needed. Doing this is really simple as all saved information used for IAB configuration will be forwarded to each server-side call.
-This mean that you can use any IAB purpose as a category and create rules in your container accordingly.
-
+All IAB consent information saved by this module is automatically forwarded to every ServerSide hit. You can use any IAB purpose as a category and build rules in your container accordingly.
 
 Retaining consent
 =================
@@ -232,55 +217,64 @@ Reacting to consent
 
 [Please see the specific documentation here](../TCConsent#reacting-to-consent)
 
-Generating publisher TC in consent String
+Generating publisher TC in consent string
 =========================================
 
-By default, as some clients asked, the publisher TC part of the consent string is not generated.
-But you have a boolean in TCConsent/TCMobilePrivacy which is named generatePublisherTC that you can change to true.
+The publisher TC part of the consent string is not generated by default. To enable it, set the following boolean in `TCConsent` / `TCMobilePrivacy`:
+
+```java
+    TCConsent.getInstance().generatePublisherTC = true;
+```
 
 Loading a specific screen directly
-==================================
+===================================
 
-By default, the screen loaded is what we call the first layer screen (or pop-up screen). Then from this screen you'll be able to go to the purpose screen and from the purpose screen to the vendor screen. Both of which are called the second layer.
+The Privacy Center has two layers. The first layer is the initial popup screen. From there, the user can navigate to the purpose screen or the vendor screen — both of which are considered the second layer.
 
-if you want to have your own first layer, you'll want to be able to open from this page either of our second layer pages.
+If you want to build your own first layer (aka Banner in its IAB format), you can open either second layer screen directly:
 
-To do this, we created other ways to open the privacy center as follow:
-
-in java : 
+in java :
 
 ```java
-	Intent PCM = new Intent(getContext(), com.tagcommander.lib.consent.TCPrivacyCenter.class);
-	PCM.putExtra(com.tagcommander.lib.consent.TCConsentConstants.kTCPC_START_SCREEN, com.tagcommander.lib.consent.TCConsentConstants.kTCStartWithPurposeScreen);
-	startActivity(PCM);
+    Intent PCM = new Intent(getContext(), com.tagcommander.lib.consent.TCPrivacyCenter.class);
+    PCM.putExtra(com.tagcommander.lib.consent.TCConsentConstants.kTCPC_START_SCREEN,
+                 com.tagcommander.lib.consent.TCConsentConstants.kTCStartWithPurposeScreen);
+    startActivity(PCM);
 ```
 
-in kotlin : 
+in kotlin :
 
 ```kotlin
-	val PCM = Intent(getContext(), TCPrivacyCenter::class.java)
-	PCM.putExtra(
-		TCConsentConstants.kTCPC_START_SCREEN,
-		TCConsentConstants.kTCStartWithPurposeScreen
-		)
-	startActivity(PCM)
+    val PCM = Intent(getContext(), TCPrivacyCenter::class.java)
+    PCM.putExtra(TCConsentConstants.kTCPC_START_SCREEN, TCConsentConstants.kTCStartWithPurposeScreen)
+    startActivity(PCM)
 ```
 
-or for the vendor screen:
+For the vendor screen, replace `kTCStartWithPurposeScreen` with `kTCStartWithVendorScreen`:
 
-in java : 
+in java :
 
 ```java
-	PCM.putExtra(com.tagcommander.lib.consent.TCConsentConstants.kTCPC_START_SCREEN, com.tagcommander.lib.consent.TCConsentConstants.kTCStartWithVendorScreen);
+    PCM.putExtra(com.tagcommander.lib.consent.TCConsentConstants.kTCPC_START_SCREEN,
+                 com.tagcommander.lib.consent.TCConsentConstants.kTCStartWithVendorScreen);
 ```
 
-in kotlin : 
+in kotlin :
 
 ```kotlin
-	PCM.putExtra(
-        TCConsentConstants.kTCPC_START_SCREEN,
-		    TCConsentConstants.kTCStartWithVendorScreen)
+    PCM.putExtra(TCConsentConstants.kTCPC_START_SCREEN, TCConsentConstants.kTCStartWithVendorScreen)
 ```
+
+Troubleshooting
+===============
+
+Make sure logging is set to `Log.VERBOSE` (`TCDebug.setDebugLevel(Log.VERBOSE)`). After consent is saved via any method (`acceptAllConsent()`, `refuseAllConsent()`, `saveConsentFromConsentSourceWithPrivacyAction()`, or a button press in the Privacy Center), you should see the generated IAB consent string in your Logcat:
+
+```
+I  CommandersAct: saved Consent String: CQkPrrBQkPrrBBaE2BENCe..........
+```
+
+If you see this, the IAB consent string was correctly generated and saved. If not, check that logging is enabled and that one of the save methods above was actually called.
 
 Support and contacts
 ====================
@@ -293,7 +287,7 @@ Support and contacts
 
 http://www.commandersact.com
 
-Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France
+Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 05/02/2026 14:40:02
+This documentation was generated on 18/06/2026 09:00:32

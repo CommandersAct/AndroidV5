@@ -1,9 +1,13 @@
 Changelog Android
 =================
 
+*5.5.0 : 06/17/2026*
+
+    ~ Base code updated for other libraries enhacements. 
+
 *5.4.9 : 09/01/2025*
 
-    ~ Binaries dependencies leak fix. 
+    ~ Binaries dependencies leak fix.
 
 *5.4.8 : 08/18/2025*
 

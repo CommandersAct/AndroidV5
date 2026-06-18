@@ -1,6 +1,13 @@
 Changelog Android
 =================
 
+*5.4.0 : 06/17/2026*
+
+	~ /!\ Requires TCCore 5.5.0+
+	+ [IAB/non-IAB] New Consent Banner UI — a faster, modern, on-screen way to save consent without leaving the current view, check documentation for more info.
+    ~ do_not_track and switchDefaultState improved and available on the TCConsent instance, with corrected and stabilized behavior.
+    ~ safeguards have been added to prevent incorrect usage.
+
 *5.3.10 : 10/22/2025*
 
     ~ Privacy Center adjusted label layout for smaller screens. 

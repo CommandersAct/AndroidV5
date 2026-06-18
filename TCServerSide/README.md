@@ -4,8 +4,8 @@
 ServerSide's Implementation Guide
 =================================
 
-Last update : *05/02/2026*
-Release version : *5.5.8*
+Last update : *18/06/2026*
+Release version : *5.6.0*
 
 ## Table of Contents
 
@@ -15,25 +15,26 @@ Release version : *5.5.8*
   - [Event](#event)
   - [Commanders Act's TCEvent payloads Data](#commanders-acts-tcevent-payloads-data)
   - [Executing an event](#executing-an-event)
-- [ServerSide's module integration](#serversides-module-integration)
+- [ServerSide's module Setup](#serversides-module-setup)
   - [Steps](#steps)
-  - [Integration of the ServerSide Module](#integration-of-the-serverside-module)
   - [Gradle additions](#gradle-additions)
   - [Android permissions](#android-permissions)
   - [Compatibility](#compatibility)
 - [Using the ServerSide's module](#using-the-serversides-module)
   - [Initialisation](#initialisation)
   - [Executing events](#executing-events)
-  - [Customising Events](#customising-events)
+  - [How to customise your payload](#how-to-customise-your-payload)
+  - [Customising Events — Code Reference](#customising-events-code-reference)
   - [Custom events](#custom-events)
   - [Video Events](#video-events)
-  - [Consent](#consent)
-  - [Install Referrer](#install-referrer)
+- [Consent](#consent)
   - [Background Mode](#background-mode)
   - [Deactivating the ServerSide's module](#deactivating-the-serversides-module)
   - [Getting AAID](#getting-aaid)
+  - [Install Referrer](#install-referrer)
 - [Troubleshooting](#troubleshooting)
   - [Debugging](#debugging)
+  - [Understanding the logs](#understanding-the-logs)
   - [Testing](#testing)
   - [Network monitor](#network-monitor)
   - [Common errors](#common-errors)
@@ -54,7 +55,7 @@ Introduction
 
 Commanders Act enables marketers to easily add, edit, update, and deactivate tags on web pages, videos and mobile applications with little-to-no support from IT departments.
 
-Instead of implementing several SDK's in the application, Commanders Act for mobile provides clients with a single module which sends data to our servers which then create and send information to your partners.
+Instead of implementing several SDKs, Commanders Act for mobile provides a single module that sends data to our servers, which then forward the information to your partners.
 
 Thanks to remote configuration tools, it is also possible to modify the configuration without having to resubmit your application.
 
@@ -71,39 +72,42 @@ Main Technical Specifications
 - Information collected and sent automatically while respecting GDPR.
 - Background mode, in the case you need to send data while the application is in background.
 
+Minimum Android SDK version: 21
+
 Event
 -----
 
-An event represent something happening inside your application. For example, we have "add to cart" or "login" events.
-Inside the library they are represented each by a specific class which in turn provide you with information needed for this event to be used by your solutions.
+An event represents something happening inside your application — for example "add to cart" or "login". Each event type has a dedicated class that carries the information your solutions need.
 
-For example, we know that for a "view cart" event, you will have to provide a list of the items inside the cart for the event to be valid.
-We also add "value" and "currency" that are generally used by solutions for this event that can be filled inside the class.
+For example, a "view cart" event requires a list of items in the cart to be valid. We also include "value" and "currency" fields that are commonly used by solutions for this event type.
 
-Your company alongside our consulting team will usually define step by step what events the want the application to send and what parameters are needed for the solutions which will in turn treat those events.
+Your company alongside our consulting team will usually define step by step which events the application should send and what parameters are needed for each solution.
 
-You should be provided with a document explaining all events you need to implement inside your application and when they should be sent.
+You should be provided with a document explaining all events to implement and when they should be sent.
 
 The event and the information we gather independently will create a hit to our servers with a JSON payload.
 
 Commanders Act's TCEvent payloads Data
 --------------------------------------
 
-Our TCEvents payloads consist of various sections organized within a JSON payload sent to our CommandersAct servers once you call the `execute` function.
-Each section has its specific behaviour. Refer to the provided scheme for insights into each section, guidance on manipulation, changing values, and understanding intended behavior.
+When you call `execute()` on a TCEvent instance, the ServerSide assembles a JSON payload from several sources before sending it to our servers:
+
+- **TCEvent instance** — holds its own unique values and any additional properties you set on it.
+- **Singleton classes** (TCUser, TCDevice, TCLifecycle, TCApp) — their serialized values are scoped and automatically added to every event. You can edit their properties at any time and the change will apply to all subsequent events.
+- **Permanent Data** — a universal additional properties mechanism that applies to all TCEvents, useful for values that never change at runtime (e.g. vendor IDs).
+- **TCConsent** — if you are using our Consent module, consent values are set on the payload automatically.
 
 ![alt tag](../res/TCEvent.png)
 
-
-> [!WARNING]  
+> [!NOTE]  
 > All events and their payloads are detailed here with code examples: [events-reference](https://doc.commandersact.com/developers/tracking/events-reference)
 
-You will also find information about what you can add inside the TCUser which is sent with every hit.
-Be aware that some data inside TCUser require consent from the user te be read and used.
+You will also find information about what you can add inside TCUser, which is sent with every hit.
+Be aware that some TCUser fields require user consent before they can be read and used.
 
-> [!WARNING]  
+> [!NOTE]  
 > You can also check this page to see the link between the event names and the SDK's Class names and all information inside the payload here:
-[mobile-sdk-event-specificity](https://community.commandersact.com/platform-x/developers/tracking/about-events/mobile-sdk-event-specificity)
+[mobile-sdk-event-specificity](https://github.com/CommandersAct/Platform-Documentation/blob/master/developers/tracking/about-events/mobile-sdk-event-specificity.md)
 
 Executing an event
 ------------------
@@ -112,7 +116,7 @@ When you call the sendData method, a hit will be packaged and sent to Commanders
 
 ![alt tag](../res/server_side_module_scheme.png)
 
-ServerSide's module integration
+ServerSide's module Setup
 ===============================
 
 Steps
@@ -123,11 +127,6 @@ You can divide the integration of TagCommander's ServerSide module into the next
  1. Adding the Core and ServerSide libraries to your Project.
  2. Implementing the ServerSide module and adding events to your application.
  3. Verify that all tags are being sent.
-
-Integration of the ServerSide Module
-------------------------------------
-
-[Please check the Developers Implementation Guide to chose the best way to implement this module in your project.](./README.md)
 
 Gradle additions
 ----------------
@@ -148,7 +147,7 @@ TagCommander requires the following permissions:
 
 Compatibility
 -------------
-- Minimum Android version: 17
+- Minimum Android version: 21
 - Build Target version: 31
 - Build Tools Version: 28.0.3
 
@@ -159,15 +158,14 @@ Using the ServerSide's module
 Initialisation
 --------------
 
-It is recommended to initialize TCServerSide in your `onCreate(Bundle savedInstanceState)` in your `MainActivity` so it will be operational as soon as possible.
+It is recommended to initialize TCServerSide in your `onCreate(Bundle savedInstanceState)` in your `MainActivity` so it will be operational as soon as possible. You will need to pass your application context while instantiating TCServerSide.
 
-You will need 2 things provided by our consulting team. A siteID which is representing the web platform in which you setup your destinations.
-And a sourceKeyID which will represent the Android source inside your setup.
+You will need two values from your consulting team:
 
-You need to pass your application context while instantiating TCServerSide.
+- **siteID** — identifies your web platform setup
+- **sourceKey** — identifies this iOS source within your configuration
 
-If you are using our Consent module, you can also change during this initialisation the default TCServerSide behaviour while waiting for the user consent.
-More information a bit later in this document.
+If you are using our Consent module, you can also change during this initialisation the default TCServerSide behaviour while waiting for the user consent. See the [Consent section](#consent) below for details.
 
 A single line of code is required to initialize an instance of TCServerSide, and you can add one more for better logging:
 
@@ -176,6 +174,9 @@ A single line of code is required to initialize an instance of TCServerSide, and
     TCDebug.setDebugLevel(Log.VERBOSE);
     TCServerSide TCS = new TCServerSide(siteID, sourceKey, appContext);
 ```
+
+> [!TIP]
+> Before going further, head to the [Troubleshooting](#troubleshooting) section to set up logging and understand what to expect in your Logcat. It'll save you a lot of time when testing your first events.
 
 Executing events
 ----------------
@@ -202,12 +203,114 @@ in kotlin :
     serverSide.execute(event)
 ```
 
-Customising Events
----------------------
+How to customise your payload
+-----------------------------
 
-Events are tailored for the most common solutions' needs. But you might need to add properties that are not specified in the event you are trying to send.
+Every field in the final JSON payload can be customised. There are three independent mechanisms, each with a different scope — you can use them in combination.
 
-You can choose to edit your events by directly accessing the event object property, or you can choose to add new properties. Depending on your needs, you can use the following methods to achieve this.
+![alt tag](../res/TCEvent.png)
+
+> The diagram above shows how the three layers feed into the ServerSide instance before the payload is dispatched. Singleton classes (red) contribute their section automatically on every `execute` call; Additional Properties functions (green) are available on both event instances and singletons; Permanent Data (blue) attaches arbitrary key/values to every event until explicitly removed.
+
+### Layer 1 — Per-event additional properties
+
+Use this when you need to add or override a field on **one specific event instance**. The change affects only that call to `execute`.
+
+in java : 
+
+```java
+    TCPageViewEvent pageViewEvent = new TCPageViewEvent("Consent");
+    pageViewEvent.pageName = "Configuration";
+    pageViewEvent.addAdditionalProperty("currentConsent", "refused");
+```
+
+in kotlin : 
+
+```kotlin
+    val pageViewEvent = TCPageViewEvent("Consent")
+    pageViewEvent.pageName = "Configuration"
+    pageViewEvent.addAdditionalProperty("currentConsent", "refused")
+```
+
+See [Customising Events — Code Reference](#customising-events--code-reference) for the full list of `addAdditionalProperty` signatures.
+
+### Layer 2 — Singleton context objects
+
+The payload sections `device`, `lifecycle`, `user`, and `app` are each managed by a shared singleton. Editing a singleton affects **every subsequent event** until you change it back.
+
+All singletons support the same `addAdditionalProperty` family of methods, allowing you to inject extra fields into their respective payload section:
+
+| Singleton | Payload section it controls |
+|---|---|
+| `TCDevice.getInstance()` | `context.device` |
+| `TCLifecycle.getInstance()` | `context.device.lifecycle` |
+| `TCUser.getInstance()` | `user` |
+| `TCApp.getInstance()` | `context.app` |
+
+Note that these are constant fields shared across all events — changes apply to every event at once.
+
+For `TCDevice`'s OS and screen fields specifically, use the dedicated helpers:
+
+in java : 
+
+```java
+    TCDevice.getInstance().getOsProperties()
+    TCDevice.getInstance().getScreenProperties()
+```
+
+in kotlin : 
+
+```kotlin
+    TCDevice.getInstance().osProperties
+    TCDevice.getInstance().screenProperties
+```
+
+### Layer 3 — Permanent Data
+
+Use this when you need to attach an arbitrary key/value to **every event** without going through a singleton. Permanent Data entries persist across all `execute` calls until you explicitly remove them.
+
+in java : 
+
+```java
+    TCS.addPermanentData("VENDOR_ID", "UE-55668779-01");
+```
+
+in kotlin : 
+
+```kotlin
+    TCS.addPermanentData("VENDOR_ID", "UE-55668779-01")
+```
+
+They can also be removed if necessary:
+
+in java : 
+
+```java
+    TCS.removePermanentData("VENDOR_ID");
+```
+
+in kotlin : 
+
+```kotlin
+    TCS.removePermanentData("VENDOR_ID")
+```
+
+> [!NOTE]
+> Permanent Data values have lower priority than values set via `addAdditionalProperty` on individual events. If the same key is set both ways, the per-event value wins.
+
+### Summary
+
+| You want to… | Use | Scope |
+|---|---|---|
+| Add data to one specific event | `event.addAdditionalProperty(...)` | That event only |
+| Add or override a field in a context section (device, lifecycle, user…) | `TCLifecycle.getInstance().addAdditionalProperty(...)` etc. | All events, via the singleton |
+| Attach an arbitrary key/value to every event | `TCS.addPermanentData(...)` | All events until removed |
+
+
+Customising Events — Code Reference
+-------------------------------------
+
+You can edit your events by directly accessing the event object properties, or add new ones. Depending on your needs, use the following methods:
 
 ```java
     public void addAdditionalProperty(String key, String value)
@@ -227,29 +330,9 @@ Also, for accessing & removing already added properties :
     public void clearAdditionalProperties()
 ```
 
-Here for example this could be tracking some user going back to your configuration to open the consent interface. And you would want to know what was the consent before re-opening.
-Of course this is a simple example only here to show the addAdditionalProperty method.
+To customise other fields in your events, directly edit properties on the corresponding singleton instance (except for TCLifecycle).
 
-in java : 
-
-```java
-    TCPageViewEvent pageViewEvent = new TCPageViewEvent("Consent");
-    pageViewEvent.pageName = "Configuration";
-    pageViewEvent.addAdditionalProperty("currentConsent", "refused");
-```
-
-in kotlin : 
-
-```kotlin
-    val pageViewEvent = TCPageViewEvent("Consent")
-    pageViewEvent.pageName = "Configuration"
-    pageViewEvent.addAdditionalProperty("currentConsent", "refused")
-```
-    
-If you want to customize the other fields in your events, you can directly edit properties on the coresponding singleton instance (except for TCLifecycle) or use custimisation methodes.
-
-Please note that these are constant fields across the events, changes will be applied to all events at once.
-Here's a list of the available editable fields :
+Available editable fields:
 
 - TCDevice.getInstance()
 - TCNetwork.getInstance()
@@ -257,22 +340,6 @@ Here's a list of the available editable fields :
 - TCApp.getInstance()
 - TCLifecycle.getInstance()
 - TCItem and TCProduct objects
-
-For TCDevice's inner fields. Os & Screen are accessible via :
-
-in java : 
-
-```java
-    TCDevice.getInstance().getOsProperties()
-    TCDevice.getInstance().getScreenProperties()
-```
-
-in kotlin : 
-
-```kotlin
-    TCDevice.getInstance().osProperties
-    TCDevice.getInstance().screenProperties
-```
 
 Custom events
 -------------
@@ -339,7 +406,7 @@ in kotlin :
 ```
 
 Consent
--------
+=======
 
 To manage the privacy of the user's data you can use our Consent product, another product or nothing at all.
 
@@ -355,41 +422,12 @@ We have 3 behaviours:
 	- PB_ALWAYS_ENABLED which forces the ServerSide's module to always send information. This is used when you have tags that don't require consent.
 	- PB_DISABLED_BY_DEFAULT which forces the ServerSide's module to disabled. It won't record hits before consent is given and you won't have any up by default time when using tagging the app loading screens. This is used when you're not using our Consent module.
 
-
-Consent will then be forwarded inside the TCUser. For more information, please check documentation about the [Consent module](./TCConsent/README.md). 
-
+Consent will then be forwarded inside the TCUser. For more information, please check documentation about the [Consent module](../TCConsent/README.md).
 
 To initialise the ServerSide's module with another behaviour, please call the following function:
 
 ```java
 	TCS = new TCServerSide(siteID, sourceKey, appContext, ETCConsentBehaviour.PB_DEFAULT_BEHAVIOUR);
-```
-
-
-Install Referrer
-----------------
-
-If you want the source channel of your application in Commanders Act, please point the INSTALL_REFERRER broadcast toward our receiver TCReferrerReceiver :
-
-It's as simple as adding the following lines in the AndroidManifest.xml of your application and inside the "Application" tag.
-
-```xml
-    <receiver
-        android:name="com.tagcommander.lib.TCReferrerReceiver"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="com.android.vending.INSTALL_REFERRER" />
-        </intent-filter>
-    </receiver>
-```
-
-Once the broadcast is received, TagCommander will store the full string into the #TC_INSTALL_REFERRER# predefined variable.
-
-Example:
-
-```
-    utm_source=adMob&utm_medium=banner&utm_term=running+shoes&utm_content=theContent
-    &utm_campaign=couponReduc&anid=adMob
 ```
 
 Background Mode
@@ -436,6 +474,32 @@ For privacy reason, the server-side module can't read and use the AAID automatic
 
 This method will check and add if possible the AAID and the boolean "is ad tracking enabled".
 
+Install Referrer
+----------------
+
+If you want the source channel of your application in Commanders Act, please point the INSTALL_REFERRER broadcast toward our receiver TCReferrerReceiver :
+
+It's as simple as adding the following lines in the AndroidManifest.xml of your application and inside the "Application" tag.
+
+```xml
+    <receiver
+        android:name="com.tagcommander.lib.TCReferrerReceiver"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="com.android.vending.INSTALL_REFERRER" />
+        </intent-filter>
+    </receiver>
+```
+
+Once the broadcast is received, TagCommander will store the full string into the #TC_INSTALL_REFERRER# predefined variable.
+
+Example:
+
+```
+    utm_source=adMob&utm_medium=banner&utm_term=running+shoes&utm_content=theContent
+    &utm_campaign=couponReduc&anid=adMob
+```
+
 Troubleshooting
 ===============
 
@@ -444,17 +508,11 @@ The ServerSide also offers methods to help you with the Quality Assessment of th
 Debugging
 ---------
 
-We recommend using `Log.VERBOSE` while developing your application:
+Always set logging to `Log.VERBOSE` while developing your application — without it, no logs will be printed at all.
 
 ```java
-    /*
-     * Verbose is recommended during test as it prints information
-     * that helps figuring what is working and what's not.
-     */
-	TCDebug.setDebugLevel(Log.VERBOSE);
+    TCDebug.setDebugLevel(Log.VERBOSE);
 ```
-
-  - Verbosity
 
   Constant Name  | Verbosity
   -------------  | ---------
@@ -465,17 +523,47 @@ We recommend using `Log.VERBOSE` while developing your application:
   `Log.ERRORS` | Errors only
   `Log.ASSERT` | Assertions only (not used).
 
-  - The internal architecture is working with internal notifications. You can ask the Logger to display all the internal notifications with TCDebug.setNotificationLog(true);.
+The internal architecture is working with internal notifications. You can ask the Logger to display all the internal notifications with `TCDebug.setNotificationLog(true)`.
 
-If you don't call TCDebug.setDebugLevel, no log will be printed at all.
-
-You can choose to print events with pretty format via the following method call : 
+You can also print events in pretty format:
 
 ```java
-    /*
-     * Tells the logger if we should display Event with pretty format.
-     */
 	TCDebug.enablePrettyFormat(true);
+```
+
+Understanding the logs
+----------------------
+
+> [!WARNING]
+> If you are using the Consent module, the ServerSide will not send events until consent is accepted — unless you initialised it with `PB_ALWAYS_ENABLED`. While waiting for consent, events are queued and you will only see the first log entry below, not the second.
+
+Two log entries are particularly important when verifying your integration. Filter your Logcat by tag `CommandersAct` to find them easily.
+
+**Event queued** — the event has been loaded into the execution batch and will be sent as soon as everything is ready (internet up and consent accepted):
+
+```
+V  CommandersAct: {"custom_page_key":"banner","auto_time":1,...,"event_name":"page_view",...}
+```
+
+**Event sent** — the event actually made the HTTP request to our servers:
+
+```
+D  CommandersAct: sending: https://collect.commander1.com/events?tc_s=XXXX&token=XXXX...
+D  CommandersAct: with POST data: {"custom_page_key":"banner","auto_time":1,...}
+```
+
+If you see the first log but not the second, the event is queued but not yet sent — check consent state and internet connectivity.
+
+> [!NOTE]
+> The SDK does not log the HTTP response code. If you need to verify the server's response (expected: `200`), use an HTTP sniffing tool such as Charles or Wireshark — see the Network monitor section below.
+
+> [!NOTE]
+> Hits are sampled server-side. If you do not see a hit processed in the platform, it may have been sampled out. This is expected behaviour and not an error.
+
+To have events appear immediately in your account without waiting for sampling, add a `test_code` additional property with any value:
+
+```java
+    event.addAdditionalProperty("test_code", "my_test");
 ```
 
 Testing
@@ -535,19 +623,8 @@ Helpers
 Persisting variables
 --------------------
 
-The ServerSide module can help storing variables that remain the same in the whole application, such as vendors ID, in a TCServerSide instance, instead of passing them to the events instance each time you want to execute an event.
-
-Those variables will be passed in all events as additional parameters and will persist for the whole run of the application.
-
-```java
-    TCS.addPermanentData("VENDOR_ID", "UE-55668779-01");
-```
-
-They can also be removed if necessary.
-
-```java
-    TCS.removePermanentData("VENDOR_ID");
-```
+> [!NOTE]
+> Permanent Data is the recommended way to attach persistent key/values to every event. See [Layer 3 — Permanent Data](#layer-3--permanent-data) for the full explanation and code examples.
 
 Kotlin
 ======
@@ -568,34 +645,26 @@ Migration v4 to v5
 Why a new version of the SDK
 ----------------------------
 
-CommandersAct made a big move forward to bring all his products together in a whole new platform.
+CommandersAct brought all its products together into a new unified platform.
 
-As the mobile counterpart of all products we needed to re-work our SDKs in the same manner and create more logical connections with the whole suit.
+As the mobile counterpart, we reworked our SDKs to match and create more logical connections with the whole suite.
 
-We have renamed some modules to this end. SDK is now named ServerSide as it is only used to send information to our platform.
-And TCPrivacy has been renamed to Consent since it is the name of our product inside our suit. And it is used to gather consent.
+Some modules were renamed in the process. SDK is now named ServerSide, as it is only used to send information to our platform. TCPrivacy has been renamed to Consent, the name of our product in the suite.
 
 Event based
 -----------
 
-The biggest change as a user of the mobile SDK will to the way you send information to our servers.
+The biggest change is how you send information to our servers.
 
-Before you would create a big blob of data, fill it with anything needed or not even needed and send this.
-We would then filter on the server-side this data and try to fill the tags with relevant information.
+Previously you would send a blob of data — anything needed or not — and we would filter it server-side to fill the tags with relevant information. The old server-side also had limited possibilities beyond just transferring data.
 
-But as you may know, the previous server-side wouldn't allow much possibilities other than transferring the data.
-With the new server-side you can rework your data in our interfaces and have more control over the data used by your solutions.
+With v5 you send typed "events". The new server-side lets you rework your data in our interfaces and gives you more control over what reaches your solutions.
 
-With this new version you will have to send "events".
+An event is a structured entity that your solutions (also called destinations) can consume directly. For example, Facebook Conversion can receive a "purchase" event that our server-side maps exactly to what Facebook expects — more precise, less testing on both sides.
 
-An Event is a logical entity used by your other solutions (also named destinations) in a form that they can treat directly.
-If you are using Facebook Conversion, you know that you can send "purchase" events for example which will be treated by our server-side to fit exactly what is needed by Facebook in this case.
-This allow to be more precise and thus have less testing on both sides to know if what you send is indeed correctly used by your solution.
+All events are defined in our online documentation with all parameters, their possible values and required formats. You can also inspect each event class directly in the SDK.
 
-All custom events are defined on our online documentation including all parameters needed, all possible and their required formats.
-Of course while using the ServerSide module, you can also check directly each event classes.
-
-The hard part should not be for developers but for consulting which should re-organise all information currently sent in events.
+The main effort here is on the consulting side, which will need to reorganise the information currently sent as raw data into typed events.
 
 Changes
 -------
@@ -669,4 +738,4 @@ Support and contacts
 http://www.commandersact.com
 ***
 
-This documentation was generated on 05/02/2026 14:40:02
+This documentation was generated on 18/06/2026 09:00:32

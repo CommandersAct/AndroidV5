@@ -4,7 +4,7 @@
 Partners' Implementation Guide
 ==============================
 
-Last update : *05/02/2026*
+Last update : *18/06/2026*
 
 Release version : *5.0.1*
 
@@ -143,7 +143,7 @@ Support and contacts
 
 http://www.commandersact.com
 
-Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France
+Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 05/02/2026 14:40:02
+This documentation was generated on 18/06/2026 09:00:32

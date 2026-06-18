@@ -4,8 +4,8 @@
 Core Guide
 ==========
 
-Last update : *05/02/2026*
-Release version : *5.4.9*
+Last update : *18/06/2026*
+Release version : *5.5.0*
 
 ## Table of Contents
 
@@ -18,18 +18,18 @@ Release version : *5.4.9*
 Introduction
 ============
 
-As we expended Commanders Act's mobile possibilities, it rapidly became apparent that we could not fit everything at the same time for everybody in only one big library. In fact, it's contradictory with Tag Management itself, so we decided to cut capabilities into smaller modules so people wouldn't need to add everything in their project, saving space in your application.
+As we expanded Commanders Act's mobile possibilities, it rapidly became apparent that fitting everything into one big library wasn't the right approach — it's also contradictory with Tag Management itself. We decided to split capabilities into smaller modules, so you only add what you need and keep your application lightweight.
 
-But even with that said, a part of our code is pretty useful in several of our modules, so we created a Core module to prevent code repetition and thus also bigger applications if you need several modules.
+That said, a part of our code is shared across several modules. The Core module exists to avoid repetition and keep things smaller when you need more than one module.
 
 Dependencies
 ============
 
-The Core module is mandatory if you are using Commanders Act's mobile solution, so we simply put the dependencies needed for the Core module directly in the documentations of the other modules.
+The Core module is mandatory when using Commanders Act's mobile solution. Its dependencies are listed directly in each module's documentation rather than here.
 
 Core is building with the following dependencies :
 
-	implementation 'androidx.appcompat:appcompat:1.4.1'
+	implementation 'androidx.appcompat:appcompat:1.6.1'
 
 Using ProGuard
 --------------
@@ -59,4 +59,4 @@ Support and contacts
 http://www.commandersact.com
 ***
 
-This documentation was generated on 05/02/2026 14:40:02
+This documentation was generated on 18/06/2026 09:00:32

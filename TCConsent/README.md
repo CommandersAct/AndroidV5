@@ -1,624 +1,736 @@
 ![alt tag](../res/ca_logo.png)
 
-
 Consent's Implementation Guide
 ==============================
 
-Last update : *05/02/2026*
+Last update : *18/06/2026*
 
-Release version : *5.3.10*
+Release version : *5.4.0*
 
 ## Table of Contents
 
 - [Consent's Implementation Guide](#consents-implementation-guide)
 - [Introduction](#introduction)
-- [Choose your privacy](#choose-your-privacy)
-- [Setup](#setup)
+- [Configure TCConsent](#configure-tcconsent)
+  - [Choose your Modules Configuration](#choose-your-modules-configuration)
+  - [Choose Consent flavour](#choose-consent-flavour)
+  - [Choose UI Components Configuration](#choose-ui-components-configuration)
+- [Technical Setup](#technical-setup)
   - [Minimum Requirements](#minimum-requirements)
-  - [With the ServerSide](#with-the-serverside)
-  - [Standalone](#standalone)
+  - [Initialisation](#initialisation)
 - [Saving consent](#saving-consent)
-  - [With the Privacy Center](#with-the-privacy-center)
+  - [With our Privacy Center](#with-our-privacy-center)
   - [Manually displayed consent](#manually-displayed-consent)
-- [Stop privacy stats tracking](#stop-privacy-stats-tracking)
-  - [Forwarding to Server-Side](#forwarding-to-server-side)
   - [AcceptAll / RefuseAll](#acceptall-refuseall)
-- [Retaining consent](#retaining-consent)
-  - [Using your own user ID](#using-your-own-user-id)
-  - [Displaying chosen ID](#displaying-chosen-id)
-- [Displaying consent](#displaying-consent)
+  - [Forwarding consent to Server-Side (external consent only)](#forwarding-consent-to-server-side-external-consent-only)
+  - [Testing your integration](#testing-your-integration)
+- [Consent Banner Setup](#consent-banner-setup)
+  - [Configuration](#configuration)
+  - [Usage](#usage)
+  - [Options](#options)
+  - [Design and colours](#design-and-colours)
+  - [Button actions](#button-actions)
+- [Privacy Center Setup](#privacy-center-setup)
+  - [Launching the Privacy Center](#launching-the-privacy-center)
+  - [Customisation](#customisation)
+  - [Force JSON update from CDN](#force-json-update-from-cdn)
+  - [Loading a specific screen directly](#loading-a-specific-screen-directly)
 - [Reacting to consent](#reacting-to-consent)
-  - [Resetting consent :](#resetting-consent)
+- [Retaining consent](#retaining-consent)
+  - [Using your own consent ID](#using-your-own-consent-id)
+  - [Displaying the consent ID to the user](#displaying-the-consent-id-to-the-user)
+  - [Consent validity duration](#consent-validity-duration)
+  - [Resetting consent](#resetting-consent)
+  - [Consent version](#consent-version)
+  - [Displaying consent](#displaying-consent)
+- [Privacy statistics](#privacy-statistics)
+  - [Stop privacy statistics tracking](#stop-privacy-statistics-tracking)
+- [Google Consent Mode (Firebase)](#google-consent-mode-firebase)
+  - [Debugging Google Consent Mode](#debugging-google-consent-mode)
 - [Forwarding consent to webViews](#forwarding-consent-to-webviews)
-- [Changing consent version](#changing-consent-version)
 - [Consent internal API](#consent-internal-api)
-- [Privacy Center](#privacy-center)
-  - [Change the default state of the switch button to disabled:](#change-the-default-state-of-the-switch-button-to-disabled)
-  - [Deactivate the back button to force the consent:](#deactivate-the-back-button-to-force-the-consent)
-  - [Change Activity title:](#change-activity-title)
-  - [Force Json update from CDN :](#force-json-update-from-cdn)
-  - [Privacy statistics](#privacy-statistics)
+- [TCDemo](#tcdemo)
+- [Support and contacts](#support-and-contacts)
 
 Introduction
-===============
+============
 
-The Consent module can be used in a lot of different ways, after this short introduction, you will find links to each of the different ways and their specific documentations.
-
-Having the user consent is essential to send sensible information like the IDFA/AAID or using any personal information to serve advertising.
-
-We created this module to simplify the management of your user's privacy and the way to use it.
-
+The Consent module manages your users' consent: displaying a consent UI, saving consent on the device, checking its validity, and forwarding it to the ServerSide module.
 
 This module can:
 
-    - Display a consent page (if needed)
-    - Save consent inside the phone and reload it every time the application is launched.
-    - Check the validity of the consent. The validity duration is set to 6 months by default.
-    - Send a hit to our servers to record the consent. For statisical purposes.
-    - Save the consent String (if used alongside IAB)
-    - Enable or disable the ServerSide. (if used alongside the ServerSide module)
-    - Add the categories automatically to the hits the ServerSide sends. (if used alongside the ServerSide module)
-    - Forward the consent to the developpers if they need it outside of the module.
+- Display a consent banner or Privacy Center.
+- Save consent on the device and reload it on every launch.
+- Check consent validity (default: 6 months).
+- Send a hit to our servers to record the consent.
+- Send hits to our servers for statistical purposes.
+- Save the IAB consent string (when used with the IAB module).
+- Forward consent to developers via callbacks if they need it outside of the module.
+- If used alongside the ServerSide module:
+    - Enable or disable the ServerSide module based on consent.
+    - Automatically add consent categories to ServerSide hits.
 
+Configure TCConsent
+===================
 
-Choose your privacy
-=======================
+Choose your Modules Configuration
+---------------------------------
 
-Consent comes with two major flavors:
+- **With ServerSide** — modules: Core, Consent, ServerSide
 
-    - With Tag Management (With ServerSide)
-    - Standalone
+    The module will automatically start or stop the ServerSide based on the saved or
+    incoming consent. You don't need to manage this manually — just initialise the module
+    and it handles the rest.
 
-And 3 different ways to display it:
+- **Standalone** — modules: Core, Consent (you manage your own solutions via callbacks)
 
-    - Manually and then forwarding us the information
-    - Using our Privacy Center for IAB version 2
-    - Using our Privacy Center for simple Consent solution
+    Without the ServerSide module, consent is still saved and callbacks still fire — but
+    you are responsible for enabling or disabling your own third-party solutions based on
+    what comes back in `consentUpdated`.
 
-If you're unsure of which one you should use, please contact the person in charge of your account.
+Choose Consent flavour
+-----------------------
 
-[To use IAB V2 please see here](./TCIAB/README.md)
+- **Non-IAB — modules: Core, Consent**
 
+    Consent is collected and saved against your own custom categories and vendors as defined in privacy.json, or passed to saveConsent: function.
 
-Setup
-========
+- **IAB — modules: Core, Consent, TCIAB**
 
-/!\ If you are using our interface, you need to have a version of privacy.json inside your project. This will prevent any issues with users with bad or no internet at all. If you are using IAB please also take vendor-list.json and the translation file purposes-fr.json.
-If you are not using our interface, you can't use our privacy.json, if you want a way to use a configuration file, please ask your dev team to manage this file.
+    [IAB (Interactive Advertising Bureau)](https://iabeurope.eu/) defines the Transparency and Consent Framework (TCF), the industry standard for collecting and communicating user consent for digital advertising. 
+    When the TCIAB module is linked, consent is collected and saved as a TCF-compliant consent string in addition to the standard format. 
+    The Privacy Center gains an IAB-compliant first layer, and the category and vendor screen includes all the IAB categories and defined Vendors — alongside your own custom categories and vendors, which are still displayed. See the [TCIAB documentation for details](../TCIAB/README.md).
 
-After initialisation the Consent module will check the consent validity. If the consent is too old a callback will be called. Please check the Callback part.
-The default value is 6 months.
+- **IAB + AC String — modules: Core, Consent, TCIAB (AC String enabled in code)**
 
-If you're using our interface, and thus our privacy.json, you can change the duration on this validity.
-To do this, add "consentDurationInMonths": "13" inside the "information" bloc.
+    [Google AC String](https://support.google.com/admanager/answer/9681920) is a complementary consent signal used by Google's ad technology providers, on top of the IAB TCF string. It is enabled in code by calling useAcString(true) before initialisation and requires a google-atp-list.json file and a list of Google vendors in privacy.json. See the [TCIAB documentation for details](../TCIAB/README.md).
 
-If you're not using our interface, you'll have to manually change it in the code.
-We express this duration in months. The duration of a month is calculated by 365/12 days.
-Please first call the following method before initializing the Consent module else:
+Choose UI Components Configuration
+----------------------------------
 
-```java
-    TCConsent.getInstance().setConsentDuration(13);
-```
+Before choosing your components, it helps to understand the layers of a consent flow, and our UI Components:
+
+#### Consent layers
+
+- **First layer** — The first screen a user sees. Typically a banner or modal where they can accept consent in one tap. The Consent Banner is a non-IAB first layer option; the Privacy Center can also act as a first layer when using IAB.
+
+- **Second layer** — The detailed screen reached via a "Details" or "Manage" action, where users make granular choices per category and vendor. The Privacy Center always provides this layer.
+
+> [!WARNING] IAB compliance:
+> When using the IAB module, both the first layer and second layer must meet IAB specifications and be validated by IAB.
+
+#### UI Components
+
+#### Privacy Center
+
+`TCPrivacyCenterViewController` is the full consent management UI where users toggle individual categories and vendors. Its behaviour adapts automatically based on whether the TCIAB module is linked — no code change needed.
+
+| | With TCIAB | Without TCIAB |
+|---|---|---|
+| Opens to | IAB-compliant first layer, then category/vendor screen on Detail | Category/vendor screen directly |
+| Vendors shown | Custom + IAB vendors | Custom vendors only |
+
+> Linking or removing TCIAB is sufficient to switch modes.
+
+For setup and launch options, see [Privacy Center Setup](#privacy-center-setup) below.
+
+#### Consent Banner *(non-IAB only)*
+
+`showBanner()` displays a lightweight first-layer banner. From its Details button, you can open the Privacy Center or any custom screen of your own. Not suitable for IAB setups at this time.
+
+> [!NOTE]
+> If you are using the TCIAB module, the Privacy Center already handles the first layer automatically — you do not need to call `showBanner()`.
+
+For setup and display options, see [Consent Banner Setup](#consent-banner-setup) below.
+
+> [!IMPORTANT]
+> If you're unsure which setup to use, contact your account manager.
+
+###  UI Components Configuration Options
+
+- **With TCIAB (IAB)** - Both layers must meet IAB requirements. Options:
+
+    - Use the Privacy Center for both layers (recommended)
+    - Build your own first layer → bind to `TCConsent` → Privacy Center handles the second layer. See [Loading a specific screen directly](#loading-a-specific-screen-directly).
+
+- **Without TCIAB (non-IAB)**  - no IAB constraints. Any combination works:
+
+    - Our Consent Banner or your own banner as a first layer
+    - Our Privacy Center or your own custom screen as a second layer
+
+  *Privacy Center first layer (IAB):*
+
+  ![privacy_center_first_layer](../res/privacy_center_first_layer.jpg)
+
+  *Privacy Center second layer (IAB & non-IAB):* with vendor screen on the left, categories on the right
+  
+  ![privacy_center_second_layer](../res/privacy_center_second_layer.png)
+
+  *Consent Banner (non-IAB first layer):*
+  
+  ![banner_screenshot](../res/banner_screenshot.jpg)
+
+Technical Setup
+===============
+
+> [!IMPORTANT]
+> If you are using our UI (Banner and/or Privacy Center), you must include an offline copy of `privacy.json` in your project. This prevents issues for users with no or poor internet. If you are also using IAB, include `vendor-list.json` and the relevant `purposes-xx.json` translation file.
+
+Documentation for `privacy.json` is available here: [Privacy JSON Documentation](../res/Privacy_JSON_Documentation.md)
+
+If you are using your own Privacy Center, please check the following documentation for functions to call from your UI:
+
+> [User built Privacy Center guide](../res/user_privacy_center.md)
 
 Minimum Requirements
 --------------------
 
-Consent module requires a minimum SDK version of 17.
+Minimum Android SDK version: 21
 
-With the ServerSide
------------------------
+Initialisation
+--------------
 
-Modules: Core, Consent, ServerSide
-
-This module can use the same model you are using on the web, if you do so, please start by getting the IDs of the categories you are going to use.
-Join those IDs with a "consent version". Default is 1, but if you change the implementation, increment this version.
-
-The setup is really simple, pass to the TCConsent object your site ID, privacy ID and application context.
+**With our UI components (Privacy Center and/or Banner, `privacy.json` required):**
 
 ```java
-    TCConsent.getInstance().setSiteIDPrivacyIDAppContext(site_id, privacy_id, context);
+TCConsent.getInstance().setSiteIDPrivacyIDAppContext(site_id, privacy_id, context);
 ```
 
-If you're using your own Privacy Center, use the following function instead:
+**Without our UI components (custom privacy center):**
 
 ```java
-    TCConsent.getInstance().initWithCustomPCM(site_id, privacy_id, context);
+TCConsent.getInstance().initWithCustomPCM(site_id, privacy_id, context);
 ```
 
-This call will check the saved consent, putting the ServerSide module on hold if nothing is found, and start/stop the ServerSide if something is saved.
+At init, the module checks saved consent and puts the ServerSide on hold if nothing is found. Once consent is given or loaded, the ServerSide is started or stopped accordingly.
 
-Standalone
-----------
-
-Modules: Core, Consent
-
-You won't need the ServerSide module, and will need to implement a callback to manage your solutions when consent is given or re-loaded.
-
-The setup is really simple, pass to the TCConsent object your site ID, privacy ID and application context.
-
-```java
-    TCConsent.getInstance().setSiteIDPrivacyIDAppContext(site_id, privacy_id, appContext);
-```
-
-If you're using your own Privacy Center, use the following function instead:
-
-```java
-    TCConsent.getInstance().initWithCustomPCM(site_id, privacy_id, context);
-```
+> [!IMPORTANT]
+> Register your callbacks **before** calling init. The module checks consent at startup and fires callbacks immediately.
 
 Saving consent
 ==============
 
-Here is where the IDs of the categories matters.
+With our Privacy Center
+-----------------------
 
-With the Privacy Center
----------------------------
+Nothing to do — the Privacy Center propagates consent to all systems automatically.
 
-If you're using the Privacy Center, nothing has to be done here, it will automatically propagate the consent to all other systems. And the ID will be the one used in the configuration file. Please check the Privacy Center part for more information.
-
-Please keep your category IDs between 1 and 999.
+Keep your custom category IDs between 1 and 999 in your `privacy.json`.
 
 Manually displayed consent
-------------------------------
+--------------------------
 
-Once the user validated his consent, you can then send the information to the Consent module as follows:
+> [!INFO]
+> The `saveConsent*` methods cannot be used when using IAB. IAB compliance requires that consent be collected through a validated UI — the SDK cannot generate a TCF-compliant consent string from an interface it does not control. In IAB mode, use `acceptAllConsent()` / `refuseAllConsent()` for all-or-nothing consent, or our UI components for per-category and per-vendor granularity.
+>
+> If you need to collect consent manually through your own UI, the `saveConsent*` methods remain available in the **nonIAB configuration**.
 
-in java :
+If you build your own consent UI, once the user validates consent, pass it to the module:
+
+in java:
 
 ```java
-	Map<String, String> consent = new HashMap<>();
-	consent.put("PRIVACY_CAT_1", "1");
-	consent.put("PRIVACY_CAT_2", "0");
-	consent.put("PRIVACY_CAT_3", "1");
-	consent.put("PRIVACY_VEN_61", "1");
-	TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, PrivacyCenter, Save);
+Map<String, String> consent = new HashMap<>();
+consent.put("PRIVACY_CAT_1", "1");
+consent.put("PRIVACY_CAT_2", "0");
+consent.put("PRIVACY_CAT_3", "1");
+consent.put("PRIVACY_VEN_61", "1");
+TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, ETCConsentSource.PrivacyCenter, ETCConsentAction.Save);
 ```
 
-in kotlin :
+in kotlin:
 
 ```kotlin
-	val consent: MutableMap<String, String> = HashMap()
-	consent["PRIVACY_CAT_1"] = "1"
-	consent["PRIVACY_CAT_2"] = "0"
-	consent["PRIVACY_CAT_3"] = "1"
-	consent["PRIVACY_VEN_61"] = "1"
-	TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, ETCConsentSource.PrivacyCenter, ETCConsentAction.Save);
+val consent: MutableMap<String, String> = HashMap()
+consent["PRIVACY_CAT_1"] = "1"
+consent["PRIVACY_CAT_2"] = "0"
+consent["PRIVACY_CAT_3"] = "1"
+consent["PRIVACY_VEN_61"] = "1"
+TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, ETCConsentSource.PrivacyCenter, ETCConsentAction.Save)
 ```
 
-Stop privacy stats tracking
-===========================
+Prefix category IDs with `PRIVACY_CAT_` and vendor IDs with `PRIVACY_VEN_`. Values:
 
-You can set your `do_not_track` property on your privacy stats payload : 
+- `1` — accepted
+- `2` — mandatory (cannot be refused)
+- `0` — refused
+
+Sources: `Popup` or `PrivacyCenter`
+
+Actions: `AcceptAll`, `RefuseAll`, `Save`
+
+AcceptAll / RefuseAll
+---------------------
+
+> [!WARNING]
+> These methods only work if you are using our UI and have `privacy.json` in your project.
+
+> [!NOTE]
+> In the IAB variant, `acceptAllConsent()` and `refuseAllConsent()` are the only supported programmatic consent methods. For manual per-category or per-vendor consent in IAB mode, you must use our Privacy Center.
+
+For clients displaying a custom first screen before our interface, with a way to accept or refuse all consent directly:
 
 ```java
-        TCConsent.getInstance().do_not_track = value;
+TCConsent.getInstance().acceptAllConsent();
+TCConsent.getInstance().refuseAllConsent();
 ```
 
-Please prefix your category IDs with "PRIVACY_CAT_" and your vendor IDs with "PRIVACY_VEN_".
+Forwarding consent to Server-Side (external consent only)
+---------------------------------------------------------
 
-The value expected are:
+Only needed if you use ServerSide with your own consent implementation external to our platform. Otherwise everything is handled automatically.
 
-    * 1 means accepting this category or vendor.
-    * 2 is for mandatory vendors or categories.
-    * 0 is refusing.
-
-Source can be either:
-
-    * Popup
-    * PrivacyCenter
-
-And consent action:
-
-    * AcceptAll
-    * RefuseAll
-    * Save
-
-If you're using the ServerSide, this will propagate the information to the TCServerSide and the TCUser and manage its state.
-
-If you are using mandatory categories (categories that can't be opted out), you can use refuse all and pass those categories with "2".
-
-Forwarding to Server-Side
--------------------------
-
-Only if you use Server-Side and a consent manually displayed and consent external to our platform. 
-Otherwise, everything is done automatically, so nothing to do here.
-
-You will need to add consent to the TCUser object to forward it to our server-side.
-
-in java :
+in java:
 
 ```java
-        HashMap<String, String> ext = new HashMap<>();
-        ext.put("key01", "true");
-        ext.put("key02", "1");
-        ext.put("312", "0");
-        TCUser.getInstance().setExternalConsent(ext);
+HashMap<String, String> ext = new HashMap<>();
+ext.put("key01", "true");
+ext.put("key02", "1");
+ext.put("312", "0");
+TCUser.getInstance().setExternalConsent(ext);
 ```
 
-in kotlin :
+in kotlin:
 
 ```kotlin
-        val ext: HashMap<String, String> = HashMap()
-        ext["key01"] = "true"
-        ext["key02"] = "1"
-        ext["312"] = "0"
-        TCUser.getInstance().externalConsent = ext
+val ext: HashMap<String, String> = HashMap()
+ext["key01"] = "true"
+ext["key02"] = "1"
+ext["312"] = "0"
+TCUser.getInstance().externalConsent = ext
 ```
 
 Since it's external, and we don't really know how it's working, you can pass any string/string and we'll forward it as is.
 
-AcceptAll / RefuseAll
--------------------------
+Testing your integration
+------------------------
 
-/!\ Those methods only work if you are using our interface and thus have a privacy.json in your project (and maybe IAB's JSON as well).
+Make sure logging is set to `Log.VERBOSE` (`TCDebug.setDebugLevel(Log.VERBOSE)`).
 
-Those are intended for clients that are displaying a first "popup" screen before our interfaces and that have a way to either open the privacy center of accept/refuse the consent.
+After consent is accepted or refused — whether via `acceptAllConsent()`, `refuseAllConsent()`, `saveConsentFromConsentSourceWithPrivacyAction()`, or a button press in the Privacy Center or Banner — you should see the following in your Logcat:
 
-We created functions to call if you want to create a simple way to accept or refuse all consent from outside our user interface.
-
-```java
-	TCConsent.getInstance().acceptAllConsent();
-	TCConsent.getInstance().refuseAllConsent();
+```
+D  CommandersAct: sending: https://privacy.trustcommander.net/privacy-consent/?tc_firsttime=1
+D  CommandersAct: with POST data:
+D  CommandersAct: {"privacyBeacon":{"id_privacy":3,"site":XXXX,"version":"XX","do_not_track":false,"privacy_action":"1","optin_categories":"1,2,3,...
 ```
 
-Retaining consent
+If you see this, consent was saved successfully on the device and forwarded to our servers. You can also check the saved values inside `MySharedPreferencesTC.xml` inside your app shared preferences.
+
+If not, check that logging is enabled and that one of the save methods above was actually called.
+
+Consent Banner Setup
 ====================
 
-The saving of the consent on our servers is done automatically.
+> [!NOTE]
+> The Consent Banner (`showBanner()`) is non-IAB. If you are using the TCIAB module, the Privacy Center already handles the first layer automatically — you do not need to call `showBanner()`.
 
-But since we are saving the consent in our servers, we need to identify the user one way or another. By default, the variable used to identify the user consenting is #TC_SDK_ID#, but you can change it to anything you'd like.
+The Consent Banner is a lightweight UI component to quickly collect consent before optionally opening the full Privacy Center.
 
-If you're looking for a way to prove consent or reset saved information, you'll need to create a specific screen in app for this.
+Configuration
+-------------
 
-This can be used to save the display of the consent, and giving the consent.
+The banner can be displayed in two modes:
 
-This ID is very important because it will be the basic information used to get back the consent when you need a proof.
+- **Bottom sheet** (`TCBannerType.BOTTOM_SHEET`) — slides up from the bottom of the screen as an overlay
+- **Full screen** (`TCBannerType.FULL_SCREEN`) — displayed as a centered modal card
 
-Using your own user ID
-----------------------
+Both support a compact layout mode (`compactLayout = true` in `TCBannerOptions`) which reduces the visual weight of the banner. Only enable it when you are confident it meets your local regulations — buttons retain the same size and font, but the reduced visual prominence of the refuse option may not be sufficient in all jurisdictions.
 
-You will be able to get the information more easily since this is an ID available by several means for you.
+Textual and visual elements are defined in `privacy.json` under `"texts" -> "banner"` and are mandatory. Refer to the [privacy.json documentation](../res/Privacy_JSON_Documentation.md) for full details.
 
-To modify the ID used for saving the consent, you can change the information inside the TCUSer.
+![Privacy Banner Screenshot](../res/banner_screenshot.jpg)
+*Left: full screen — Centre: bottom sheet — Right: compact layout*
 
-```java
-	TCUser.getInstance().consentID = "myConsentID";
+Usage
+-----
+
+```kotlin
+TCConsent.getInstance().showBanner(
+    activity = activity,
+    type = TCBannerType.BOTTOM_SHEET,
+    options = TCBannerOptions(),
+    onDetailsButtonClick = {
+        // Open the Privacy Center or your own screen here
+    }
+)
 ```
 
-Displaying chosen ID
---------------------
+Parameters:
 
-You might want to be able to display to your end user the ID used to save the consent. You can simply get it like this:
+- `type` — banner display mode: `.BOTTOM_SHEET` for a bottom sheet or `.FULL_SCREEN` for a modal card
+- `options` — layout and behaviour options (see [Options](#options) below); defaults to `TCBannerOptions()` if omitted
+- `bannerTheme` — optional colour scheme override (see [Design and colours](#design-and-colours))
+- `onDetailsButtonClick` — callback triggered when the user taps the details button
 
-```java
-	TCUser.getInstance().consentID
+Options
+-------
+
+All options are set through `TCBannerOptions` and have safe defaults, so you only need to specify what you want to override:
+
+```kotlin
+TCBannerOptions(
+    dimAmount = 0.4f,
+    isDismissible = false,
+    iconName = "my_app_icon",
+    iconSize = 24,
+    buttonsAlignment = TCButtonsAlignment.HORIZONTAL,
+    buttonsOrder = listOf(TCBannerButtonOrder.REFUSE, TCBannerButtonOrder.DETAILS, TCBannerButtonOrder.ACCEPT),
+    compactLayout = false
+)
 ```
 
-Displaying consent
-==================
+| Option | Description | Default | Notes |
+|--------|-------------|---------|-------|
+| `dimAmount` | Background dim level behind the banner | `0.4f` | `0f` = transparent, `1f` = fully black |
+| `isDismissible` | Allow dismissal by tapping outside the banner | `false` | ⚠️ No consent is collected when dismissed this way |
+| `iconName` | Name of the drawable resource to display before the title | `null` | Must exist in your app's drawable resources |
+| `iconSize` | Size in dp of the icon displayed before the title | `24` | — |
+| `buttonsAlignment` | Button layout direction: `HORIZONTAL` or `VERTICAL` | `VERTICAL` | Ignored when `compactLayout` is `true` |
+| `buttonsOrder` | Display order of the buttons | `[REFUSE, DETAILS, ACCEPT]` | Ignored when `compactLayout` is `true` |
+| `compactLayout` | Use the compact button layout | `false` | See note below |
 
-If you are familiar with Commanders Act Consent for web, you know that we actually record two things. The first thing is "displaying the consent form".
-This allows you to prove that a user has indeed been shown the consent screen even if he somehow left without accepting/refusing to give his consent.
+> [!NOTE]
+> Compact layout reduces the visual prominence of the refuse option. Only enable it when you are confident it meets your local regulations — it may not be sufficient in all jurisdictions.
 
-In some cases, client also use this to infer user consent since he continued using the application after he was shown the consent screen.
-We don't recommend this behaviour, please discuss it with your setup team first.
+Design and colours
+------------------
 
+By default, the banner inherits your app's Material 3 theme colours (`colorSurface`, `colorOnSurface`). Dark mode is supported automatically via the app theme.
+
+To override colours, pass a `TCBannerTheme` to `showBanner()`:
+
+```kotlin
+TCConsent.getInstance().showBanner(
+    activity = activity,
+    bannerTheme = TCBannerTheme(
+        lightColorScheme = myLightScheme,
+        darkColorScheme = myDarkScheme
+    ),
+    onDetailsButtonClick = { ... }
+)
+```
+
+The banner is designed for mobile screens but supports larger screens on tablets.
+
+Colour resolution priority (highest to lowest):
+
+1. `TCBannerTheme` passed to `showBanner()` — supports Dark/Light mode
+2. App theme colours (`colorSurface` / `colorOnSurface`) — supports Dark/Light mode
+3. Material 3 defaults
+
+Button actions
+--------------
+
+- **Accept** — calls `TCConsent.getInstance().acceptAllConsent()`
+- **Refuse** — calls `TCConsent.getInstance().refuseAllConsent()`
+- **Details** — triggers the `onDetailsButtonClick` callback you pass to `showBanner()`; open the Privacy Center or your own screen here
+
+Privacy statistics are collected automatically on banner display and on each button tap.
+
+Privacy Center Setup
+====================
+
+The Privacy Center is the full consent management screen where users toggle individual categories and vendors.
+
+It is driven by `privacy.json`, which describes the interfaces built natively inside the application.
+An offline copy is mandatory; an additional copy can be hosted on our CDN for remote updates — the module checks for updates automatically. Your account consultant will provide the `privacy.json` for your project.
+Please check Privacy JSON Documentation for more details on how to set every text or option of your Privacy Center.
+
+In the Android SDK the Privacy Center is implemented as an Activity. The offline JSON must be saved in the `src/main/assets` folder.
+
+**IAB and non-IAB launching**
+
+The Privacy Center's behaviour on launch depends on whether the [TCIAB](../TCIAB/README.md) module is linked.
+
+- **Without TCIAB** — the Privacy Center opens directly to the category and vendor management screen, showing only your custom categories and vendors.
+
+- **With TCIAB** — the Privacy Center first shows an IAB-compliant screen (the TCF first layer). The user must scroll through it before the action buttons become active. Tapping Detail opens the full category and vendor screen, which now includes IAB purposes, special purposes, features, special features, and IAB-registered vendors alongside your custom ones.
+
+> [!NOTE]
+> No code change is needed between the two modes — linking or removing the TCIAB module is sufficient.
+
+Launching the Privacy Center
+----------------------------
+
+```java
+Intent PCM = new Intent(getContext(), com.tagcommander.lib.consent.TCPrivacyCenter.class);
+startActivity(PCM);
+```
+
+Customisation
+-------------
+
+Change the default switch state to off:
+
+```java
+TCConsent.getInstance().switchDefaultState = false;
+```
+
+Disable the back button to force consent:
+
+```java
+TCConsent.getInstance().deactivateBackButton = true;
+```
+
+Change the activity title:
+
+```java
+Intent PCM = new Intent(getContext(), com.tagcommander.lib.privacy.TCPrivacyCenter.class);
+PCM.putExtra(kTCIntentExtraCustomTitle, "My custom title");
+```
+
+Force JSON update from CDN
+--------------------------
+
+By default, a new `privacy.json` is applied immediately. If your configuration is large enough to block the main thread, disable immediate parsing:
+
+```java
+TCConsent.getInstance().shouldForceJsonUpdate(false);
+```
+
+This saves the new JSON but only parses and uses it on the next launch.
+
+Loading a specific screen directly
+-----------------------------------
+
+To open the purpose screen directly (useful when you have your own first-layer banner):
+
+in java:
+
+```java
+Intent PCM = new Intent(getContext(), com.tagcommander.lib.consent.TCPrivacyCenter.class);
+PCM.putExtra(com.tagcommander.lib.consent.TCConsentConstants.kTCPC_START_SCREEN,
+             com.tagcommander.lib.consent.TCConsentConstants.kTCStartWithPurposeScreen);
+startActivity(PCM);
+```
+
+in kotlin:
+
+```kotlin
+val PCM = Intent(getContext(), TCPrivacyCenter::class.java)
+PCM.putExtra(TCConsentConstants.kTCPC_START_SCREEN, TCConsentConstants.kTCStartWithPurposeScreen)
+startActivity(PCM)
+```
+
+For the vendor screen, replace `kTCStartWithPurposeScreen` with `kTCStartWithVendorScreen`.
 
 Reacting to consent
 ===================
 
-If you need to react to the user giving consent, or the loading of the consent at the start of the Consent module we created several callbacks to help.
+If you need to react to the user giving consent, or to consent being loaded at startup, implement `TCPrivacyCallbacks`.
 
-Currently, we have a callback function that lets you get back the categories and set up your other partners accordingly.
-This is the function where you would tell your ad partner "the user don't want to receive personalized ads" for example.
+> [!WARNING]
+> Register your callbacks **before** initialising the Consent module. The module checks consent at init and fires callbacks immediately.
 
-/!\ Don't forget to register to the callbacks *before* the initialisation of the Consent Module since the module will check consent at init and use the callback at this step.
+**`consentUpdated(Map<String, String> categories)`**
 
+Called when consent is loaded at startup, given inside the Privacy Center, or manually passed to the SDK. The map contains `PRIVACY_CAT_n` and `PRIVACY_VEN_n` keys with `"0"` or `"1"` values. May be empty if nothing was consented to.
 
-Implement TCPrivacyCallbacks to get access to those callbacks:
+**`consentOutdated`**
 
-```java
-	void consentUpdated(Map<String, String> categories);
-```
+Called after 6 months without any change in user consent. Use this to force re-displaying the consent screen, similar to first launch.
 
-Called when either:
+**`consentCategoryChanged`**
 
-* We load the saved consent
-* consent is given inside the privacy center
-* you manually give us the user selected consents
+Called when a category is added, removed, or its ID changes in the configuration. Re-display the Privacy Center when this fires.
 
-We have a Map which is the same as the one given to our SDK with keys PRIVACY_CAT_n and PRIVACY_VEN_n and value "0" or "1".
-In the case nothing was consented to, you might also have an empty map (but not null).
+**`significantChangesInPrivacy`**
 
-```java
-	void consentOutdated();
-```
+Created for IAB. Only fires when `"significantChanges"` is set in `privacy.json`. Not automatic.
 
-This is called after 6 months without change in the user consent. This can allow you to force displaying the consent the same way you would on first launch.
+You can also listen to SDK start/stop events by registering an Observer implementing `TCEventManager.TCLifecycleListener` via `TCEventManager.registerLifecycleListener()`.
 
-```java
-	void consentCategoryChanged();
-```
+Retaining consent
+=================
 
-When you make a change in the JSON, there is nothing special to do.
-But when this change is adding or removing a category, or changing an ID, we should re-display the Privacy Center.
+Consent is saved to our servers automatically. The identifier used by default is `TCDevice.consentID`.
 
-```java
-	void significantChangesInPrivacy();
-```
+If you need to prove consent or reset saved information, create a dedicated screen in your app for this purpose.
 
-This one is slightly different from the last one, it was created for IAB and will not be sent automatically. It is conditioned by the field "significantChanges" in the privacy.json so that it will only launch when you need it to.
+This ID is important — it is the key used to retrieve consent records when proof is required.
 
-Please also note that you can listen to starting and stopping the SDK events, you'll need to register your Observer that implements 'TCEventManager.TCLifecycleListener' interface via 'TCEventManager.registerLifecycleListener()' method.
-
-Resetting consent : 
--------------------
-
-To reset user consent on devices, you can use the following method:
+Using your own consent ID
+-------------------------
 
 ```java
-    TCConsent.getInstance().resetSavedConsent()
+TCUser.getInstance().consentID = "myConsentID";
 ```
 
-Please note that this method resets the consent on the device each time it is called. If you need to handle resets for specific app versions, you will have to manage that manually.
+Displaying the consent ID to the user
+--------------------------------------
 
-Alternatively, if you are using our PrivacyCenter, you can use the resetSave field in your privacy.json. For implementation details, please contact your consultant.
+You might want to be able to display to your end user the ID used to save the consent. You can simply get it like this:
+
+```java
+TCUser.getInstance().consentID
+```
+
+
+Consent validity duration
+-------------------------
+
+Default validity is 6 months. To change it via `privacy.json`, add the following inside the `"information"` block:
+
+```json
+"consentDurationInMonths": "13"
+```
+
+To change it in code (call before init):
+
+```java
+TCConsent.getInstance().setConsentDuration(13);
+```
+
+Resetting consent
+-----------------
+
+```java
+TCConsent.getInstance().resetSavedConsent();
+```
+
+This resets consent on the device every time it is called. Managing resets per app version must be done manually.
+
+If you are using our Privacy Center, you can also use the `resetSave` field in `privacy.json`. Contact your consultant for details.
+
+Consent version
+---------------
+
+To manually change the consent version (e.g. when using your own privacy center):
+
+```java
+TCConsent.getInstance().consentVersion = "132";
+```
+
+Displaying consent
+------------------
+
+If you are familiar with Commanders Act Consent for web, you know that we actually record two things. The first thing is "displaying the consent form". This allows you to prove that a user has indeed been shown the consent screen even if he somehow left without accepting/refusing to give his consent.
+
+
+Privacy statistics
+==================
+
+We have dashboards that provide detailed statistics on the choices your users make. Depending on your app's configuration choices, you may need to call some additional functions.
+
+The four possible flows are:
+
+- Custom banner/popup → our Privacy Center
+- Custom banner/popup → custom Privacy Center
+- Directly to our Privacy Center
+- Custom Privacy Center only
+
+Whenever `saveConsent*` is called, provide the full list of accepted and refused purposes and vendors.
+
+Reference list of functions for our interfaces:
+
+```java
+TCConsent.getInstance().refuseAllConsent();
+TCConsent.getInstance().acceptAllConsent();
+TCConsent.getInstance().statEnterPCToVendorScreen();
+TCConsent.getInstance().statViewPrivacyPoliciesFromBanner();
+TCConsent.getInstance().getNumberOfIABVendors(); // IAB only
+```
+
+Stop privacy statistics tracking
+---------------------------------
+
+To disable privacy stat tracking, configure the following parameter:
+
+```java
+TCConsent.getInstance().do_not_track = value;
+```
+
+Google Consent Mode (Firebase)
+==============================
+
+[Google Consent Mode](https://developers.google.com/tag-platform/security/concepts/consent-mode) is a framework that lets you adjust how Google's Firebase Analytics behave based on the consent status of your users. When a user accepts or refuses consent, Google Consent Mode signals that to Firebase so they can adapt their data collection accordingly.
+
+If you are using `TCFirebaseDestination`, you can configure the Consent module to forward consent to `FirebaseAnalytics` automatically.
+
+To use TCConsent to drive Google Consent Mode (GCM) in Firebase Analytics, add a `google_consent_mode` section to the root of your `privacy.json`:
+
+```json
+"google_consent_mode": {
+    "use_consent_mode": true,
+    "infer_ad_from_tcf": false,
+    "category_mapping": {
+        "ad_storage": 1,
+        "ad_user_data": 2,
+        "ad_personalization": 3,
+        "analytics_storage": 4
+    }
+}
+```
+
+Please refer to the [privacy.json documentation](../res/Privacy_JSON_Documentation.md) for more information.
+
+If you use IAB with `infer_ad_from_tcf: true` (IAB only), the three `ad_*` categories are mapped automatically from the TCF consent string and the `category_mapping` entries for them are ignored.
+
+Debugging Google Consent Mode
+------------------------------
+
+TCConsent does not produce logs specific to Firebase consent mode — debugging should be done at the Firebase SDK level and through the Google console.
+
+To verify your integration:
+
+- **Enable DebugView on the Firebase SDK.** Refer to the [official Firebase documentation](https://developers.google.com/tag-platform/security/guides/app-consent?platform=android) for how to do this on Android.
+
+- **Confirm consent is being saved by TCConsent first.** If the user has not accepted or refused yet, nothing will be forwarded. See the [Testing your integration](#testing-your-integration) section above to verify consent is recorded correctly before investigating the Firebase side.
+
+- **Set a breakpoint inside `firebaseConsentChanged`** to confirm the callback fires and that the consent values it receives are what you expect.
+
 
 Forwarding consent to webViews
 ==============================
 
-Some clients need to have the consent forwarded in their webViews to manage a web container inside it.
-We created a function to get the privacy as a JSON string so you can save it inside the webView''s local storage.
-
-> [!WARNING]
-> This function only help to save it to the local storage by giving the required format, you will still need to have JS code in the web container to use it. Please ask your consultant for this part.
+To forward consent to a webView's local storage:
 
 ```java
-    String JSON = TCConsent.getInstance().getConsentAsJson();
-````
-
-## Forwarding consent to FirebaseAnalytics :
-
-Now thanks to Google Consent Mode, if you are using our TCFirebaseDestination, you can configure the TCConsent module to forward and set the consent to FirebaseAnalytics once the user has opted-in/out for your mapped categories.
-
-To do this, please add the following section to the root of your privacy.json : 
-
-```json
-    "google_consent_mode": {
-        "use_consent_mode": true, // boolean value to activate the mapping
-        "infer_ad_from_tcf": false, // boolean value for default IAB mapping
-        "category_mapping": { // Custom categories ID mapping only
-            "ad_storage": 1, 
-            "ad_user_data": 2,
-            "ad_personalization": 3,
-            "analytics_storage": 4
-        }
-    }
+String JSON = TCConsent.getInstance().getConsentAsJson();
 ```
 
-If you are using IAB and infer_ad_from_tcf the 3 ad_somthing categories are automatically mapped and thus the categories here are not taken into consideration.
-
-Changing consent version
-=========================
-
-If the case you need to manually change the consent version (if you're using your own privacy center for example), you can use the following:
-
-
-```java
-    TCConsent.getInstance().consentVersion = "132";
-```
+> [!NOTE]
+> This only provides the formatted JSON. You still need JS code inside the web container to consume it. Contact your consultant for that part.
 
 Consent internal API
 ====================
 
-We created several methods to check given consent. They are simple, but make it easier to work with consent information at any given time.
-You'll find those in the class TCConsentAPI:
+`TCConsentAPI` provides utility methods to check consent state at any time:
 
 ```java
-	/**
-	* Checks if we should display privacy center for any reason.
-	* @param appContext the application context.
-	* @return True or False.
-	*/
-	public static boolean shouldDisplayPrivacyCenter(Context context)
+// Should the privacy center be displayed?
+public static boolean shouldDisplayPrivacyCenter(Context context)
 
-	/**
-	* Checks if consent has already been given by checking if consent information is saved.
-	* @param appContext the application context.
-	* @return true if the consent was already given, false otherwise.
-	*/
-	public static boolean isConsentAlreadyGiven(Context appContext);
+// Has consent already been given?
+public static boolean isConsentAlreadyGiven(Context appContext)
 
-	/**
-	* Return the epochformatted timestamp of the last time the consent was saved.
-	* @param appContext the application context.
-	* @return epochformatted timestamp or 0.
-	*/
-	public static Long getLastTimeConsentWasSaved(Context appContext);
+// Epoch timestamp of last saved consent (0 if never)
+public static Long getLastTimeConsentWasSaved(Context appContext)
 
-	/**
-	* Check if a Category has been accepted.
-	* @param ID the category ID.
-	* @param appContext the application context.
-	* @return true or false.
-	*/
-	public static boolean isCategoryAccepted(int ID, Context appContext);
+// Category / vendor checks
+public static boolean isCategoryAccepted(int ID, Context appContext)
+public static boolean isVendorAccepted(int ID, Context appContext)
 
-	/**
-	* Check if a vendor has been accepted.
-	* @param ID the vendor ID.
-	* @param appContext the application context.
-	* @return true or false.
-	*/
-	public static boolean isVendorAccepted(int ID, Context appContext);
+// Lists of accepted items
+public static List<String> getAcceptedCategories(Context appContext)
+public static List<String> getAcceptedVendors(Context appContext)
+public static List<String> getAllAcceptedConsent(Context appContext)
+public static List<String> getAcceptedGoogleVendors(Context appContext)
 
-	/**
-	* Get the list of all accepted categories.
-	* @param appContext the application context.
-	* @return a List of PRIVACY_CAT_IDs.
-	*/
-	public static List<String> getAcceptedCategories(Context appContext);
-
-	/**
-	* Get the list of all accepted vendors.
-	* @param appContext the application context.
-	* @return a List of PRIVACY_VEN_IDs.
-	*/
-	public static List<String> getAcceptedVendors(Context appContext);
-
-	/**
-	* Get the list of all google vendors accepted.
-	* @param appContext the application context.
-	* @return a List of acm_ID.
-	*/
-	public static List<String> getAcceptedGoogleVendors(Context appContext);
-
-	/**
-	* Get the list of everything that was accepted.
-	* @param appContext the application context.
-	* @return a List of PRIVACY_VEN_IDs and PRIVACY_CAT_IDs.
-	*/
-	public static List<String> getAllAcceptedConsent(Context appContext);
-
-	/**
-	* Check if a purpose has been accepted.
-	* @param ID the purpose ID.
-	* @param appContext the application context.
-	* @return true or false.
-	*/
-	public static boolean isIABPurposeAccepted(int ID, Context appContext);
-
-	/**
-	* Check if a vendor has been accepted.
-	* @param ID the vendor ID.
-	* @param appContext the application context.
-	* @return true or false.
-	*/
-	public static boolean isIABVendorAccepted(int ID, Context appContext);
-
-	/**
-	* Check if a special feature has been accepted.
-	* @param ID the vendor ID.
-	* @param appContext the application context.
-	* @return true or false.
-	*/
-	public static boolean isIABSpecialFeatureAccepted(int ID, Context appContext);
+// IAB-specific checks (IAB only — requires TCIAB module)
+public static boolean isIABPurposeAccepted(int ID, Context appContext)
+public static boolean isIABVendorAccepted(int ID, Context appContext)
+public static boolean isIABSpecialFeatureAccepted(int ID, Context appContext)
 ```
 
-Privacy Center
-==============
-
-The Privacy Center is represented by a JSON file that describes the interfaces that will be created by native code inside the application.
-
-For now this JSON has to be created and managed manually. An offline version is mandatory inside the app and if you need to update it remotely you can have another version on our CDNs.
-The module will check for updates of the file automatically.
-
-Your account should have a consultant that will provide you the corresponding JSON for your project.
-
-
-In the Android SDK we create an Activity which is an easy way to display a "page" without have to create a specific fragment space for it.
-Offline JSON has to be saved in the src/main/assets folder.
-
-To start the Privacy Center, you have to launch the corresponding activity.
-
-    Intent PCM = new Intent(getContext(), com.tagcommander.lib.consent.TCPrivacyCenter.class);
-    startActivity(PCM);
-
-Some part of the Privacy Center can be customised with your code.
-
-Change the default state of the switch button to disabled:
----------------------------------------------------------
-
-```java
-	TCConsent.getInstance().switchDefaultState = false;
-```
-
-Deactivate the back button to force the consent:
-------------------------------------------------
-
-Going back without consenting will result in a user not consenting at all. This means that no privacy will be saved, no tag can be called and no consent-string will be created if you use IAB.
-
-	TCConsent.getInstance().deactivateBackButton = true;
-
-Change Activity title:
-----------------------
-
-You can change the default activity title in your the Intent, using the kTCIntentExtraCustomTitle key. 
-
-	Intent PCM = new Intent(getContext(), com.tagcommander.lib.privacy.TCPrivacyCenter.class);
-	PCM.putExtra(kTCIntentExtraCustomTitle, "My custom title");
-
-
-Force Json update from CDN :
-----------------------------
-
-Previously we prevented parsing new privacy.json configuration immediatly to avoid re-doing resource-intensive tasks.
-We changed this behaviour since we managed to make this parsing more efficient.
-But it might happen that your configuration is still too big and it freezes the main thread. If so, you can call this method with false.
-This will only save the new privacy.json and only parse it and use it the next time you launch the application.
-
-```java
-	TCConsent.getInstance().shouldForceJsonUpdate(false)
-```
-
-Privacy statistics
-------------------
-
-We have dashboards that allow to have detailed statistics on the choices your users are making.
-Depending on your app privacy configuration you might have to call some additional functions.
-
-    - Custom « banner/popup » -> our privacy center
-    - Custom « banner/popup » -> Custom privacy center
-    - Directly to our privacy center
-    - Custom privacy center
-
-Whenever saveConsent* is called you will need to provide the full list of purposes and vendors that have been consented to and refused.
-
-We reworked saveConsent methods to only use one. If you are using the old functions they will still work for now.
-Otherwise, please check the above section "Manually displayed consent" for how this method works.
-
-
-/!\ Also, please note that you will need to call **statViewBanner** when you display your custom banner.
-
-![alt tag](../res/TCPC_customBanner.jpeg)
-![alt tag](../res/TCPC_PC.jpeg)
-![alt tag](../res/CustomBanner.jpeg)
-![alt tag](../res/CustomPC.jpeg)
-
-Copy/paste-able list of functions for our interfaces:
-
-```java
-        TCConsent.getInstance().refuseAllConsent();
-        TCConsent.getInstance().acceptAllConsent();
-        TCConsent.getInstance().statEnterPCToVendorScreen();
-        TCConsent.getInstance().statViewPrivacyPoliciesFromBanner();
-        TCConsent.getInstance().getNumberOfIABVendors();
-```
-
-Copy/paste-able list of functions for custom interfaces:
-
-```java
-        TCConsent.getInstance().saveConsentFromConsentSourceWithPrivacyAction(consent, ETCConsentSource.Popup, ETCConsentAction.RefuseAll);
-        TCConsent.getInstance().statEnterPCToVendorScreen();
-        TCConsent.getInstance().statViewPrivacyPoliciesFromBanner();
-        TCConsent.getInstance().statViewPrivacyPoliciesFromPrivacyCenter();
-        TCConsent.getInstance().statViewPrivacyCenter();
-        TCConsent.getInstance().statShowVendorScreen();
-```
-
-## Stop privacy stats tracking
-
-You can set your `do_not_track` property on your privacy stats payload : 
-
-        TCConsent.getInstance().do_not_track = value;
-
-## TCDemo
-
-You can, of course, check our demo project for a simple implementation example.
+TCDemo
+======
 
 [TCDemo_ServerSide_And_Consent](https://github.com/CommandersAct/TCMobileDemo-V5/tree/master/Android/)
 
-# Support and contacts
+Support and contacts
+====================
 
 ![alt tag](../res/ca_logo.png)
 
@@ -628,7 +740,7 @@ You can, of course, check our demo project for a simple implementation example.
 
 http://www.commandersact.com
 
-Commanders Act | 3/5 rue Saint Georges - 75009 PARIS - France
+Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 05/02/2026 14:40:02
+This documentation was generated on 18/06/2026 09:00:32

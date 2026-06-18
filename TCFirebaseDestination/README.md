@@ -4,7 +4,7 @@
 Firebase Destination Implementation Guide
 =========================================
 
-Last update : *05/02/2026*
+Last update : *18/06/2026*
 
 Release version : *5.1.4*
 
@@ -13,8 +13,11 @@ Release version : *5.1.4*
 - [Firebase Destination Implementation Guide](#firebase-destination-implementation-guide)
 - [Introduction](#introduction)
 - [Setup](#setup)
+  - [Usage :](#usage)
 - [Supported Firebase Event](#supported-firebase-event)
 - [Google Consent Mode :](#google-consent-mode)
+- [Troubleshooting](#troubleshooting)
+- [Support and contacts](#support-and-contacts)
 
 Introduction
 ============
@@ -32,8 +35,8 @@ Once you have your firebase SDK running and your `google-services.json` into you
     implementation 'com.tagcommander.lib:FirebaseDestination:5.0.0'
 ```
 
-
-#Usage :
+Usage :
+------- 
 
 You can set your firebase user properties directly into your firebaseAnalytics instance.
 
@@ -101,4 +104,34 @@ The predefined variables related to events (such as TCDevice and TCNetwork) aren
 Google Consent Mode : 
 =====================
 
-You can use our TCConsent module to automatically set and collect consents from your users. For further details, please refer to our TCConsent documentation.
+You can use our TCConsent module to automatically set and collect consents from your users into firebase instance. or simply handle it by yourself. 
+
+For further details on how to configure it, please refer to our [TCConsent GCM documentation](https://github.com/CommandersAct/AndroidV5/tree/master/TCConsent#forwarding-consent-to-firebaseanalytics-).
+
+Troubleshooting
+===============
+
+The TCFirebaseDestination library itself does not produce significant logs — there is nothing specific to expect from it in your Logcat. Debugging should be done at the Firebase SDK level and through the Google console.
+To verify your integration is working:
+
+- Enable verbose logging on the Firebase SDK itself. Refer to the official Firebase documentation for how to enable DebugView on Android.
+- If you are using Google Consent Mode, make sure consent is correctly set, accepted or refused via TCConsent before expecting any events to be forwarded. Check the TCConsent documentation for how to verify consent is being saved.
+- In your Logcat, look for Firebase SDK log entries confirming that events are being logged by the Firebase library after execute() is called.
+- In the Firebase console DebugView, verify that events appear in real time during your test session.
+
+
+Support and contacts
+====================
+
+![alt tag](../res/ca_logo.png)
+
+***
+**Support**
+*support@commandersact.com*
+
+http://www.commandersact.com
+
+Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
+***
+
+This documentation was generated on 18/06/2026 09:00:32
