@@ -9,7 +9,7 @@ Android Developers' Implementation Guide
 ![Maven Central](https://img.shields.io/badge/Maven%20Central-available-orange?logo=apachemaven&logoColor=white)
 ![CI](https://img.shields.io/badge/CI-passing-brightgreen?logo=gitlab)
 
-Last update : *18/06/2026*
+Last update : *28/07/2026*
 
 Release version : *5*
 
@@ -132,4 +132,4 @@ http://www.commandersact.com
 Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 18/06/2026 09:00:32
+This documentation was generated on 28/07/2026 12:57:38

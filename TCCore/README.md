@@ -4,7 +4,7 @@
 Core Guide
 ==========
 
-Last update : *18/06/2026*
+Last update : *28/07/2026*
 Release version : *5.5.0*
 
 ## Table of Contents
@@ -59,4 +59,4 @@ Support and contacts
 http://www.commandersact.com
 ***
 
-This documentation was generated on 18/06/2026 09:00:32
+This documentation was generated on 28/07/2026 12:57:38

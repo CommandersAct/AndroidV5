@@ -4,13 +4,14 @@
 ServerSide's Implementation Guide
 =================================
 
-Last update : *18/06/2026*
+Last update : *28/07/2026*
 Release version : *5.6.0*
 
 ## Table of Contents
 
 - [ServerSide's Implementation Guide](#serversides-implementation-guide)
 - [Introduction](#introduction)
+- [Related Documentation](#related-documentation)
   - [Main Technical Specifications](#main-technical-specifications)
   - [Event](#event)
   - [Commanders Act's TCEvent payloads Data](#commanders-acts-tcevent-payloads-data)
@@ -60,6 +61,16 @@ Instead of implementing several SDKs, Commanders Act for mobile provides a singl
 Thanks to remote configuration tools, it is also possible to modify the configuration without having to resubmit your application.
 
 The purpose of this document is to explain how to add the ServerSide module into your application.
+
+Related Documentation
+======================
+
+| Document | When you need it |
+|---|---|
+| [Events Reference](https://doc.commandersact.com/developers/tracking/events-reference) | Full list of events and payloads, with code examples |
+| [Mobile SDK Event Specificity](https://github.com/CommandersAct/Platform-Documentation/blob/master/developers/tracking/about-events/mobile-sdk-event-specificity.md) | Mapping between event names, SDK class names, and payload content |
+| [Consent module](../TCConsent/README.md) | Managing user consent and its effect on the ServerSide module |
+| [TCDemo (Android)](https://github.com/CommandersAct/TCMobileDemo-V5/tree/master/Android/) | Working sample app: ServerSide + Consent |
 
 
 Main Technical Specifications
@@ -738,4 +749,4 @@ Support and contacts
 http://www.commandersact.com
 ***
 
-This documentation was generated on 18/06/2026 09:00:32
+This documentation was generated on 28/07/2026 12:57:38

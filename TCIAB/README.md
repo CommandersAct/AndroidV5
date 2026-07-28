@@ -6,7 +6,7 @@ TCIAB's Implementation Guide
 
 **Android**
 
-Last update : *18/06/2026*<br />
+Last update : *28/07/2026*<br />
 Release version : *5.1.1*
 
 ## Table of Contents
@@ -290,4 +290,4 @@ http://www.commandersact.com
 Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 18/06/2026 09:00:32
+This documentation was generated on 28/07/2026 12:57:38

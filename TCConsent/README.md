@@ -3,7 +3,7 @@
 Consent's Implementation Guide
 ==============================
 
-Last update : *18/06/2026*
+Last update : *28/07/2026*
 
 Release version : *5.4.0*
 
@@ -11,6 +11,7 @@ Release version : *5.4.0*
 
 - [Consent's Implementation Guide](#consents-implementation-guide)
 - [Introduction](#introduction)
+- [Related Documentation](#related-documentation)
 - [Configure TCConsent](#configure-tcconsent)
   - [Choose your Modules Configuration](#choose-your-modules-configuration)
   - [Choose Consent flavour](#choose-consent-flavour)
@@ -49,6 +50,7 @@ Release version : *5.4.0*
   - [Debugging Google Consent Mode](#debugging-google-consent-mode)
 - [Forwarding consent to webViews](#forwarding-consent-to-webviews)
 - [Consent internal API](#consent-internal-api)
+- [Quick Reference — Function Recap](#quick-reference-function-recap)
 - [TCDemo](#tcdemo)
 - [Support and contacts](#support-and-contacts)
 
@@ -69,6 +71,16 @@ This module can:
 - If used alongside the ServerSide module:
     - Enable or disable the ServerSide module based on consent.
     - Automatically add consent categories to ServerSide hits.
+
+Related Documentation
+======================
+
+| Document | When you need it |
+|---|---|
+| [Privacy JSON Documentation](../res/Privacy_JSON_Documentation.md) | Configuring `privacy.json` — categories, vendors, texts, banner content, Google Consent Mode mapping |
+| [Building Your Own Privacy Center](../res/user_privacy_center.md) | You are **not** using `TCPrivacyCenterViewController` and are building a custom consent UI — required reading before calling `saveConsent*` |
+| [TCIAB documentation](../TCIAB/README.md) | IAB/TCF integration, AC String setup |
+| [TCDemo (Android)](https://github.com/CommandersAct/TCMobileDemo-V5/tree/master/Android/) | Working sample app: ServerSide + Consent |
 
 Configure TCConsent
 ===================
@@ -178,9 +190,8 @@ Technical Setup
 
 Documentation for `privacy.json` is available here: [Privacy JSON Documentation](../res/Privacy_JSON_Documentation.md)
 
-If you are using your own Privacy Center, please check the following documentation for functions to call from your UI:
-
-> [User built Privacy Center guide](../res/user_privacy_center.md)
+> [!IMPORTANT]
+> If you are using your own Privacy Center instead of ours, read the [Building Your Own Privacy Center](../res/user_privacy_center.md) guide first — it documents every function you need to call from your UI.
 
 Minimum Requirements
 --------------------
@@ -620,6 +631,9 @@ The four possible flows are:
 - Directly to our Privacy Center
 - Custom Privacy Center only
 
+> [!NOTE]
+> If you are building your own Privacy Center, see [Building Your Own Privacy Center](../res/user_privacy_center.md) for the full list of statistic functions to call from your UI.
+
 Whenever `saveConsent*` is called, provide the full list of accepted and refused purposes and vendors.
 
 Reference list of functions for our interfaces:
@@ -724,6 +738,26 @@ public static boolean isIABVendorAccepted(int ID, Context appContext)
 public static boolean isIABSpecialFeatureAccepted(int ID, Context appContext)
 ```
 
+Quick Reference — Function Recap
+=================================
+
+> [!NOTE]
+> Many TCConsent functions are use-case dependent: it only applies to *your* configuration — whether you use **our UI** (Banner / Privacy Center) or a **Custom UI**, and whether you run **IAB** or **Non-IAB**. This section maps every function to the setup it belongs to, so you don't have to re-read the whole guide to know if a call applies to you.
+
+| Function | UI ownership | Consent flavour | Notes |
+|---|---|---|---|
+| `TCConsent.getInstance().setSiteIDPrivacyIDAppContext(...)` | Our UI | Both | Standard init when using Banner and/or Privacy Center. `privacy.json` required. |
+| `TCConsent.getInstance().initWithCustomPCM(...)` | Custom UI | Both | Init when you build your own consent screens entirely. |
+| `saveConsentFromConsentSourceWithPrivacyAction(...)` (`saveConsent`) | Custom UI only | **Non-IAB only** | ❌ Not usable in IAB mode — IAB requires consent collected through a validated UI. |
+| `acceptAllConsent()` | Our UI or Custom UI | Both | This + `refuseAllConsent()` are the **only** programmatic IAB functions — usable from your own custom banner ONLY. |
+| `refuseAllConsent()` | Our UI or Custom UI | Both | Same as above. |
+| `stat*` (`statEnterPCToVendorScreen()`, `statViewPrivacyPoliciesFromBanner()`, `statViewPrivacyPoliciesFromPrivacyCenter()`, `statViewPrivacyCenter()`, `statShowVendorScreen()`, `statViewBanner()`) | Custom UI only | Both | Only needed if you built your own screens — our rendered UI already calls these internally. See [Building Your Own Privacy Center](../res/user_privacy_center.md) for the full list. |
+| `TCUser.getInstance().setExternalConsent(...)` (Java) / `.externalConsent = ...` (Kotlin) | Either | Both | Only relevant if ServerSide is driven by a consent system entirely external to Commanders Act. |
+| `TCConsent.getInstance().showBanner(activity, type, options, onDetailsButtonClick)` | Our UI | **Non-IAB only** | ❌ Not supported for IAB — the Privacy Center handles the first layer instead. |
+| `Intent(..., TCPrivacyCenter::class.java)` + `startActivity` | Our UI | Both | Adapts automatically depending on whether TCIAB is linked — no code change needed between modes. |
+| `TCUser.getInstance().consentID` (get/set) | Both | Both | Defaults to `TCDevice.consentID`; override to use your own (needed to retrieve consent proof later). |
+| `privacy.json` | Our UI: required. | Both | Mandatory offline copy if using our UI (Banner and/or Privacy Center). |
+
 TCDemo
 ======
 
@@ -743,4 +777,4 @@ http://www.commandersact.com
 Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 18/06/2026 09:00:32
+This documentation was generated on 28/07/2026 12:57:38
