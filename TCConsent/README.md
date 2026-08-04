@@ -3,7 +3,7 @@
 Consent's Implementation Guide
 ==============================
 
-Last update : *28/07/2026*
+Last update : *04/08/2026*
 
 Release version : *5.4.0*
 
@@ -747,7 +747,7 @@ Quick Reference — Function Recap
 | Function | UI ownership | Consent flavour | Notes |
 |---|---|---|---|
 | `TCConsent.getInstance().setSiteIDPrivacyIDAppContext(...)` | Our UI | Both | Standard init when using Banner and/or Privacy Center. `privacy.json` required. |
-| `TCConsent.getInstance().initWithCustomPCM(...)` | Custom UI | Both | Init when you build your own consent screens entirely. |
+| `TCConsent.getInstance().initWithCustomPCM(...)` | Custom UI | **Non-IAB only** | Init when you build your own consent screens entirely. |
 | `saveConsentFromConsentSourceWithPrivacyAction(...)` (`saveConsent`) | Custom UI only | **Non-IAB only** | ❌ Not usable in IAB mode — IAB requires consent collected through a validated UI. |
 | `acceptAllConsent()` | Our UI or Custom UI | Both | This + `refuseAllConsent()` are the **only** programmatic IAB functions — usable from your own custom banner ONLY. |
 | `refuseAllConsent()` | Our UI or Custom UI | Both | Same as above. |
@@ -777,4 +777,4 @@ http://www.commandersact.com
 Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 28/07/2026 12:57:38
+This documentation was generated on 04/08/2026 14:10:48

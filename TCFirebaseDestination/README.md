@@ -4,7 +4,7 @@
 Firebase Destination Implementation Guide
 =========================================
 
-Last update : *28/07/2026*
+Last update : *04/08/2026*
 
 Release version : *5.1.4*
 
@@ -134,4 +134,4 @@ http://www.commandersact.com
 Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 28/07/2026 12:57:38
+This documentation was generated on 04/08/2026 14:10:48
