@@ -1,6 +1,13 @@
 Changelog Android
 =================
 
+*5.6.0 : 11/12/2026*
+
+	~ Deprecated TCUser attributes and methods.
+	~ R8/ProGuard minification, the SDK inner rules are enhanced.
+	~ Clearer debug logs for outgoing requests, with readable JSON payloads.
+
+
 *5.5.0 : 06/17/2026*
 
     ~ Base code updated for other libraries enhacements. 

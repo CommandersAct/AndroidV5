@@ -6,8 +6,8 @@ TCIAB's Implementation Guide
 
 **Android**
 
-Last update : *04/08/2026*<br />
-Release version : *5.1.1*
+Last update : *12/11/2026*<br />
+Release version : *5.2.0*
 
 ## Table of Contents
 
@@ -139,7 +139,7 @@ Add the following to the `"texts"` section of your `privacy.json` to display new
 IAB 2.2
 =======
 
-Required steps when upgrading to an IAB v2.2-compatible version of TCConsent (5.4.0 or higher):
+Required steps when upgrading to an IAB v2.2-compatible version of TCConsent (5.5.0 or higher):
 
 1. Update all offline in-app JSONs to v2.2-compatible versions: `vendor-list.json` and all `purposes-xx.json` translation files.
 2. Update your `privacy.json` (both offline and CDN versions) to a v2.2-compatible version and recheck your IAB vendor filter (`"vendors"` key at root).
@@ -290,4 +290,4 @@ http://www.commandersact.com
 Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 04/08/2026 14:10:48
+This documentation was generated on 12/11/2026 16:22:52

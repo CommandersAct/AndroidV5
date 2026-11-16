@@ -1,6 +1,14 @@
 Changelog Android
 =================
 
+*5.7.0 : 11/12/2026*
+
+	~ /!\ Requires TCCore 5.6.0+
+	+ Commanders Act Gateway Mobile: first-party tracking: send your events from your own domain with a single link. See the "First-party tracking (Commanders Act Gateway)" section of the implementation guide.
+	+ Added TCServerSideConfiguration, a single object grouping every TCServerSide init option, and a matching constructor.
+	+ The public API documentation now shows directly in Android Studio.
+	- The previous TCServerSide constructors and enableRunningInBackground() are deprecated in favor of TCServerSideConfiguration. They keep working.
+
 *5.6.0 : 06/17/2026*
 
  	~ /!\ Requires TCCore 5.5.0

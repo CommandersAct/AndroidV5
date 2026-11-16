@@ -1,6 +1,14 @@
 Changelog Android
 =================
 
+*5.2.0 : 11/12/2026*
+
+	~ /!\ Requires TCConsent 5.5.0+
+	+ TCF IAB v2.4 support.
+	~ The non-standard texts flag is now stored under IABTCF_UseNonStandardTexts, the key name of the latest TCF specification (the former IABTCF_UseNonStandardStacks key is removed).
+	~ Publisher restrictions are now correctly encoded in the TC string.
+	~ Resetting consent now also clears the stored TC string (IABTCF_TCString).
+
 *5.1.1 : 09/01/2025*
 
     ~ Binaries dependencies leak fix. 

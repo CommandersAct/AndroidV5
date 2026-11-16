@@ -1,6 +1,16 @@
 Changelog Android
 =================
 
+*5.5.0 : 11/12/2026*
+
+	~ /!\ Requires TCCore 5.6.0+
+	+ Commanders Act Gateway Mobile: first-party privacy: send consent hits from your own domain and serve IAB files with a single link. See the "First-party privacy (Commanders Act Gateway)" section of the Consent Implementation Guide.
+	+ Initialize TCConsent with a single TCConsentConfiguration object, grouping site ID, privacy ID, callback, language, consent duration and other setup options into one call, check the Consent Implementation Guide for more info.
+	+ [IAB] TCF IAB v2.4 support: the Privacy Center now displays the IAB standard texts under each purposes, special purposes, features and special features section.
+	+ The public API documentation now shows directly in Android Studio.
+	~ [Privacy Center] Bottom buttons side margins alignment fix.
+	- The previous init methods and setup properties are deprecated in favor of TCConsentConfiguration, and viewConsent() in favor of statViewPrivacyCenter(). They keep working.
+
 *5.4.0 : 06/17/2026*
 
 	~ /!\ Requires TCCore 5.5.0+

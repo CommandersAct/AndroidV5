@@ -3,9 +3,9 @@
 Consent's Implementation Guide
 ==============================
 
-Last update : *04/08/2026*
+Last update : *12/11/2026*
 
-Release version : *5.4.0*
+Release version : *5.5.0*
 
 ## Table of Contents
 
@@ -36,6 +36,7 @@ Release version : *5.4.0*
   - [Customisation](#customisation)
   - [Force JSON update from CDN](#force-json-update-from-cdn)
   - [Loading a specific screen directly](#loading-a-specific-screen-directly)
+- [First-party privacy (Commanders Act Gateway)](#first-party-privacy-commanders-act-gateway)
 - [Reacting to consent](#reacting-to-consent)
 - [Retaining consent](#retaining-consent)
   - [Using your own consent ID](#using-your-own-consent-id)
@@ -201,7 +202,70 @@ Minimum Android SDK version: 21
 Initialisation
 --------------
 
-**With our UI components (Privacy Center and/or Banner, `privacy.json` required):**
+### Configuration object (recommended)
+
+Group everything — `siteID`, `privacyID`, `appContext`, UI path, and the setter calls that have to
+surround init: `registerCallback`, `useAcString`, ... etc — into one
+`TCConsentConfiguration` and pass it to `TCConsent.getInstance().initialize(...)`.
+`appContext`, `siteID`, `privacyID` and `useBundledUI` are required — every other value defaults to
+today's existing behaviour, and the calls are sequenced internally in the exact order TCConsent's
+init already requires (callback/AC-String/consent-duration before init, language/the rest right
+after).
+
+`useBundledUI` has no default — you must set it explicitly. Setting it to `true` initialises
+Commanders Act's own Privacy Center and Consent Banner UI, and requires a valid `privacy.json` —
+see the [Privacy JSON Documentation](../res/Privacy_JSON_Documentation.md) for details. Setting it
+to `false` does not initialise Commanders Act's UIs, and requires you to build your own consent UI
+— see [Building Your Own Privacy Center](../res/user_privacy_center.md).
+
+in kotlin :
+
+```kotlin
+    val configuration = TCConsentConfiguration(
+        appContext = appContext, // your application's context (required)
+        siteID = siteID, // your site ID (required)
+        privacyID = privacyID, // your privacy ID (required)
+        useBundledUI = true, // true = our Privacy Center/Banner, false = your own UI (required)
+        callback = myPrivacyCallbacks, // notified when consent is given or loaded
+        consentDurationInMonths = 13f, // how long a saved consent stays valid
+        gatewayURL = gatewayURL, // optional, see "First-party privacy (Commanders Act Gateway)" below
+        debugLevel = Log.VERBOSE // SDK log level
+    )
+    TCConsent.getInstance().initialize(configuration) // initialises the Consent module with the configuration
+```
+
+`TCConsentConfiguration` parameters:
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `appContext` | `Context` | required | Your application's context. |
+| `siteID` | `Int` | required | Your site ID. |
+| `privacyID` | `Int` | required | Your privacy ID corresponding to the chosen privacy on the Commanders Act platform. |
+| `useBundledUI` | `Boolean` | required | `true`: use Commanders Act's Privacy Center and Banner (needs `privacy.json`), equivalent to the legacy init method `setSiteIDPrivacyIDAppContext`. `false`: build your own consent UI, equivalent to the legacy init method `initWithCustomPCM`. |
+| `callback` | `TCPrivacyCallbacks?` | `null` | Your `TCPrivacyCallbacks` object, notified when consent is given or loaded at startup. See "Reacting to consent" below. |
+| `useAcString` | `Boolean` | `false` | Set to `true` if you use IAB and want to enable Google's AC String. See the [TCIAB documentation](../TCIAB/README.md). |
+| `consentDurationInMonths` | `Float?` | `null` | How long a saved consent stays valid before the user is asked again. Defaults to the value in your `privacy.json`, or 6 months. See "Consent validity duration" below. |
+| `language` | `String?` | `null` | Language code of the Privacy Center and Banner texts. Only used when `useBundledUI` is `true`. |
+| `switchDefaultState` | `Boolean` | `false` | Default on/off state of the Privacy Center switches. |
+| `deactivateBackButton` | `Boolean` | `false` | Set to `true` to disable the Privacy Center's back button and force the user to make a choice. |
+| `consentVersion` | `String?` | `null` | Your consent version, sent with every consent hit. Required in practice when building your own consent UI (`useBundledUI` set to `false`). With `useBundledUI` `true`, leave it `null` to use the version of your `privacy.json`; if you set it, it overrides that version, even after `privacy.json` updates. Keeping it in line with what your users are shown is then your responsibility. |
+| `doNotTrack` | `Boolean` | `false` | Set to `true` to stop sending privacy statistics. See "Stop privacy statistics tracking" below. |
+| `generatePublisherTC` | `Boolean` | `false` | IAB only: set to `true` to also generate the publisher TC string. See the [TCIAB documentation](../TCIAB/README.md). |
+| `useCustomPublisherRestrictions` | `Boolean` | `false` | IAB only: set to `true` to apply your own publisher restrictions. See the [TCIAB documentation](../TCIAB/README.md). |
+| `gatewayURL` | `String?` | `null` | Your Commanders Act Gateway link, enabling first-party privacy (e.g. `"https://www.mydomain.com/gateway-path"`). Leave `null` to use Commanders Act's default endpoints. See "First-party privacy (Commanders Act Gateway)" below. |
+| `debugLevel` | `Int?` | `null` | SDK log level (e.g. `Log.VERBOSE`). `null` = untouched. |
+| `logNotifications` | `Boolean?` | `null` | Set to `true` to log SDK internal notifications. `null` = untouched. |
+| `prettyFormatLogs` | `Boolean?` | `null` | Set to `true` to pretty-print logged events. `null` = untouched. |
+| `blockHits` | `Boolean?` | `null` | Set to `true` to block all outgoing hits (testing only). `null` = untouched. |
+
+At init, the module checks saved consent and puts the ServerSide on hold if nothing is found. Once consent is given or loaded, the ServerSide is started or stopped accordingly.
+
+### Original init methods
+
+Alternatively, the original constructors are still available, with the setter calls
+(`registerCallback`, `setConsentDuration`, ...) made by hand around them.
+
+**If using our UI components (Privacy Center and/or Banner, `privacy.json` required):**
 
 ```java
 TCConsent.getInstance().setSiteIDPrivacyIDAppContext(site_id, privacy_id, context);
@@ -212,8 +276,6 @@ TCConsent.getInstance().setSiteIDPrivacyIDAppContext(site_id, privacy_id, contex
 ```java
 TCConsent.getInstance().initWithCustomPCM(site_id, privacy_id, context);
 ```
-
-At init, the module checks saved consent and puts the ServerSide on hold if nothing is found. Once consent is given or loaded, the ServerSide is started or stopped accordingly.
 
 > [!IMPORTANT]
 > Register your callbacks **before** calling init. The module checks consent at startup and fires callbacks immediately.
@@ -526,6 +588,30 @@ startActivity(PCM)
 
 For the vendor screen, replace `kTCStartWithPurposeScreen` with `kTCStartWithVendorScreen`.
 
+First-party privacy (Commanders Act Gateway)
+============================================
+
+Serve the Consent module's mobile CDN files from your own domain with first-party privacy. Pass the link
+of your Commanders Act Gateway, provided by your consulting team, as `gatewayURL` in
+`TCConsentConfiguration`: the
+IAB files (vendor lists and their translations), `privacy.json` and `TCIABPublisherRestrictions.json`
+are then loaded from your domain, and consent hits are sent through it as well.
+
+```kotlin
+    val configuration = TCConsentConfiguration(
+        appContext = appContext,
+        siteID = siteID,
+        privacyID = privacyID,
+        useBundledUI = true,
+        gatewayURL = "https://www.mydomain.com/gateway-path"
+    )
+    TCConsent.getInstance().initialize(configuration)
+```
+
+The link is used as-is, without any path to add: `https://` is applied automatically and a
+trailing slash is ignored. If you also use the ServerSide module, pass the same link to
+`TCServerSideConfiguration` to enable first-party tracking as well.
+
 Reacting to consent
 ===================
 
@@ -600,17 +686,29 @@ Resetting consent
 TCConsent.getInstance().resetSavedConsent();
 ```
 
-This resets consent on the device every time it is called. Managing resets per app version must be done manually.
+This resets consent on the device every time it is called. Managing resets per app version must be done manually. It does not display the Privacy Center: it only makes `TCConsentAPI.shouldDisplayPrivacyCenter(context)` return `true` again, and showing it is up to your app.
 
 If you are using our Privacy Center, you can also use the `resetSave` field in `privacy.json`. Contact your consultant for details.
 
 Consent version
 ---------------
 
-To manually change the consent version (e.g. when using your own privacy center):
+The consent version is sent with every consent hit.
 
-```java
-TCConsent.getInstance().consentVersion = "132";
+- With our Privacy Center (`useBundledUI = true`), it comes from your `privacy.json` by default and follows its updates. If you set `consentVersion` in `TCConsentConfiguration`, your value overrides the `privacy.json` version, including after `privacy.json` updates. It is then up to you to keep it in line with what your users are shown.
+- If you build your own consent UI (`useBundledUI = false`), there is no `privacy.json`: set your own consent version.
+
+Set it at init:
+
+```kotlin
+    val configuration = TCConsentConfiguration(
+        appContext = appContext,
+        siteID = siteID,
+        privacyID = privacyID,
+        useBundledUI = false,
+        consentVersion = "2"
+    )
+    TCConsent.getInstance().initialize(configuration)
 ```
 
 Displaying consent
@@ -636,7 +734,7 @@ The four possible flows are:
 
 Whenever `saveConsent*` is called, provide the full list of accepted and refused purposes and vendors.
 
-Reference list of functions for our interfaces:
+Reference list of functions to call from your own banner/popup:
 
 ```java
 TCConsent.getInstance().refuseAllConsent();
@@ -649,7 +747,7 @@ TCConsent.getInstance().getNumberOfIABVendors(); // IAB only
 Stop privacy statistics tracking
 ---------------------------------
 
-To disable privacy stat tracking, configure the following parameter:
+To exclude a user from privacy statistics, configure the following parameter. Hits are still sent, including consent-save hits: they are flagged with `"do_not_track": true` so they are left out of the statistics.
 
 ```java
 TCConsent.getInstance().do_not_track = value;
@@ -751,7 +849,7 @@ Quick Reference — Function Recap
 | `saveConsentFromConsentSourceWithPrivacyAction(...)` (`saveConsent`) | Custom UI only | **Non-IAB only** | ❌ Not usable in IAB mode — IAB requires consent collected through a validated UI. |
 | `acceptAllConsent()` | Our UI or Custom UI | Both | This + `refuseAllConsent()` are the **only** programmatic IAB functions — usable from your own custom banner ONLY. |
 | `refuseAllConsent()` | Our UI or Custom UI | Both | Same as above. |
-| `stat*` (`statEnterPCToVendorScreen()`, `statViewPrivacyPoliciesFromBanner()`, `statViewPrivacyPoliciesFromPrivacyCenter()`, `statViewPrivacyCenter()`, `statShowVendorScreen()`, `statViewBanner()`) | Custom UI only | Both | Only needed if you built your own screens — our rendered UI already calls these internally. See [Building Your Own Privacy Center](../res/user_privacy_center.md) for the full list. |
+| `stat*` (`statEnterPCToVendorScreen()`, `statViewPrivacyPoliciesFromBanner()`, `statViewPrivacyPoliciesFromPrivacyCenter()`, `statViewPrivacyCenter()`, `statShowVendorScreen()`, `statViewBanner()`) | Custom UI only | Both | Only needed if you built your own screens — our rendered UI already calls these internally, except `statEnterPCToVendorScreen()` and `statViewPrivacyPoliciesFromPrivacyCenter()`, which it never calls. See [Building Your Own Privacy Center](../res/user_privacy_center.md) for the full list. |
 | `TCUser.getInstance().setExternalConsent(...)` (Java) / `.externalConsent = ...` (Kotlin) | Either | Both | Only relevant if ServerSide is driven by a consent system entirely external to Commanders Act. |
 | `TCConsent.getInstance().showBanner(activity, type, options, onDetailsButtonClick)` | Our UI | **Non-IAB only** | ❌ Not supported for IAB — the Privacy Center handles the first layer instead. |
 | `Intent(..., TCPrivacyCenter::class.java)` + `startActivity` | Our UI | Both | Adapts automatically depending on whether TCIAB is linked — no code change needed between modes. |
@@ -777,4 +875,4 @@ http://www.commandersact.com
 Commanders Act | 25 rue de Tolbiac, 75013 Paris - France
 ***
 
-This documentation was generated on 04/08/2026 14:10:48
+This documentation was generated on 12/11/2026 16:22:52

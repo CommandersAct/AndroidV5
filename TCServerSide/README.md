@@ -4,8 +4,8 @@
 ServerSide's Implementation Guide
 =================================
 
-Last update : *04/08/2026*
-Release version : *5.6.0*
+Last update : *12/11/2026*
+Release version : *5.7.0*
 
 ## Table of Contents
 
@@ -33,6 +33,7 @@ Release version : *5.6.0*
   - [Deactivating the ServerSide's module](#deactivating-the-serversides-module)
   - [Getting AAID](#getting-aaid)
   - [Install Referrer](#install-referrer)
+- [First-party tracking (Commanders Act Gateway)](#first-party-tracking-commanders-act-gateway)
 - [Troubleshooting](#troubleshooting)
   - [Debugging](#debugging)
   - [Understanding the logs](#understanding-the-logs)
@@ -178,7 +179,42 @@ You will need two values from your consulting team:
 
 If you are using our Consent module, you can also change during this initialisation the default TCServerSide behaviour while waiting for the user consent. See the [Consent section](#consent) below for details.
 
-A single line of code is required to initialize an instance of TCServerSide, and you can add one more for better logging:
+### Configuration object (recommended)
+
+Group everything — siteID, sourceKey, consent behaviour, first-party tracking, background mode, advertising ID, permanent data, TCDebug — into one `TCServerSideConfiguration` and pass it to a single-parameter `TCServerSide` constructor. Only `appContext`, `siteID` and `sourceKey` are required — every other value defaults to today's existing behaviour.
+
+in kotlin :
+
+```kotlin
+    val configuration = TCServerSideConfiguration(
+        appContext = appContext, // your application's context (required)
+        siteID = siteID, // your site ID (required)
+        sourceKey = sourceKey, // your Android source key (required)
+        consentBehaviour = ETCConsentBehaviour.PB_DEFAULT_BEHAVIOUR, // how hits are gated by consent
+        debugLevel = Log.VERBOSE, // SDK log level
+        permanentData = mapOf("VENDOR_ID" to "UE-55668779-01") // key/values added to every event
+    )
+    val TCS = TCServerSide(configuration) // initialises the ServerSide with the configuration
+```
+
+`TCServerSideConfiguration` parameters:
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `appContext` | `Context` | required | Your application's context. |
+| `siteID` | `Int` | required | Your site ID, as given by your consulting team. |
+| `sourceKey` | `String` | required | Your Android source key, as given by your consulting team. |
+| `consentBehaviour` | `ETCConsentBehaviour` | `PB_DEFAULT_BEHAVIOUR` | How the module behaves regarding user consent. See [Consent](#consent) below. |
+| `gatewayURL` | `String?` | `null` | Your Commanders Act Gateway link, enabling first-party tracking (e.g. `"https://www.mydomain.com/gateway-path"`). Leave `null` to use Commanders Act's default endpoint. If you also use the Consent module, pass it the same link. See "First-party tracking (Commanders Act Gateway)" below. |
+| `runInBackground` | `Boolean` | `false` | Set to `true` only if your app needs to keep sending events while in background (e.g. music playback). See [Background Mode](#background-mode) below. |
+| `collectAdvertisingID` | `Boolean` | `false` | Set to `true` to add the AAID to your events. Only enable this once the user has accepted the corresponding consent category. See [Getting AAID](#getting-aaid) below. |
+| `permanentData` | `Map<String, String>` | empty | Key/values added to every event. See [Layer 3 — Permanent Data](#layer-3--permanent-data) below. |
+| `debugLevel` | `Int?` | `null` | SDK log level (e.g. `Log.VERBOSE`). `null` = untouched. |
+| `logNotifications` | `Boolean?` | `null` | Set to `true` to log SDK internal notifications. `null` = untouched. |
+| `prettyFormatLogs` | `Boolean?` | `null` | Set to `true` to pretty-print logged events. `null` = untouched. |
+| `blockHits` | `Boolean?` | `null` | Set to `true` to block all outgoing hits (testing only). `null` = untouched. |
+
+Alternatively, the original constructors are still available. A single line of code is required to initialize an instance of TCServerSide this way, and you can add one more for better logging:
 
 ```java
     //!\\ Important while integrating TCServerSide
@@ -307,7 +343,7 @@ in kotlin :
 ```
 
 > [!NOTE]
-> Permanent Data values have lower priority than values set via `addAdditionalProperty` on individual events. If the same key is set both ways, the per-event value wins.
+> Permanent Data values have higher priority than values set via `addAdditionalProperty` on individual events. If the same key is set both ways, the Permanent Data value wins. The event's own fields (event name, page name, page type and typed fields such as `revenue`) are kept when set.
 
 ### Summary
 
@@ -510,6 +546,31 @@ Example:
     utm_source=adMob&utm_medium=banner&utm_term=running+shoes&utm_content=theContent
     &utm_campaign=couponReduc&anid=adMob
 ```
+
+First-party tracking (Commanders Act Gateway)
+=============================================
+
+Send your events from your own domain with first-party tracking. Pass the link of your Commanders Act Gateway, provided by your consulting team, as `gatewayURL`: every event is then sent to your domain and forwarded to Commanders Act.
+
+in kotlin :
+
+```kotlin
+    val configuration = TCServerSideConfiguration(
+        appContext = appContext,
+        siteID = siteID,
+        sourceKey = sourceKey,
+        gatewayURL = "https://www.mydomain.com/gateway-path"
+    )
+    val TCS = TCServerSide(configuration)
+```
+
+The original constructors accept it too:
+
+```java
+    TCServerSide TCS = new TCServerSide(siteID, sourceKey, appContext, ETCConsentBehaviour.PB_DEFAULT_BEHAVIOUR, gatewayURL);
+```
+
+The link is used as-is, without any path to add: `https://` is applied automatically and a trailing slash is ignored. If you also use the Consent module, pass the same link to `TCConsentConfiguration` to enable first-party privacy as well.
 
 Troubleshooting
 ===============
@@ -749,4 +810,4 @@ Support and contacts
 http://www.commandersact.com
 ***
 
-This documentation was generated on 04/08/2026 14:10:48
+This documentation was generated on 12/11/2026 16:22:52

@@ -4,8 +4,8 @@
 Core Guide
 ==========
 
-Last update : *04/08/2026*
-Release version : *5.5.0*
+Last update : *12/11/2026*
+Release version : *5.6.0*
 
 ## Table of Contents
 
@@ -34,15 +34,12 @@ Core is building with the following dependencies :
 Using ProGuard
 --------------
 
-If your release build uses ProGuard to strip and obfuscate your code, you will need to add some configuration for the modules to keep working.
+If your release build uses ProGuard/R8 to strip and obfuscate your code, Core ships a consumer rule automatically — `-keep class com.tagcommander.lib.** { *; }` — so you don't need to add it yourself. This matters because some modules (ServerSide, Consent) detect each other and TCIAB/FirebaseDestination at runtime via reflection rather than a compile dependency; without this rule, obfuscation could silently break consent-gating, Firebase-forwarding, or IAB support.
 
-Just add the following line in your proguard-rules.pro.
+> [!NOTE]
+> This consumer rule is not a substitute for your own care around obfuscation — your app's own ProGuard/R8 configuration can still override or strip it.
 
-```
--keep class com.tagcommander.lib.** { *; }
-```
-
-You may also need to add the following rule depending on your other libraries dependencies
+You may also need to add the following rule yourself, depending on your other library dependencies:
 
 ```
     -keep class org.json.** { *; }
@@ -59,4 +56,4 @@ Support and contacts
 http://www.commandersact.com
 ***
 
-This documentation was generated on 04/08/2026 14:10:48
+This documentation was generated on 12/11/2026 16:22:52
